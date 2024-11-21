@@ -1,0 +1,4 @@
+-- ----------------------------------------------------------------------------
+-- This file stands for creating the tables in DataBase that are going to be
+-- used in the application.
+-------------------------------------------------------------------------------
