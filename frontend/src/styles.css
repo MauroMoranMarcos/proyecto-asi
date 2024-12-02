@@ -1,0 +1,38 @@
+.navbar-collapse {
+    text-align: center;
+}
+
+.form-group > label > span {
+    font-weight: bold;
+}
+
+.container {
+    display: flex;
+    padding: 0;
+    height: 100%;
+    width: 100%;
+    margin-top: 80px;
+}
+
+.footer {
+    background-color: #282c34;
+    color: white;
+    padding: 20px 0;
+    text-align: center;
+    position: fixed;
+    width: 100%;
+    bottom: 0;
+    left: 0;
+}
+
+.footer p {
+    margin: 0;
+    font-size: 16px;
+    font-weight: 300;
+}
+
+.footer hr {
+    border: 1px solid #fff;
+    width: 80%;
+    margin: 20px auto;
+}
