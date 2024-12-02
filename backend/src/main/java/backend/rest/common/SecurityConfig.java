@@ -28,7 +28,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS).and()
                 .addFilter(new JwtFilter(authenticationManager(), jwtGenerator))
                 .authorizeRequests()
-                .antMatchers(HttpMethod.POST, "/users/signUp").permitAll()
+                .antMatchers(HttpMethod.POST, "/staff/signUp").permitAll()
                 .anyRequest().denyAll();
 
         //TODO: Add lines here for the rest of the HU

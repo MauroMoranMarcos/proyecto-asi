@@ -6,9 +6,6 @@ import java.util.List;
 import java.util.Objects;
 import java.util.stream.Collectors;
 
-import static backend.rest.dtos.UserPointsConversor.toUserPointsDto;
-import static backend.rest.dtos.UserSettingsConversor.toUserSettingsDto;
-
 public class UserConversor {
 
     private UserConversor() {}

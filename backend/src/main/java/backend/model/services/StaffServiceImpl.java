@@ -26,7 +26,6 @@ public class StaffServiceImpl implements StaffService {
         }
 
         user.setPassword(passwordEncoder.encode(user.getPassword()));
-        user.setRole(User.RoleType.ADMIN_STAFF);
 
         userDao.save(user);
 
