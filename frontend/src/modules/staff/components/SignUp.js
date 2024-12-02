@@ -159,7 +159,7 @@ const SignUp = () => {
                             borderBottom: `1px solid ${theme.palette.primary.main}`,
                         }}>
                         <Typography variant="h2" sx={{ mt: 0.5, mb: 0.5, fontWeight: 'bold' }}>
-                            <FormattedMessage id="project.users.SignUp.title"></FormattedMessage>
+                            <FormattedMessage id="project.staff.SignUp.title"></FormattedMessage>
                         </Typography>
                     </Box>
                     <Box component="form" ref={node => form = node} noValidate onSubmit={handleSubmit}
@@ -225,7 +225,7 @@ const SignUp = () => {
                                     required
                                     fullWidth
                                     id="confirmPassword"
-                                    label={<FormattedMessage id="project.users.SignUp.fields.confirmPassword" />}
+                                    label={<FormattedMessage id="project.global.fields.confirmPassword" />}
                                     error={requiredAlertMessages.confirmPassword || passwordsDoNotMatch}
                                     helperText={passwordsDoNotMatch ?
                                         <FormattedMessage id="project.global.validator.passwordsDoNotMatch" />
