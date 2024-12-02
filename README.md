@@ -31,7 +31,7 @@ mysqladmin -u root create proyectoasitest -p
 mysql -u root -p
     CREATE USER 'proyectoasi'@'localhost' IDENTIFIED BY 'proyectoasi';
     GRANT ALL PRIVILEGES ON proyectoasi.* to 'proyectoasi'@'localhost' WITH GRANT OPTION;
-    GRANT ALL PRIVILEGES ON proyectoasitest.* to 'proyectoasitest'@'localhost' WITH GRANT OPTION;
+    GRANT ALL PRIVILEGES ON proyectoasi.* to 'proyectoasitest'@'localhost' WITH GRANT OPTION;
     exit
 ```
 
