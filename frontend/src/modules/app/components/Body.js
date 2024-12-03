@@ -5,6 +5,7 @@ import AppGlobalComponents from "./AppGlobalComponents";
 import staff from '../../staff';
 
 import {SignUp} from '../../staff';
+import {Login} from '../../staff';
 
 const Body = () => {
 
@@ -17,6 +18,7 @@ const Body = () => {
             <AppGlobalComponents/>
             <Routes>
                 {!isLoggedIn && <Route path="/staff/signup" element={<SignUp/>}/>}
+                {!isLoggedIn && <Route path="/staff/login" element={<Login/>}/>}
             </Routes>
         </div>
 

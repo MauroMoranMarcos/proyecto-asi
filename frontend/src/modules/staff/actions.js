@@ -14,3 +14,28 @@ export const signUp = (user, onSuccess, onErrors, reauthenticationCallback) => d
         },
         onErrors,
         reauthenticationCallback);
+
+const loginCompleted = authenticatedUser => ({
+    type: actionTypes.LOGIN_COMPLETED,
+    authenticatedUser
+});
+
+export const login = (userName, password, onSuccess, onErrors, reauthenticationCallback) => dispatch =>
+    backend.staffService.login(userName, password,
+        authenticatedUser => {
+            dispatch(loginCompleted(authenticatedUser));
+            onSuccess();
+        },
+        onErrors,
+        reauthenticationCallback
+    );
+
+export const tryLoginFromServiceToken = reauthenticationCallback => dispatch =>
+    backend.staffService.tryLoginFromServiceToken(
+        authenticatedUser => {
+            if (authenticatedUser) {
+                dispatch(loginCompleted(authenticatedUser));
+            }
+        },
+        reauthenticationCallback
+    );
