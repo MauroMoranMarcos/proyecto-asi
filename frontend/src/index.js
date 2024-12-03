@@ -50,19 +50,9 @@ const theme = createTheme({
             fontWeight: 600,
             lineHeight: 1.2,
         },
-        h12: {
-            fontSize: '2.0rem',
-            fontWeight: 600,
-            lineHeight: 1.2,
-        },
         h2: {
             fontSize: '1.4rem',
             fontWeight: 500,
-            lineHeight: 1.2,
-        },
-        h21: {
-            fontSize: '1.0rem',
-            fontWeight: 400,
             lineHeight: 1.2,
         },
         h3: {

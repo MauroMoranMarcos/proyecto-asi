@@ -4,5 +4,6 @@ import reducer from './reducer';
 import * as selectors from './selectors';
 
 export {default as SignUp} from './components/SignUp';
+export {default as Login} from './components/Login';
 
 export default {actions, actionTypes, reducer, selectors};

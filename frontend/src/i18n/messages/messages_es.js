@@ -4,7 +4,9 @@ export default {
     'project.app.Header.HermenegildoEHijos': 'Bienvenido, ',
     'project.app.Footer.text': 'Proyecto ASI 24/25',
 
+    'project.global.buttons.SignUpHeader': 'Registrarse',
     'project.global.buttons.SignUp': 'Crear cuenta',
+    'project.global.buttons.Login': 'Iniciar sesión',
 
     'project.global.fields.userName': 'Nombre de usuario',
     'project.global.fields.password': 'Contraseña',
@@ -12,5 +14,6 @@ export default {
     'project.global.fields.email': 'Correo electrónico',
 
     'project.staff.SignUp.title': 'Crear cuenta',
+    'project.staff.Login.title': 'Iniciar sesión',
 
 }

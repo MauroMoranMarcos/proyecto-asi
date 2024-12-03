@@ -29,6 +29,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .addFilter(new JwtFilter(authenticationManager(), jwtGenerator))
                 .authorizeRequests()
                 .antMatchers(HttpMethod.POST, "/staff/signUp").permitAll()
+                .antMatchers(HttpMethod.POST, "/staff/login").permitAll()
+                .antMatchers(HttpMethod.POST, "/staff/loginFromServiceToken").permitAll()
                 .anyRequest().denyAll();
 
         //TODO: Add lines here for the rest of the HU
