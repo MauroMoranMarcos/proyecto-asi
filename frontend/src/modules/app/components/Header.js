@@ -55,36 +55,38 @@ const Header = () => {
                             </Typography>
                         }
                     </Box>
-                    {!isLoggedIn &&
-                        <Box sx={{ flexDirection: 'row', alignItems: 'center' }}>
-                            <Button
-                                sx={{ ml: 1 }}
-                                variant="contained"
-                                onClick={e => handleSignUp(e)}
-                                color="secondary"
-                                startIcon={<AssignmentIndIcon />}
-                                style={{ textAlign: 'left', justifyContent: 'flex-start' }}>
-                                <Typography textAlign="center">
-                                    <FormattedMessage id="project.global.buttons.SignUpHeader"></FormattedMessage>
-                                </Typography>
-                            </Button>
-                        </Box>
-                    }
-                    {!isLoggedIn &&
-                        <Box sx={{ flexDirection: 'row', alignItems: 'center' }}>
-                            <Button
-                                sx={{ ml: 1 }}
-                                variant="contained"
-                                onClick={e => handleLogin(e)}
-                                color="secondary"
-                                startIcon={<LoginIcon />}
-                                style={{ textAlign: 'left', justifyContent: 'flex-start' }}>
-                                <Typography textAlign="center">
-                                    <FormattedMessage id="project.global.buttons.Login"></FormattedMessage>
-                                </Typography>
-                            </Button>
-                        </Box>
-                    }
+                    <Box sx={{ display: 'flex', alignItems: 'center' }}>
+                        {!isLoggedIn &&
+                            <Box sx={{ flexDirection: 'row', alignItems: 'center' }}>
+                                <Button
+                                    sx={{ ml: 1 }}
+                                    variant="contained"
+                                    onClick={e => handleSignUp(e)}
+                                    color="secondary"
+                                    startIcon={<AssignmentIndIcon />}
+                                    style={{ textAlign: 'left', justifyContent: 'flex-start' }}>
+                                    <Typography textAlign="center">
+                                        <FormattedMessage id="project.global.buttons.SignUpHeader"></FormattedMessage>
+                                    </Typography>
+                                </Button>
+                            </Box>
+                        }
+                        {!isLoggedIn &&
+                            <Box sx={{ flexDirection: 'row', alignItems: 'center' }}>
+                                <Button
+                                    sx={{ ml: 1 }}
+                                    variant="contained"
+                                    onClick={e => handleLogin(e)}
+                                    color="secondary"
+                                    startIcon={<LoginIcon />}
+                                    style={{ textAlign: 'left', justifyContent: 'flex-start' }}>
+                                    <Typography textAlign="center">
+                                        <FormattedMessage id="project.global.buttons.Login"></FormattedMessage>
+                                    </Typography>
+                                </Button>
+                            </Box>
+                        }
+                    </Box>
                 </Toolbar>
             </AppBar>
         </Box>
