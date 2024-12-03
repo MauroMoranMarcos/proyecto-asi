@@ -51,7 +51,7 @@ const Header = () => {
                                 startIcon={<AssignmentIndIcon />}
                                 style={{ textAlign: 'left', justifyContent: 'flex-start' }}>
                                 <Typography textAlign="center">
-                                    <FormattedMessage id="project.global.buttons.SignUp"></FormattedMessage>
+                                    <FormattedMessage id="project.global.buttons.SignUpHeader"></FormattedMessage>
                                 </Typography>
                             </Button>
                         </Box>

@@ -4,6 +4,7 @@ export default {
     'project.app.Header.HermenegildoEHijos': 'Welcome, ',
     'project.app.Footer.text': 'Proyecto ASI 24/25',
 
+    'project.global.buttons.SignUpHeader': 'Register',
     'project.global.buttons.SignUp': 'Sign Up',
 
     'project.global.fields.userName': 'Username',
