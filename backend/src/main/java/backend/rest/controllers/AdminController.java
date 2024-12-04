@@ -1,18 +1,21 @@
 package backend.rest.controllers;
 
-import backend.model.exceptions.IncorrectLoginException;
 import backend.model.exceptions.InstanceNotFoundException;
 import backend.model.exceptions.PermissionException;
 import backend.model.exceptions.WarehouseAlreadyExistsException;
 import backend.model.services.AdminService;
 import backend.rest.common.ErrorsDto;
 import backend.rest.dtos.CreateWarehouseParamsDto;
+import backend.rest.dtos.WarehouseDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
 import java.util.Locale;
+
+import static backend.rest.dtos.WarehouseConversor.toWarehouseDtos;
 
 @RestController
 @CrossOrigin(origins = "http://localhost:3000")
@@ -44,6 +47,13 @@ public class AdminController {
             throws PermissionException, InstanceNotFoundException, WarehouseAlreadyExistsException {
 
         return adminService.createWarehouse(userId, paramsDto.getName());
+
+    }
+
+    @GetMapping("/findAllWarehouses")
+    private List<WarehouseDto> findAllWarehouses() {
+
+        return toWarehouseDtos(adminService.findAllWarehouses());
 
     }
 }
