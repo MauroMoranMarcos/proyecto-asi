@@ -1,10 +1,10 @@
 package backend.model.services;
 
-import backend.model.entities.User;
-import backend.model.entities.UserDao;
+import backend.model.entities.*;
 import backend.model.exceptions.DuplicateInstanceException;
 import backend.model.exceptions.IncorrectLoginException;
 import backend.model.exceptions.InstanceNotFoundException;
+import backend.model.exceptions.PermissionException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -24,6 +24,12 @@ public class StaffServiceImpl implements StaffService {
 
     @Autowired
     private UserDao userDao;
+
+    @Autowired
+    private WarehouseDao warehouseDao;
+
+    @Autowired
+    private ItemBoxDao itemBoxDao;
 
     @Override
     public void signUp(User user) throws DuplicateInstanceException {
@@ -60,5 +66,29 @@ public class StaffServiceImpl implements StaffService {
     @Transactional(readOnly=true)
     public User loginFromId(Long id) throws InstanceNotFoundException {
         return permissionChecker.checkUser(id);
+    }
+
+    @Override
+    public Long addItemBoxToWarehouse(Long userId, String itemName, String referenceCode, Long numItems,
+                                      String barCode, String manufacturerRef, String supplier, String warehouseName)
+            throws PermissionException, InstanceNotFoundException {
+
+        User user = permissionChecker.checkUser(userId);
+
+        if (!user.getRole().equals(User.RoleType.WAREHOUSE_STAFF)) {
+            throw new PermissionException();
+        }
+
+        Optional<Warehouse> warehouseOpt = warehouseDao.findByName(warehouseName);
+
+        if (!warehouseOpt.isPresent()) {
+            throw new InstanceNotFoundException("project.entities.warehouse", warehouseName);
+        }
+
+        ItemBox itemBox = new ItemBox(itemName, numItems, referenceCode, barCode, manufacturerRef, supplier, warehouseOpt.get());
+        itemBoxDao.save(itemBox);
+
+        return itemBox.getId();
+
     }
 }
