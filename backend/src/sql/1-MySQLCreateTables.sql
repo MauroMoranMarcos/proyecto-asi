@@ -25,7 +25,8 @@ CREATE TABLE Warehouse (
     id BIGINT NOT NULL AUTO_INCREMENT,
     name VARCHAR(60) NOT NULL,
 
-    CONSTRAINT WarehousePK PRIMARY KEY (id)
+    CONSTRAINT WarehousePK PRIMARY KEY (id),
+    CONSTRAINT WarehouseNameUniqueKey UNIQUE (name)
 
 ) ENGINE = InnoDB;
 
