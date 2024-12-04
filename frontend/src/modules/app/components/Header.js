@@ -11,6 +11,8 @@ import Button from "@mui/material/Button";
 import AssignmentIndIcon from '@mui/icons-material/AssignmentInd';
 import LoginIcon from '@mui/icons-material/Login';
 import ExitToAppIcon from '@mui/icons-material/ExitToApp';
+import WarehouseIcon from '@mui/icons-material/Warehouse';
+import WidgetsIcon from '@mui/icons-material/Widgets';
 import CssBaseline from "@mui/material/CssBaseline";
 
 const Header = () => {
@@ -18,6 +20,8 @@ const Header = () => {
     const navigate = useNavigate();
     const user = useSelector(staff.selectors.getUser);
     const isLoggedIn = useSelector(staff.selectors.isLoggedIn);
+    const isAdmin = useSelector(staff.selectors.isAdmin);
+    const isWarehouseStaff = useSelector(staff.selectors.isWarehouseStaff);
     const userName = useSelector(staff.selectors.getUserName);
 
     const handleSignUp = (event) => {
@@ -35,7 +39,13 @@ const Header = () => {
     const handleLogout = event => {
         event.preventDefault();
 
-        navigate('/users/logout');
+        navigate('/staff/logout');
+    }
+
+    const handleGoHome = event => {
+        event.preventDefault();
+
+        navigate('/');
     }
 
     if (isLoggedIn && (!user || !userName)) {
@@ -49,9 +59,10 @@ const Header = () => {
                 <Toolbar sx={{ display: 'flex', justifyContent: 'space-between' }}>
                     <Box sx={{ display: 'flex', alignItems: 'center' }}>
                         <img
+                            onClick={handleGoHome}
                             src="/logo-hermenegildo.png"
                             alt="Logo"
-                            style={{ height: '70px', marginRight: '16px' }}
+                            style={{ height: '70px', marginRight: '16px', cursor: 'pointer' }}
                         />
                         {isLoggedIn &&
                             <Typography

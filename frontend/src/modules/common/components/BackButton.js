@@ -8,7 +8,7 @@ const BackButton = () => {
     const navigate = useNavigate();
 
     return(
-        <IconButton color="primary" onClick={() => navigate(-1)} style={{ alignSelf: 'flex-start' }}>
+        <IconButton color="secondary" onClick={() => navigate(-1)} style={{ alignSelf: 'flex-start' }}>
             <ArrowBackIosNewOutlinedIcon />
         </IconButton>
     )

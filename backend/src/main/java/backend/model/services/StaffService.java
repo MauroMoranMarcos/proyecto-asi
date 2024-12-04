@@ -4,6 +4,7 @@ import backend.model.entities.User;
 import backend.model.exceptions.DuplicateInstanceException;
 import backend.model.exceptions.IncorrectLoginException;
 import backend.model.exceptions.InstanceNotFoundException;
+import backend.model.exceptions.PermissionException;
 
 public interface StaffService {
 

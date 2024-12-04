@@ -1,10 +1,10 @@
 package backend.model.services;
 
-import backend.model.entities.User;
-import backend.model.entities.UserDao;
+import backend.model.entities.*;
 import backend.model.exceptions.DuplicateInstanceException;
 import backend.model.exceptions.IncorrectLoginException;
 import backend.model.exceptions.InstanceNotFoundException;
+import backend.model.exceptions.PermissionException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -61,4 +61,5 @@ public class StaffServiceImpl implements StaffService {
     public User loginFromId(Long id) throws InstanceNotFoundException {
         return permissionChecker.checkUser(id);
     }
+
 }

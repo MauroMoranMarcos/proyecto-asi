@@ -1,0 +1,1 @@
+export const ADD_ITEM_BOX_TO_WAREHOUSE_COMPLETED = "project/items/addItemBoxToWarehouseCompleted";

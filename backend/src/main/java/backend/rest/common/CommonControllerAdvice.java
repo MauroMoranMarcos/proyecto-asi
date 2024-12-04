@@ -1,6 +1,7 @@
 package backend.rest.common;
 
 import backend.model.exceptions.DuplicateInstanceException;
+import backend.model.exceptions.PermissionException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
 import org.springframework.http.HttpStatus;
@@ -16,6 +17,8 @@ public class CommonControllerAdvice {
 
     private final static String DUPLICATE_INSTANCE_EXCEPTION_CODE = "project.exceptions.DuplicateInstanceException";
 
+    private final static String PERMISSION_EXCEPTION_CODE = "project.exceptions.PermissionException";
+
     @Autowired
     private MessageSource messageSource;
 
@@ -27,6 +30,18 @@ public class CommonControllerAdvice {
         String nameMessage = messageSource.getMessage(exception.getName(), null, exception.getName(), locale);
         String errorMessage = messageSource.getMessage(DUPLICATE_INSTANCE_EXCEPTION_CODE,
                 new Object[] {nameMessage, exception.getKey().toString()}, DUPLICATE_INSTANCE_EXCEPTION_CODE, locale);
+
+        return new ErrorsDto(errorMessage);
+
+    }
+
+    @ExceptionHandler(PermissionException.class)
+    @ResponseStatus(HttpStatus.FORBIDDEN)
+    @ResponseBody
+    public ErrorsDto handlePermissionException(PermissionException exception, Locale locale) {
+
+        String errorMessage = messageSource.getMessage(PERMISSION_EXCEPTION_CODE, null, PERMISSION_EXCEPTION_CODE,
+                locale);
 
         return new ErrorsDto(errorMessage);
 
