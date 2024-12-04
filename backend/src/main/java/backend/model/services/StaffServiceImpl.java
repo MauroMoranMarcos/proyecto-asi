@@ -25,12 +25,6 @@ public class StaffServiceImpl implements StaffService {
     @Autowired
     private UserDao userDao;
 
-    @Autowired
-    private WarehouseDao warehouseDao;
-
-    @Autowired
-    private ItemBoxDao itemBoxDao;
-
     @Override
     public void signUp(User user) throws DuplicateInstanceException {
 
@@ -68,27 +62,4 @@ public class StaffServiceImpl implements StaffService {
         return permissionChecker.checkUser(id);
     }
 
-    @Override
-    public Long addItemBoxToWarehouse(Long userId, String itemName, String referenceCode, Long numItems,
-                                      String barCode, String manufacturerRef, String supplier, String warehouseName)
-            throws PermissionException, InstanceNotFoundException {
-
-        User user = permissionChecker.checkUser(userId);
-
-        if (!user.getRole().equals(User.RoleType.WAREHOUSE_STAFF)) {
-            throw new PermissionException();
-        }
-
-        Optional<Warehouse> warehouseOpt = warehouseDao.findByName(warehouseName);
-
-        if (!warehouseOpt.isPresent()) {
-            throw new InstanceNotFoundException("project.entities.warehouse", warehouseName);
-        }
-
-        ItemBox itemBox = new ItemBox(itemName, numItems, referenceCode, barCode, manufacturerRef, supplier, warehouseOpt.get());
-        itemBoxDao.save(itemBox);
-
-        return itemBox.getId();
-
-    }
 }

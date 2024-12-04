@@ -14,8 +14,4 @@ public interface StaffService {
 
     User loginFromId(Long id) throws InstanceNotFoundException;
 
-    Long addItemBoxToWarehouse(Long userId, String itemName, String referenceCode, Long numItems, String barCode,
-                               String manufacturerRef, String supplier, String warehouseName)
-            throws PermissionException, InstanceNotFoundException;
-
 }
