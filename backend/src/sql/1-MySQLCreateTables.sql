@@ -42,8 +42,8 @@ CREATE TABLE ItemBox (
     supplier VARCHAR(120) NOT NULL,
     warehouseId BIGINT NOT NULL,
 
-    CONSTRAINT BoxPK PRIMARY KEY (id),
-    CONSTRAINT BoxWarehouseIdFK FOREIGN KEY (warehouseId)
+    CONSTRAINT ItemBoxPK PRIMARY KEY (id),
+    CONSTRAINT ItemBoxWarehouseIdFK FOREIGN KEY (warehouseId)
         REFERENCES Warehouse(id)
 
 )

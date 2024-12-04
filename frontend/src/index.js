@@ -37,6 +37,9 @@ const theme = createTheme({
         secondary: {
             main: '#D74C11',
         },
+        alertRed: {
+            main: '#FF3700'
+        },
     },
     typography: {
         fontFamily: [

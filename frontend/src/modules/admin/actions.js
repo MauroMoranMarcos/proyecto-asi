@@ -14,7 +14,14 @@ export const createWarehouse = (name, onSuccess, onErrors) => dispatch =>
         },
         onErrors);
 
-const findAllWarehousesCompleted = allWarehouses => ({
+const findAllWarehousesCompleted = warehouses => ({
     type: actionTypes.FIND_ALL_WAREHOUSES_COMPLETED,
-    allWarehouses
-})
+    warehouses
+});
+
+export const findAllWarehouses = () => dispatch => {
+    backend.adminService.findAllWarehouses(
+        warehouses => {
+            dispatch(findAllWarehousesCompleted(warehouses))
+        })
+}

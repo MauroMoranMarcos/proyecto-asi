@@ -4,7 +4,7 @@ import * as actionTypes from './actionTypes';
 
 const initialState = {
     warehouse: null,
-    allWarehouses: null,
+    warehouses: null,
 };
 
 const warehouse = (state = initialState.warehouse, action) => {
@@ -12,7 +12,7 @@ const warehouse = (state = initialState.warehouse, action) => {
     switch (action.type) {
 
         case actionTypes.CREATE_WAREHOUSE_COMPLETED:
-            return action.warehouse;
+            return action.warehouseCreated;
 
         default:
             return state;
@@ -21,12 +21,12 @@ const warehouse = (state = initialState.warehouse, action) => {
 
 }
 
-const allWarehouses = (state = initialState.allWarehouses, action) => {
+const warehouses = (state = initialState.warehouses, action) => {
 
     switch (action.type) {
 
         case actionTypes.FIND_ALL_WAREHOUSES_COMPLETED:
-            return action.allWarehouses;
+            return action.warehouses;
 
         default:
             return state;
@@ -37,7 +37,7 @@ const allWarehouses = (state = initialState.allWarehouses, action) => {
 
 const reducer = combineReducers({
     warehouse,
-    allWarehouses
+    warehouses
 });
 
 export default reducer;
