@@ -6,6 +6,7 @@ import staff from '../../staff';
 
 import {SignUp} from '../../staff';
 import {Login} from '../../staff';
+import {Logout} from '../../staff';
 
 const Body = () => {
 
@@ -19,6 +20,7 @@ const Body = () => {
             <Routes>
                 {!isLoggedIn && <Route path="/staff/signup" element={<SignUp/>}/>}
                 {!isLoggedIn && <Route path="/staff/login" element={<Login/>}/>}
+                {isLoggedIn && <Route path="/users/logout" element={<Logout/>}/>}
             </Routes>
         </div>
 

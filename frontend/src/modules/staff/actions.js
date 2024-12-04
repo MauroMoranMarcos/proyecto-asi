@@ -39,3 +39,11 @@ export const tryLoginFromServiceToken = reauthenticationCallback => dispatch =>
         },
         reauthenticationCallback
     );
+
+export const logout = () => {
+
+    backend.staffService.logout();
+
+    return {type: actionTypes.LOGOUT};
+
+};

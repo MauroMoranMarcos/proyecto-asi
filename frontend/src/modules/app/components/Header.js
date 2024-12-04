@@ -10,6 +10,7 @@ import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
 import AssignmentIndIcon from '@mui/icons-material/AssignmentInd';
 import LoginIcon from '@mui/icons-material/Login';
+import ExitToAppIcon from '@mui/icons-material/ExitToApp';
 import CssBaseline from "@mui/material/CssBaseline";
 
 const Header = () => {
@@ -29,6 +30,12 @@ const Header = () => {
         event.preventDefault();
 
         navigate('/staff/login');
+    }
+
+    const handleLogout = event => {
+        event.preventDefault();
+
+        navigate('/users/logout');
     }
 
     if (isLoggedIn && (!user || !userName)) {
@@ -82,6 +89,21 @@ const Header = () => {
                                     style={{ textAlign: 'left', justifyContent: 'flex-start' }}>
                                     <Typography textAlign="center">
                                         <FormattedMessage id="project.global.buttons.Login"></FormattedMessage>
+                                    </Typography>
+                                </Button>
+                            </Box>
+                        }
+                        {isLoggedIn &&
+                            <Box sx={{ flexDirection: 'row', alignItems: 'center' }}>
+                                <Button
+                                    sx={{ ml: 1 }}
+                                    variant="contained"
+                                    onClick={e => handleLogout(e)}
+                                    color="secondary"
+                                    startIcon={<ExitToAppIcon />}
+                                    style={{ textAlign: 'left', justifyContent: 'flex-start' }}>
+                                    <Typography textAlign="center">
+                                        <FormattedMessage id="project.global.buttons.Logout"></FormattedMessage>
                                     </Typography>
                                 </Button>
                             </Box>

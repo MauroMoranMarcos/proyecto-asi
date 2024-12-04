@@ -13,10 +13,10 @@ const App = () => {
     const dispatch = useDispatch();
 
     useEffect(() => {
-/*
+
         dispatch(staff.actions.tryLoginFromServiceToken(
             () => dispatch(staff.actions.logout())));
-        */
+
     });
 
     return (
