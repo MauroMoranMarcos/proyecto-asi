@@ -8,4 +8,6 @@ public interface WarehouseDao extends PagingAndSortingRepository<Warehouse, Long
 
     Optional<Warehouse> findByName(String name);
 
+    boolean existsByName(String name);
+
 }
