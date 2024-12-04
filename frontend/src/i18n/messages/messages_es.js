@@ -10,7 +10,7 @@ export default {
     'project.global.buttons.Logout': 'Cerrar sesión',
     'project.global.buttons.CreateWarehouse': 'Crear almacén',
     'project.global.buttons.AddItemsToWarehouseNext': 'Siguiente',
-    'project.global.buttons.AddBoxToWarehouse': 'Añadir caja',
+    'project.global.buttons.AddBoxToWarehouse': 'Añadir caja de piezas',
     'project.global.buttons.Cancel': 'Cancelar',
     'project.global.buttons.RestoreFields': 'Restablecer formulario',
     'project.global.buttons.AddItems': 'Añadir nueva pieza',

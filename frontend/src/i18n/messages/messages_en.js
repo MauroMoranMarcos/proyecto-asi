@@ -10,7 +10,7 @@ export default {
     'project.global.buttons.Logout': 'Logout',
     'project.global.buttons.CreateWarehouse': 'Create warehouse',
     'project.global.buttons.AddItemsToWarehouseNext': 'Next',
-    'project.global.buttons.AddBoxToWarehouse': 'Add box',
+    'project.global.buttons.AddBoxToWarehouse': 'Add box of items',
     'project.global.buttons.Cancel': 'Cancel',
     'project.global.buttons.RestoreFields': 'Restore fields',
     'project.global.buttons.AddItems': 'Add new item',
