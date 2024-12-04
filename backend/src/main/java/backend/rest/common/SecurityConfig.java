@@ -31,6 +31,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers(HttpMethod.POST, "/staff/signUp").permitAll()
                 .antMatchers(HttpMethod.POST, "/staff/login").permitAll()
                 .antMatchers(HttpMethod.POST, "/staff/loginFromServiceToken").permitAll()
+                .antMatchers(HttpMethod.POST, "/admin/createWarehouse").permitAll()
                 .anyRequest().denyAll();
 
         //TODO: Add lines here for the rest of the HU
