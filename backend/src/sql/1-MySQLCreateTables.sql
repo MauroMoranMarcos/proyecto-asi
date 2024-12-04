@@ -3,7 +3,7 @@
 -- used in the application.
 -------------------------------------------------------------------------------
 DROP TABLE User;
-DROP TABLE Box;
+DROP TABLE ItemBox;
 DROP TABLE Warehouse;
 
 -- Creating table User to store users.
@@ -31,7 +31,7 @@ CREATE TABLE Warehouse (
 ) ENGINE = InnoDB;
 
 -- Creating table Box to store info about Boxes with its items that are stored in a Warehouse
-CREATE TABLE Box (
+CREATE TABLE ItemBox (
 
     id BIGINT NOT NULL AUTO_INCREMENT,
     itemName VARCHAR(60) NOT NULL,
