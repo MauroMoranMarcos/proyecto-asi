@@ -11,6 +11,7 @@ import Button from "@mui/material/Button";
 import AssignmentIndIcon from '@mui/icons-material/AssignmentInd';
 import LoginIcon from '@mui/icons-material/Login';
 import ExitToAppIcon from '@mui/icons-material/ExitToApp';
+import WarehouseIcon from '@mui/icons-material/Warehouse';
 import CssBaseline from "@mui/material/CssBaseline";
 
 const Header = () => {
@@ -18,6 +19,7 @@ const Header = () => {
     const navigate = useNavigate();
     const user = useSelector(staff.selectors.getUser);
     const isLoggedIn = useSelector(staff.selectors.isLoggedIn);
+    const isAdmin = useSelector(staff.selectors.isAdmin);
     const userName = useSelector(staff.selectors.getUserName);
 
     const handleSignUp = (event) => {
@@ -35,7 +37,13 @@ const Header = () => {
     const handleLogout = event => {
         event.preventDefault();
 
-        navigate('/users/logout');
+        navigate('/staff/logout');
+    }
+
+    const handleCreateWarehouse = event => {
+        event.preventDefault();
+
+        navigate('/admin/createWarehouse');
     }
 
     if (isLoggedIn && (!user || !userName)) {
@@ -89,6 +97,21 @@ const Header = () => {
                                     style={{ textAlign: 'left', justifyContent: 'flex-start' }}>
                                     <Typography textAlign="center">
                                         <FormattedMessage id="project.global.buttons.Login"></FormattedMessage>
+                                    </Typography>
+                                </Button>
+                            </Box>
+                        }
+                        {isLoggedIn && isAdmin &&
+                            <Box sx={{ flexDirection: 'row', alignItems: 'center' }}>
+                                <Button
+                                    sx={{ ml: 1 }}
+                                    variant="contained"
+                                    onClick={e => handleCreateWarehouse(e)}
+                                    color="secondary"
+                                    startIcon={<WarehouseIcon />}
+                                    style={{ textAlign: 'left', justifyContent: 'flex-start' }}>
+                                    <Typography textAlign="center">
+                                        <FormattedMessage id="project.global.buttons.CreateWarehouse"></FormattedMessage>
                                     </Typography>
                                 </Button>
                             </Box>

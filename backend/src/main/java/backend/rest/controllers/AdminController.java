@@ -6,6 +6,7 @@ import backend.model.exceptions.PermissionException;
 import backend.model.exceptions.WarehouseAlreadyExistsException;
 import backend.model.services.AdminService;
 import backend.rest.common.ErrorsDto;
+import backend.rest.dtos.CreateWarehouseParamsDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
 import org.springframework.http.HttpStatus;
@@ -18,7 +19,7 @@ import java.util.Locale;
 @RequestMapping("/admin")
 public class AdminController {
 
-    private final String WAREHOUSE_ALREADY_EXISTS_EXCEPTION_CODE = "project.exceptions.WarehouseAlreadyExists";
+    private final String WAREHOUSE_ALREADY_EXISTS_EXCEPTION_CODE = "project.exceptions.WarehouseAlreadyExistsException";
 
     @Autowired
     private MessageSource messageSource;
@@ -39,10 +40,10 @@ public class AdminController {
     }
 
     @PostMapping("/createWarehouse")
-    private Long createWarehouse(@RequestAttribute Long userId, @RequestBody String name)
+    private Long createWarehouse(@RequestAttribute Long userId, @RequestBody CreateWarehouseParamsDto paramsDto)
             throws PermissionException, InstanceNotFoundException, WarehouseAlreadyExistsException {
 
-        return adminService.createWarehouse(userId, name);
+        return adminService.createWarehouse(userId, paramsDto.getName());
 
     }
 }

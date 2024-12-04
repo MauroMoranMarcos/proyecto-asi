@@ -1,0 +1,1 @@
+export const CREATE_WAREHOUSE_COMPLETED = "project/admin/createWarehouseCompleted";
