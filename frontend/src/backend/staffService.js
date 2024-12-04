@@ -38,3 +38,5 @@ export const tryLoginFromServiceToken = (onSuccess, reauthenticationCallback) =>
     );
 
 }
+
+export const logout = () => removeServiceToken();

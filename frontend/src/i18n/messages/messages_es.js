@@ -7,6 +7,7 @@ export default {
     'project.global.buttons.SignUpHeader': 'Registrarse',
     'project.global.buttons.SignUp': 'Crear cuenta',
     'project.global.buttons.Login': 'Iniciar sesión',
+    'project.global.buttons.Logout': 'Cerrar sesión',
 
     'project.global.fields.userName': 'Nombre de usuario',
     'project.global.fields.password': 'Contraseña',
