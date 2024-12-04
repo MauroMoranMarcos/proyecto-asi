@@ -5,7 +5,7 @@ import {useNavigate} from 'react-router-dom';
 
 import admin from '../../admin';
 
-import {Errors} from '../../common';
+import {BackButton, Errors} from '../../common';
 import * as actions from '../actions';
 import {
     Alert, AlertTitle,
@@ -223,10 +223,11 @@ const AddItemsToWarehouse = () => {
                         sx={{
                             display: "flex",
                             alignItems: "center",
-                            justifyContent: "center",
+                            justifyContent: "flex-start",
                             mb: 1,
                             borderBottom: `1px solid ${theme.palette.primary.main}`,
                         }}>
+                        <BackButton />
                         <Typography variant="h2" sx={{ mt: 0.5, mb: 0.5, fontWeight: 'bold' }}>
                             <FormattedMessage id="project.items.AddItemsToWarehouse.title"></FormattedMessage>
                         </Typography>

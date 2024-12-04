@@ -9,6 +9,7 @@ import {Login} from '../../staff';
 import {Logout} from '../../staff';
 import {CreateWarehouse} from "../../admin";
 import {AddItemsToWarehouse} from "../../items";
+import Home from "./Home";
 
 const Body = () => {
 
@@ -22,6 +23,7 @@ const Body = () => {
             <br/>
             <AppGlobalComponents/>
             <Routes>
+                <Route path="/" element={<Home/>} />
                 {!isLoggedIn && <Route path="/staff/signup" element={<SignUp/>}/>}
                 {!isLoggedIn && <Route path="/staff/login" element={<Login/>}/>}
                 {isLoggedIn && <Route path="/staff/logout" element={<Logout/>}/>}

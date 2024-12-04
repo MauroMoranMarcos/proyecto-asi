@@ -13,6 +13,7 @@ export default {
     'project.global.buttons.AddBoxToWarehouse': 'Add box',
     'project.global.buttons.Cancel': 'Cancel',
     'project.global.buttons.RestoreFields': 'Restore fields',
+    'project.global.buttons.AddItems': 'Add new item',
 
     'project.global.validator.required': 'Required field',
     'project.global.validator.incorrectEmail': 'Incorrect mail format',
@@ -28,6 +29,11 @@ export default {
     'project.global.fields.manufacturerRef': 'Manufacturer reference',
     'project.global.fields.supplier': 'Supplier',
     'project.global.fields.numItems': 'Number of items in the box',
+
+    'project.app.Home.title': 'Home',
+    'project.app.Home.InventoryAdministration': 'Inventory administration',
+    'project.app.Home.WarehouseAdministration': 'Warehouse administration',
+    'project.app.Home.ActiveWarehouses': 'Active warehouses:',
 
     'project.staff.SignUp.title': 'Sign Up',
     'project.staff.Login.title': 'Login',

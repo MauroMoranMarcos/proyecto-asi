@@ -13,6 +13,7 @@ export default {
     'project.global.buttons.AddBoxToWarehouse': 'Añadir caja',
     'project.global.buttons.Cancel': 'Cancelar',
     'project.global.buttons.RestoreFields': 'Restablecer formulario',
+    'project.global.buttons.AddItems': 'Añadir nueva pieza',
 
     'project.global.validator.required': 'Campo requerido',
     'project.global.validator.incorrectEmail': 'Formato de email incorrecto',
@@ -28,6 +29,11 @@ export default {
     'project.global.fields.manufacturerRef': 'Referencia del fabricante',
     'project.global.fields.supplier': 'Proveedor',
     'project.global.fields.numItems': 'Número de piezas en la caja',
+
+    'project.app.Home.title': 'Inicio',
+    'project.app.Home.InventoryAdministration': 'Administración de inventario',
+    'project.app.Home.WarehouseAdministration': 'Administración de almacenes',
+    'project.app.Home.ActiveWarehouses': 'Almacenes activos:',
 
     'project.staff.SignUp.title': 'Crear cuenta',
     'project.staff.Login.title': 'Iniciar sesión',

@@ -59,7 +59,7 @@ const theme = createTheme({
             lineHeight: 1.2,
         },
         h3: {
-            fontSize: '0.9rem',
+            fontSize: '1.1rem',
             fontWeight: 400,
             lineHeight: 1.2,
         },

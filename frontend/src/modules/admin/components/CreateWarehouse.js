@@ -3,7 +3,7 @@ import {useDispatch} from 'react-redux';
 import {FormattedMessage} from 'react-intl';
 import {useNavigate} from 'react-router-dom';
 
-import {Errors} from '../../common';
+import {BackButton, Errors} from '../../common';
 import * as actions from '../actions';
 
 import {
@@ -44,10 +44,11 @@ const CreateWarehouse = () => {
 
             dispatch(actions.createWarehouse(
                 warehouseName,
-                () =>navigate('/'),
-                errors => setBackendErrors(errors),
                 () => {
-                }
+                    dispatch(actions.findAllWarehouses());
+                    navigate('/');
+                },
+                errors => setBackendErrors(errors),
             ));
 
         } else {
@@ -96,10 +97,11 @@ const CreateWarehouse = () => {
                         sx={{
                             display: "flex",
                             alignItems: "center",
-                            justifyContent: "center",
+                            justifyContent: "flex-start",
                             mb: 1,
                             borderBottom: `1px solid ${theme.palette.primary.main}`,
                         }}>
+                        <BackButton />
                         <Typography variant="h2" sx={{ mt: 0.5, mb: 0.5, fontWeight: 'bold' }}>
                             <FormattedMessage id="project.admin.CreateWarehouse.title"></FormattedMessage>
                         </Typography>

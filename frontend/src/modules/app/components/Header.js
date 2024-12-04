@@ -42,16 +42,10 @@ const Header = () => {
         navigate('/staff/logout');
     }
 
-    const handleCreateWarehouse = event => {
+    const handleGoHome = event => {
         event.preventDefault();
 
-        navigate('/admin/createWarehouse');
-    }
-
-    const handleAddItemsToWarehouse = event => {
-        event.preventDefault();
-
-        navigate('/items/additemstowarehouse');
+        navigate('/');
     }
 
     if (isLoggedIn && (!user || !userName)) {
@@ -65,9 +59,10 @@ const Header = () => {
                 <Toolbar sx={{ display: 'flex', justifyContent: 'space-between' }}>
                     <Box sx={{ display: 'flex', alignItems: 'center' }}>
                         <img
+                            onClick={handleGoHome}
                             src="/logo-hermenegildo.png"
                             alt="Logo"
-                            style={{ height: '70px', marginRight: '16px' }}
+                            style={{ height: '70px', marginRight: '16px', cursor: 'pointer' }}
                         />
                         {isLoggedIn &&
                             <Typography
@@ -105,36 +100,6 @@ const Header = () => {
                                     style={{ textAlign: 'left', justifyContent: 'flex-start' }}>
                                     <Typography textAlign="center">
                                         <FormattedMessage id="project.global.buttons.Login"></FormattedMessage>
-                                    </Typography>
-                                </Button>
-                            </Box>
-                        }
-                        {isLoggedIn && isAdmin &&
-                            <Box sx={{ flexDirection: 'row', alignItems: 'center' }}>
-                                <Button
-                                    sx={{ ml: 1 }}
-                                    variant="contained"
-                                    onClick={e => handleCreateWarehouse(e)}
-                                    color="secondary"
-                                    startIcon={<WarehouseIcon />}
-                                    style={{ textAlign: 'left', justifyContent: 'flex-start' }}>
-                                    <Typography textAlign="center">
-                                        <FormattedMessage id="project.global.buttons.CreateWarehouse"></FormattedMessage>
-                                    </Typography>
-                                </Button>
-                            </Box>
-                        }
-                        {isLoggedIn && isWarehouseStaff &&
-                            <Box sx={{ flexDirection: 'row', alignItems: 'center' }}>
-                                <Button
-                                    sx={{ ml: 1 }}
-                                    variant="contained"
-                                    onClick={e => handleAddItemsToWarehouse(e)}
-                                    color="secondary"
-                                    startIcon={<WidgetsIcon />}
-                                    style={{ textAlign: 'left', justifyContent: 'flex-start' }}>
-                                    <Typography textAlign="center">
-                                        <FormattedMessage id="project.global.buttons.AddItems"></FormattedMessage>
                                     </Typography>
                                 </Button>
                             </Box>
