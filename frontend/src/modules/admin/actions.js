@@ -13,3 +13,8 @@ export const createWarehouse = (name, onSuccess, onErrors) => dispatch =>
             onSuccess();
         },
         onErrors);
+
+const findAllWarehousesCompleted = allWarehouses => ({
+    type: actionTypes.FIND_ALL_WAREHOUSES_COMPLETED,
+    allWarehouses
+})
