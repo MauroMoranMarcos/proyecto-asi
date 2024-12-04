@@ -12,6 +12,7 @@ import AssignmentIndIcon from '@mui/icons-material/AssignmentInd';
 import LoginIcon from '@mui/icons-material/Login';
 import ExitToAppIcon from '@mui/icons-material/ExitToApp';
 import WarehouseIcon from '@mui/icons-material/Warehouse';
+import WidgetsIcon from '@mui/icons-material/Widgets';
 import CssBaseline from "@mui/material/CssBaseline";
 
 const Header = () => {
@@ -20,6 +21,7 @@ const Header = () => {
     const user = useSelector(staff.selectors.getUser);
     const isLoggedIn = useSelector(staff.selectors.isLoggedIn);
     const isAdmin = useSelector(staff.selectors.isAdmin);
+    const isWarehouseStaff = useSelector(staff.selectors.isWarehouseStaff);
     const userName = useSelector(staff.selectors.getUserName);
 
     const handleSignUp = (event) => {
@@ -44,6 +46,12 @@ const Header = () => {
         event.preventDefault();
 
         navigate('/admin/createWarehouse');
+    }
+
+    const handleAddItemsToWarehouse = event => {
+        event.preventDefault();
+
+        navigate('/items/additemstowarehouse');
     }
 
     if (isLoggedIn && (!user || !userName)) {
@@ -112,6 +120,21 @@ const Header = () => {
                                     style={{ textAlign: 'left', justifyContent: 'flex-start' }}>
                                     <Typography textAlign="center">
                                         <FormattedMessage id="project.global.buttons.CreateWarehouse"></FormattedMessage>
+                                    </Typography>
+                                </Button>
+                            </Box>
+                        }
+                        {isLoggedIn && isWarehouseStaff &&
+                            <Box sx={{ flexDirection: 'row', alignItems: 'center' }}>
+                                <Button
+                                    sx={{ ml: 1 }}
+                                    variant="contained"
+                                    onClick={e => handleAddItemsToWarehouse(e)}
+                                    color="secondary"
+                                    startIcon={<WidgetsIcon />}
+                                    style={{ textAlign: 'left', justifyContent: 'flex-start' }}>
+                                    <Typography textAlign="center">
+                                        <FormattedMessage id="project.global.buttons.AddItems"></FormattedMessage>
                                     </Typography>
                                 </Button>
                             </Box>
