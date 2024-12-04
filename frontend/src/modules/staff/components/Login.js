@@ -74,7 +74,7 @@ const Login = () => {
                        flexDirection: "column",
                        justifyContent: "center",
                        padding: 0,
-                       minHeight: '75vh',
+                       minHeight: '65vh',
                    }}>
             <Box
                 sx={{
@@ -89,7 +89,7 @@ const Login = () => {
                 <Errors errors={backendErrors} onClose={() => setBackendErrors(null)}/>
                 <Paper elevation={24}
                        sx={{
-                           minHeight: '75vh',
+                           minHeight: '65vh',
                            display: 'flex',
                            flexDirection: 'column',
                        }}>
