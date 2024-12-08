@@ -4,6 +4,7 @@ import backend.model.entities.*;
 import backend.model.exceptions.InstanceNotFoundException;
 import backend.model.exceptions.PermissionException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Slice;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -44,6 +45,22 @@ public class ItemsServiceImpl implements ItemsService {
         itemBoxDao.save(itemBox);
 
         return itemBox.getId();
+
+    }
+
+    @Override
+    public Block<ItemBox> checkInventory(Long userId, int page, int size) throws PermissionException,
+            InstanceNotFoundException {
+
+        User user = permissionChecker.checkUser(userId);
+
+        if (!user.getRole().equals(User.RoleType.WAREHOUSE_STAFF)) {
+            throw new PermissionException();
+        }
+
+        Slice<ItemBox> slice = itemBoxDao.findItems(page, size);
+
+        return new Block<>(slice.getContent(), slice.hasNext());
 
     }
 
