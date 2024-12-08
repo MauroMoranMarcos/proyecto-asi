@@ -19,7 +19,7 @@ public class CustomizedItemBoxDaoImpl implements CustomizedItemBoxDao {
     @Override
     public Slice<ItemBox> findItems(int page, int size) {
 
-        String queryString = "SELECT ib FROM ItemBox ib ORDER BY ib.itemName";
+        String queryString = "SELECT ib FROM ItemBox ib GROUP BY ib.itemName ORDER BY ib.itemName";
 
         Query query = entityManager.createQuery(queryString).setFirstResult(page * size).setMaxResults(size + 1);
 
