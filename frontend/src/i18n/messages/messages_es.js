@@ -14,6 +14,7 @@ export default {
     'project.global.buttons.Cancel': 'Cancelar',
     'project.global.buttons.RestoreFields': 'Restablecer formulario',
     'project.global.buttons.AddItems': 'Añadir nueva pieza',
+    'project.global.buttons.CheckInventory': 'Consultar inventario',
 
     'project.global.validator.required': 'Campo requerido',
     'project.global.validator.incorrectEmail': 'Formato de email incorrecto',
@@ -47,5 +48,7 @@ export default {
     'project.items.AddItemsToWarehouse.success3': '" al almacén "',
     'project.items.AddItemsToWarehouse.success4': '"',
     'project.items.AddItemsToWarehouse.title': 'Añadir piezas al almacén',
+
+    'project.items.CheckInventory.title': 'Inventario',
 
 }

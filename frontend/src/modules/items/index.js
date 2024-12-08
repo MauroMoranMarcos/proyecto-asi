@@ -4,5 +4,6 @@ import reducer from './reducer';
 import * as selectors from './selectors';
 
 export {default as AddItemsToWarehouse} from './components/AddItemsToWarehouse';
+export {default as CheckInventory} from './components/CheckInventory';
 
 export default {actions, actionTypes, reducer, selectors};

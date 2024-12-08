@@ -13,6 +13,7 @@ import {
 } from "@mui/material";
 import WidgetsIcon from "@mui/icons-material/Widgets";
 import WarehouseIcon from "@mui/icons-material/Warehouse";
+import InventoryIcon from '@mui/icons-material/Inventory';
 
 const Home = () => {
 
@@ -33,6 +34,12 @@ const Home = () => {
         event.preventDefault();
 
         navigate('/items/additemstowarehouse');
+    }
+
+    const handleCheckInventory = event => {
+        event.preventDefault();
+
+        navigate('/items/checkinventory');
     }
 
     if (!allWarehouses) {
@@ -103,6 +110,16 @@ const Home = () => {
                                             style={{ textAlign: 'left', justifyContent: 'flex-start' }}>
                                             <Typography textAlign="center">
                                                 <FormattedMessage id="project.global.buttons.AddItems"></FormattedMessage>
+                                            </Typography>
+                                        </Button>
+                                        <Button
+                                            variant="contained"
+                                            onClick={e => handleCheckInventory(e)}
+                                            color="secondary"
+                                            startIcon={<InventoryIcon />}
+                                            style={{ textAlign: 'left', justifyContent: 'flex-start' }}>
+                                            <Typography textAlign="center">
+                                                <FormattedMessage id="project.global.buttons.CheckInventory"></FormattedMessage>
                                             </Typography>
                                         </Button>
                                     </CardActions>

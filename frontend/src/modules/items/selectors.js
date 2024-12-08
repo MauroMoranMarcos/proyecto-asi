@@ -1,1 +1,4 @@
-const getModuleState = state => state.staff;
+const getModuleState = state => state.items;
+
+export const getItems = state =>
+    getModuleState(state).items;

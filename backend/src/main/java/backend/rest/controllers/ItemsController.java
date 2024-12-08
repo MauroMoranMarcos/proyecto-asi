@@ -40,7 +40,7 @@ public class ItemsController {
     public BlockDto<ItemBoxDto> checkInventory(@RequestAttribute Long userId, @RequestParam(defaultValue = "0") int page)
             throws PermissionException, InstanceNotFoundException {
 
-        Block<ItemBox> itemBoxBlock = itemsService.checkInventory(userId, page, 10);
+        Block<ItemBox> itemBoxBlock = itemsService.checkInventory(userId, page, 12);
 
         return new BlockDto<>(toItemBoxDtos(itemBoxBlock.getItems()), itemBoxBlock.getExistMoreItems());
 
