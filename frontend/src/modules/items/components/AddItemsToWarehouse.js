@@ -20,6 +20,8 @@ import {
     useTheme
 } from "@mui/material";
 import CloseOutlinedIcon from "@mui/icons-material/CloseOutlined";
+import ImageIcon from '@mui/icons-material/Image';
+import DeleteIcon from '@mui/icons-material/Delete';
 
 const AddItemsToWarehouse = () => {
 
@@ -32,6 +34,7 @@ const AddItemsToWarehouse = () => {
     const [barCode, setBarCode] = useState('');
     const [manufacturerRef, setManufacturerRef] = useState('');
     const [supplier, setSupplier] = useState('');
+    const [imgFile, setImgFile] = useState(null);
     const [warehouseName, setWarehouseName] = useState('');
     const [isFormValid, setIsFormValid] = useState(false);
     const [openNumItemsBoxDialog, setOpenNumItemsBoxDialog] = useState(false);
@@ -71,14 +74,19 @@ const AddItemsToWarehouse = () => {
 
         if (newIsFormValid) {
 
+            const formData = new FormData();
+
+            formData.append('itemName', itemName.trim());
+            formData.append('referenceCode', referenceCode.trim());
+            formData.append('numItems', numItems.trim());
+            formData.append('barCode', barCode.trim());
+            formData.append('manufacturerRef', manufacturerRef.trim());
+            formData.append('supplier', supplier.trim());
+            formData.append('imgFile', imgFile);
+            formData.append('warehouseName', warehouseName.trim());
+
             dispatch(actions.addItemBoxToWarehouse(
-                itemName,
-                referenceCode,
-                numItems,
-                barCode,
-                manufacturerRef,
-                supplier,
-                warehouseName,
+                formData,
                 () => {
                     handleCloseSuccessMessage();
                     handleUpdateSuccessMessage(numItems);
@@ -149,6 +157,7 @@ const AddItemsToWarehouse = () => {
 
     const handleRestoreFields = () => {
 
+        handleRemoveImage();
         setItemName('');
         setReferenceCode('');
         setNumItems(0);
@@ -156,6 +165,12 @@ const AddItemsToWarehouse = () => {
         setManufacturerRef('');
         setSupplier('');
         setWarehouseName('');
+
+    }
+
+    const handleRemoveImage = () => {
+
+        setImgFile(null);
 
     }
 
@@ -339,6 +354,62 @@ const AddItemsToWarehouse = () => {
                                 </FormControl>
                             </Grid>
                         </Grid>
+                        <Box
+                            sx={{
+                                m: 1
+                            }}>
+                            <Box
+                                sx={{
+                                    display: "flex",
+                                    alignItems: "center",
+                                    justifyContent: "center",
+                                    ml: "auto",
+                                    mr: "auto",
+                                }}>
+                                <input
+                                    accept="image/*"
+                                    style={{display: 'none'}}
+                                    id="contained-button-file"
+                                    multiple
+                                    type="file"
+                                    onChange={(e) => setImgFile(e.target.files[0])}
+                                />
+                                <label htmlFor="contained-button-file">
+                                    <Button
+                                        variant="contained"
+                                        component="span"
+                                        startIcon={<ImageIcon />}>
+                                        <FormattedMessage id="project.global.fields.imgFile" />
+                                    </Button>
+                                </label>
+                                <IconButton
+                                    aria-label="remove"
+                                    disabled={!imgFile}
+                                    color="alertRed"
+                                    variant="contained"
+                                    onClick={e => handleRemoveImage(e)}
+                                    sx={{ mt: 1, mb: 1.5, ml: 0.5 }}>
+                                    <DeleteIcon />
+                                </IconButton>
+                            </Box>
+                            {imgFile && (
+                                <Box
+                                    sx={{
+                                        display: "flex",
+                                        alignItems: "center",
+                                        justifyContent: "center",
+                                        ml: "auto",
+                                        mr: "auto",
+                                        mb: 1,
+                                    }}>
+                                    <img
+                                        src={URL.createObjectURL(imgFile)}
+                                        alt="Uploaded Image"
+                                        style={{ maxWidth: '100%', maxHeight: 300 }}
+                                    />
+                                </Box>
+                            )}
+                        </Box>
                         <Dialog
                             fullScreen={fullScreen}
                             open={openNumItemsBoxDialog}

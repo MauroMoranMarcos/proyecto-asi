@@ -5,8 +5,8 @@ const addItemBoxToWarehouseCompleted = () => ({
     type: actionTypes.ADD_ITEM_BOX_TO_WAREHOUSE_COMPLETED,
 });
 
-export const addItemBoxToWarehouse = (itemName, referenceCode, numItems, barCode, manufacturerRef, supplier, warehouseName, onSuccess, onErrors) => dispatch =>
-    backend.itemsService.addItemBoxToWarehouse(itemName, referenceCode, numItems, barCode, manufacturerRef, supplier, warehouseName,
+export const addItemBoxToWarehouse = (formData, onSuccess, onErrors) => dispatch =>
+    backend.itemsService.addItemBoxToWarehouse(formData,
         () => {
             dispatch(addItemBoxToWarehouseCompleted());
             onSuccess();

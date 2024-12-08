@@ -1,5 +1,7 @@
 package backend.rest.dtos;
 
+import org.springframework.web.multipart.MultipartFile;
+
 import javax.validation.constraints.NotNull;
 
 public class AddItemBoxToWarehouseParamsDto {
@@ -10,6 +12,7 @@ public class AddItemBoxToWarehouseParamsDto {
     private String barCode;
     private String manufacturerRef;
     private String supplier;
+    private MultipartFile imgFile;
     private String warehouseName;
 
     @NotNull
@@ -64,6 +67,14 @@ public class AddItemBoxToWarehouseParamsDto {
 
     public void setSupplier(String supplier) {
         this.supplier = supplier;
+    }
+
+    public MultipartFile getImgFile() {
+        return imgFile;
+    }
+
+    public void setImgFile(MultipartFile imgFile) {
+        this.imgFile = imgFile;
     }
 
     @NotNull

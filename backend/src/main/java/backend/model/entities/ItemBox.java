@@ -12,22 +12,24 @@ public class ItemBox {
     private String barCode;
     private String manufacturerRef;
     private String supplier;
+    private byte[] imgFile;
     private Warehouse warehouse;
 
     public ItemBox() {
     }
 
-    public ItemBox(String itemName, Long numItems, String referenceCode, String barCode, String manufacturerRef, String supplier, Warehouse warehouse) {
+    public ItemBox(String itemName, Long numItems, String referenceCode, String barCode, String manufacturerRef, String supplier, byte[] imgFile, Warehouse warehouse) {
         this.itemName = itemName;
         this.numItems = numItems;
         this.referenceCode = referenceCode;
         this.barCode = barCode;
         this.manufacturerRef = manufacturerRef;
         this.supplier = supplier;
+        this.imgFile = imgFile;
         this.warehouse = warehouse;
     }
 
-    public ItemBox(Long id, String itemName, Long numItems, String referenceCode, String barCode, String manufacturerRef, String supplier, Warehouse warehouse) {
+    public ItemBox(Long id, String itemName, Long numItems, String referenceCode, String barCode, String manufacturerRef, String supplier, byte[] imgFile, Warehouse warehouse) {
         this.id = id;
         this.itemName = itemName;
         this.numItems = numItems;
@@ -35,6 +37,7 @@ public class ItemBox {
         this.barCode = barCode;
         this.manufacturerRef = manufacturerRef;
         this.supplier = supplier;
+        this.imgFile = imgFile;
         this.warehouse = warehouse;
     }
 
@@ -94,6 +97,14 @@ public class ItemBox {
 
     public void setSupplier(String supplier) {
         this.supplier = supplier;
+    }
+
+    public byte[] getImgFile() {
+        return imgFile;
+    }
+
+    public void setImgFile(byte[] imgFile) {
+        this.imgFile = imgFile;
     }
 
     @ManyToOne(optional = false, fetch = FetchType.LAZY)

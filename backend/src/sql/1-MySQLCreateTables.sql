@@ -40,6 +40,7 @@ CREATE TABLE ItemBox (
     barCode VARCHAR(300) NOT NULL,
     manufacturerRef VARCHAR(300) NOT NULL,
     supplier VARCHAR(120) NOT NULL,
+    imgFile LONGBLOB,
     warehouseId BIGINT NOT NULL,
 
     CONSTRAINT ItemBoxPK PRIMARY KEY (id),

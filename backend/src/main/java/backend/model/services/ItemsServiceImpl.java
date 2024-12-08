@@ -24,7 +24,8 @@ public class ItemsServiceImpl implements ItemsService {
 
     @Override
     public Long addItemBoxToWarehouse(Long userId, String itemName, String referenceCode, Long numItems,
-                                      String barCode, String manufacturerRef, String supplier, String warehouseName)
+                                      String barCode, String manufacturerRef, String supplier, byte[] imgFile,
+                                      String warehouseName)
             throws PermissionException, InstanceNotFoundException {
 
         User user = permissionChecker.checkUser(userId);
@@ -39,7 +40,7 @@ public class ItemsServiceImpl implements ItemsService {
             throw new InstanceNotFoundException("project.entities.warehouse", warehouseName);
         }
 
-        ItemBox itemBox = new ItemBox(itemName, numItems, referenceCode, barCode, manufacturerRef, supplier, warehouseOpt.get());
+        ItemBox itemBox = new ItemBox(itemName, numItems, referenceCode, barCode, manufacturerRef, supplier, imgFile, warehouseOpt.get());
         itemBoxDao.save(itemBox);
 
         return itemBox.getId();

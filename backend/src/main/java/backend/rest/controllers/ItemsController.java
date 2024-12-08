@@ -7,6 +7,8 @@ import backend.rest.dtos.AddItemBoxToWarehouseParamsDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.io.IOException;
+
 @RestController
 @CrossOrigin(origins = "http://localhost:3000")
 @RequestMapping("/items")
@@ -16,12 +18,12 @@ public class ItemsController {
     private ItemsService itemsService;
 
     @PostMapping("/addItemBoxToWarehouse")
-    public Long addItemBoxToWarehouse(@RequestAttribute Long userId, @RequestBody AddItemBoxToWarehouseParamsDto params)
-            throws PermissionException, InstanceNotFoundException {
+    public Long addItemBoxToWarehouse(@RequestAttribute Long userId, @ModelAttribute AddItemBoxToWarehouseParamsDto params)
+            throws PermissionException, InstanceNotFoundException, IOException {
 
         return itemsService.addItemBoxToWarehouse(userId, params.getItemName(), params.getReferenceCode(),
                 params.getNumItems(), params.getBarCode(), params.getManufacturerRef(), params.getSupplier(),
-                params.getWarehouseName());
+                params.getImgFile().getBytes(), params.getWarehouseName());
 
     }
 
