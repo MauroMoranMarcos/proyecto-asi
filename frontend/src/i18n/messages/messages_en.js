@@ -14,6 +14,7 @@ export default {
     'project.global.buttons.Cancel': 'Cancel',
     'project.global.buttons.RestoreFields': 'Restore fields',
     'project.global.buttons.AddItems': 'Add new item',
+    'project.global.buttons.CheckInventory': 'Check inventory',
 
     'project.global.validator.required': 'Required field',
     'project.global.validator.incorrectEmail': 'Incorrect mail format',
@@ -29,6 +30,7 @@ export default {
     'project.global.fields.manufacturerRef': 'Manufacturer reference',
     'project.global.fields.supplier': 'Supplier',
     'project.global.fields.numItems': 'Number of items in the box',
+    'project.global.fields.imgFile': 'Select image',
 
     'project.app.Home.title': 'Home',
     'project.app.Home.InventoryAdministration': 'Inventory administration',
@@ -46,5 +48,7 @@ export default {
     'project.items.AddItemsToWarehouse.success3': '" to warehouse "',
     'project.items.AddItemsToWarehouse.success4': '"',
     'project.items.AddItemsToWarehouse.title': 'Add items to warehouse',
+
+    'project.items.CheckInventory.title': 'Inventory',
 
 }

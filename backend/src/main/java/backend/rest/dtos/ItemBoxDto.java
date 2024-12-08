@@ -1,9 +1,8 @@
-package backend.model.entities;
+package backend.rest.dtos;
 
-import javax.persistence.*;
+import backend.model.entities.Warehouse;
 
-@Entity
-public class ItemBox {
+public class ItemBoxDto {
 
     private Long id;
     private String itemName;
@@ -13,23 +12,12 @@ public class ItemBox {
     private String manufacturerRef;
     private String supplier;
     private byte[] imgFile;
-    private Warehouse warehouse;
+    private Long warehouseId;
 
-    public ItemBox() {
+    public ItemBoxDto() {
     }
 
-    public ItemBox(String itemName, Long numItems, String referenceCode, String barCode, String manufacturerRef, String supplier, byte[] imgFile, Warehouse warehouse) {
-        this.itemName = itemName;
-        this.numItems = numItems;
-        this.referenceCode = referenceCode;
-        this.barCode = barCode;
-        this.manufacturerRef = manufacturerRef;
-        this.supplier = supplier;
-        this.imgFile = imgFile;
-        this.warehouse = warehouse;
-    }
-
-    public ItemBox(Long id, String itemName, Long numItems, String referenceCode, String barCode, String manufacturerRef, String supplier, byte[] imgFile, Warehouse warehouse) {
+    public ItemBoxDto(Long id, String itemName, Long numItems, String referenceCode, String barCode, String manufacturerRef, String supplier, byte[] imgFile, Long warehouseId) {
         this.id = id;
         this.itemName = itemName;
         this.numItems = numItems;
@@ -38,11 +26,9 @@ public class ItemBox {
         this.manufacturerRef = manufacturerRef;
         this.supplier = supplier;
         this.imgFile = imgFile;
-        this.warehouse = warehouse;
+        this.warehouseId = warehouseId;
     }
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     public Long getId() {
         return id;
     }
@@ -107,13 +93,11 @@ public class ItemBox {
         this.imgFile = imgFile;
     }
 
-    @ManyToOne(optional = false, fetch = FetchType.LAZY)
-    @JoinColumn(name = "warehouseId")
-    public Warehouse getWarehouse() {
-        return warehouse;
+    public Long getWarehouseId() {
+        return warehouseId;
     }
 
-    public void setWarehouse(Warehouse warehouse) {
-        this.warehouse = warehouse;
+    public void setWarehouseId(Long warehouseId) {
+        this.warehouseId = warehouseId;
     }
 }

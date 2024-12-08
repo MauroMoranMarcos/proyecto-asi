@@ -1,5 +1,9 @@
 import {config, appFetch} from './appFetch';
 
-export const addItemBoxToWarehouse = (itemName, referenceCode, numItems, barCode, manufacturerRef, supplier, warehouseName, onSuccess, onErrors) =>
+export const addItemBoxToWarehouse = (formData, onSuccess, onErrors) =>
     appFetch(`/items/addItemBoxToWarehouse`,
-        config(`POST`, {itemName, referenceCode, numItems, barCode, manufacturerRef, supplier, warehouseName}), onSuccess, onErrors);
+        config(`POST`, formData), onSuccess, onErrors);
+
+export const checkInventory = ({page}, onSuccess, onErrors) =>
+    appFetch(`/items/checkInventory?page=${page}`,
+        config('GET'), onSuccess, onErrors);

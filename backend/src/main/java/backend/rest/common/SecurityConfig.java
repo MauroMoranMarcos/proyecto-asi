@@ -34,6 +34,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers(HttpMethod.POST, "/admin/createWarehouse").permitAll()
                 .antMatchers(HttpMethod.GET, "/admin/findAllWarehouses").permitAll()
                 .antMatchers(HttpMethod.POST, "/items/addItemBoxToWarehouse").permitAll()
+                .antMatchers(HttpMethod.GET, "/items/checkInventory").permitAll()
                 .anyRequest().denyAll();
 
         //TODO: Add lines here for the rest of the HU
