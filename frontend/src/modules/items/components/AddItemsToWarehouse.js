@@ -279,8 +279,8 @@ const AddItemsToWarehouse = () => {
                                     onChange={(e) => setReferenceCode(e.target.value)}
                                     name="referenceCode"
                                     type='text'
-                                    required
                                     fullWidth
+                                    required
                                     id="referenceCode"
                                     label={<FormattedMessage id="project.global.fields.referenceCode" />}
                                     error={requiredAlertMessages.referenceCode}
@@ -293,8 +293,8 @@ const AddItemsToWarehouse = () => {
                                     onChange={(e) => setBarCode(e.target.value)}
                                     name="barCode"
                                     type='text'
-                                    required
                                     fullWidth
+                                    required
                                     id="barCode"
                                     label={<FormattedMessage id="project.global.fields.barCode" />}
                                     error={requiredAlertMessages.barCode}
@@ -307,8 +307,8 @@ const AddItemsToWarehouse = () => {
                                     onChange={(e) => setManufacturerRef(e.target.value)}
                                     name="manufacturerRef"
                                     type='text'
-                                    required
                                     fullWidth
+                                    required
                                     id="manufacturerRef"
                                     label={<FormattedMessage id="project.global.fields.manufacturerRef" />}
                                     error={requiredAlertMessages.manufacturerRef}
@@ -321,8 +321,8 @@ const AddItemsToWarehouse = () => {
                                     onChange={(e) => setSupplier(e.target.value)}
                                     name="supplier"
                                     type='text'
-                                    required
                                     fullWidth
+                                    required
                                     id="supplier"
                                     label={<FormattedMessage id="project.global.fields.supplier" />}
                                     error={requiredAlertMessages.supplier}
@@ -336,7 +336,6 @@ const AddItemsToWarehouse = () => {
                                     </InputLabel>
                                     <Select
                                         value={warehouseName}
-                                        fullWidth
                                         label={<FormattedMessage id="project.global.fields.warehouseName" />}
                                         onChange={(e) => setWarehouseName(e.target.value)}>
                                         {allWarehouses.map(warehouse =>
@@ -365,6 +364,7 @@ const AddItemsToWarehouse = () => {
                                     justifyContent: "center",
                                     ml: "auto",
                                     mr: "auto",
+                                    width: '100%'
                                 }}>
                                 <input
                                     accept="image/*"
@@ -377,6 +377,7 @@ const AddItemsToWarehouse = () => {
                                 <label htmlFor="contained-button-file">
                                     <Button
                                         variant="contained"
+                                        sx={{ width: 225 }}
                                         component="span"
                                         startIcon={<ImageIcon />}>
                                         <FormattedMessage id="project.global.fields.imgFile" />

@@ -29,6 +29,7 @@ export default {
     'project.global.fields.manufacturerRef': 'Referencia del fabricante',
     'project.global.fields.supplier': 'Proveedor',
     'project.global.fields.numItems': 'Número de piezas en la caja',
+    'project.global.fields.imgFile': 'Seleccionar imagen',
 
     'project.app.Home.title': 'Inicio',
     'project.app.Home.InventoryAdministration': 'Administración de inventario',

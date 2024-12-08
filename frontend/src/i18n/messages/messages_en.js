@@ -29,6 +29,7 @@ export default {
     'project.global.fields.manufacturerRef': 'Manufacturer reference',
     'project.global.fields.supplier': 'Supplier',
     'project.global.fields.numItems': 'Number of items in the box',
+    'project.global.fields.imgFile': 'Select image',
 
     'project.app.Home.title': 'Home',
     'project.app.Home.InventoryAdministration': 'Inventory administration',
