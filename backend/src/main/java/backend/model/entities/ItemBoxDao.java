@@ -14,4 +14,6 @@ public interface ItemBoxDao extends PagingAndSortingRepository<ItemBox, Long>, C
 
     List<ItemBox> findByItemName(String itemName);
 
+    boolean existsByItemName(String itemName);
+
 }

@@ -137,9 +137,11 @@ public class ItemsServiceImpl implements ItemsService {
             throw new InstanceNotFoundException("project.entities.itemBox", itemBoxId);
         }
 
-        itemBoxDao.delete(itemBoxOpt.get());
+        List<ItemBox> itemBoxes = itemBoxDao.findByItemName(itemBoxOpt.get().getItemName());
 
-        return !itemBoxDao.existsById(itemBoxId);
+        itemBoxDao.deleteAll(itemBoxes);
+
+        return !itemBoxDao.existsByItemName(itemBoxOpt.get().getItemName());
 
     }
 
