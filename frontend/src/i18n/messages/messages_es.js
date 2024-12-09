@@ -15,6 +15,7 @@ export default {
     'project.global.buttons.RestoreFields': 'Restablecer formulario',
     'project.global.buttons.AddItems': 'Añadir nueva pieza',
     'project.global.buttons.CheckInventory': 'Consultar inventario',
+    'project.global.buttons.Close': 'Cerrar',
 
     'project.global.validator.required': 'Campo requerido',
     'project.global.validator.incorrectEmail': 'Formato de email incorrecto',
@@ -50,5 +51,14 @@ export default {
     'project.items.AddItemsToWarehouse.title': 'Añadir piezas al almacén',
 
     'project.items.CheckInventory.title': 'Inventario',
+
+    'project.items.ItemDetails.title': 'Información de la pieza',
+    'project.items.ItemDetails.fields.numBoxes': 'Número de cajas',
+    'project.items.ItemDetails.fields.numItems': 'Número de piezas en la caja',
+    'project.items.ItemDetails.allBoxes': 'Consultar todas las ',
+    'project.items.ItemDetails.allBoxesLink': 'cajas en detalle',
+    'project.items.ItemDetails.seeBoxes.title': 'cajas de',
+    'project.items.ItemDetails.box': 'Caja con ID',
+    'project.items.ItemDetails.numItemsInBox': 'elementos',
 
 }

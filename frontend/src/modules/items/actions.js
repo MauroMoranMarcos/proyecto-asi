@@ -35,3 +35,47 @@ export const previousCheckInventoryResultPage = (criteria) =>
 
 export const nextCheckInventoryResultPage = (criteria) =>
     checkInventory({...criteria, page: criteria.page + 1});
+
+const findItemBoxByIdCompleted = item => ({
+    type: actionTypes.FIND_ITEM_BOX_BY_ID_COMPLETED,
+    item
+});
+
+export const findItemBoxById = (itemBoxId) => dispatch => {
+    backend.itemsService.findItemBoxById(itemBoxId,
+        item => {
+            dispatch(findItemBoxByIdCompleted(item));
+        });
+}
+
+export const clearItem = () => ({
+    type: actionTypes.CLEAR_ITEM
+});
+
+const countNumBoxesOfItemBoxIdCompleted = numBoxes => ({
+    type: actionTypes.COUNT_NUM_BOXES_OF_ITEM_BOX_ID_COMPLETED,
+    numBoxes
+});
+
+export const countNumBoxesOfItemBoxId = (itemBoxId, onSuccess, onErrors) => dispatch => {
+    backend.itemsService.countNumBoxesOfItemBoxId(itemBoxId,
+        numBoxes => {
+            dispatch(countNumBoxesOfItemBoxIdCompleted(numBoxes));
+            onSuccess(numBoxes);
+        },
+        onErrors);
+}
+
+const findAllBoxesOfItemBoxIdCompleted = numBoxes => ({
+    type: actionTypes.FIND_ALL_BOXES_OF_ITEM_BOX_ID_COMPLETED,
+    numBoxes
+});
+
+export const findAllBoxesOfItemBoxId = (itemBoxId, onSuccess, onErrors) => dispatch => {
+    backend.itemsService.findAllBoxesOfItemBoxId(itemBoxId,
+        boxes => {
+            dispatch(findAllBoxesOfItemBoxIdCompleted(boxes));
+            onSuccess(boxes);
+        },
+        onErrors);
+}

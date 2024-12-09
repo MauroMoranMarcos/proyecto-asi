@@ -1,15 +1,21 @@
-import {useEffect, useState} from "react";
-import {useSelector} from "react-redux";
+import {useNavigate} from "react-router-dom";
 
 import {Button, Card, CardActionArea, CardActions, CardContent, CardMedia, Typography, useTheme} from "@mui/material";
 
 const Item = ({ item }) => {
 
+    const navigate = useNavigate();
     const theme = useTheme();
+
+    const handleSeeItemDetails = (itemId) => {
+
+        navigate(`/items/checkinventory/${itemId}`);
+
+    }
 
     return(
         <Card sx={{ maxWidth: 340, m: "auto", border: `1px solid ${theme.palette.primary.main}` }}>
-            <CardActionArea>
+            <CardActionArea onClick={() => handleSeeItemDetails(item.id)}>
                 <CardMedia
                     component="img"
                     height="200"

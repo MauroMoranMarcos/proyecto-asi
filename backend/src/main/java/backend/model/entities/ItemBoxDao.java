@@ -8,6 +8,10 @@ public interface ItemBoxDao extends PagingAndSortingRepository<ItemBox, Long>, C
 
     List<ItemBox> findByWarehouse(Warehouse warehouse);
 
-    int countByWarehouse(Warehouse warehouse);
+    Long countByWarehouse(Warehouse warehouse);
+
+    Long countByItemName(String itemName);
+
+    List<ItemBox> findByItemName(String itemName);
 
 }

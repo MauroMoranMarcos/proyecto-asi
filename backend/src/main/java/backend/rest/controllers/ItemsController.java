@@ -14,7 +14,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.io.IOException;
+import java.util.List;
 
+import static backend.rest.dtos.ItemBoxConversor.toItemBoxDto;
 import static backend.rest.dtos.ItemBoxConversor.toItemBoxDtos;
 import static backend.rest.dtos.UserConversor.toUserDtos;
 
@@ -43,6 +45,30 @@ public class ItemsController {
         Block<ItemBox> itemBoxBlock = itemsService.checkInventory(userId, page, 12);
 
         return new BlockDto<>(toItemBoxDtos(itemBoxBlock.getItems()), itemBoxBlock.getExistMoreItems());
+
+    }
+
+    @GetMapping("/checkInventory/{id}")
+    public ItemBoxDto findItemBoxById(@RequestAttribute Long userId, @PathVariable Long id)
+            throws PermissionException, InstanceNotFoundException {
+
+        return toItemBoxDto(itemsService.findItemBoxById(userId, id));
+
+    }
+
+    @GetMapping("/checkInventory/{id}/numBoxes")
+    public Long countNumBoxesOfItemBoxId(@RequestAttribute Long userId, @PathVariable Long id)
+            throws PermissionException, InstanceNotFoundException {
+
+        return itemsService.countNumBoxesOfItemBoxId(userId, id);
+
+    }
+
+    @GetMapping("/checkInventory/{id}/boxes")
+    public List<ItemBoxDto> findAllBoxesOfItemBoxId(@RequestAttribute Long userId, @PathVariable Long id)
+            throws PermissionException, InstanceNotFoundException {
+
+        return toItemBoxDtos(itemsService.findAllBoxesOfItemBoxId(userId, id));
 
     }
 
