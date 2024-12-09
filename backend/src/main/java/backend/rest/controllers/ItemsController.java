@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.io.IOException;
 
+import static backend.rest.dtos.ItemBoxConversor.toItemBoxDto;
 import static backend.rest.dtos.ItemBoxConversor.toItemBoxDtos;
 import static backend.rest.dtos.UserConversor.toUserDtos;
 
@@ -43,6 +44,14 @@ public class ItemsController {
         Block<ItemBox> itemBoxBlock = itemsService.checkInventory(userId, page, 12);
 
         return new BlockDto<>(toItemBoxDtos(itemBoxBlock.getItems()), itemBoxBlock.getExistMoreItems());
+
+    }
+
+    @GetMapping("/checkInventory/{id}")
+    public ItemBoxDto findItemBoxById(@RequestAttribute Long userId, @PathVariable Long id)
+            throws PermissionException, InstanceNotFoundException {
+
+        return toItemBoxDto(itemsService.findItemBoxById(userId, id));
 
     }
 

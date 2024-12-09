@@ -3,7 +3,8 @@ import {combineReducers} from 'redux';
 import * as actionTypes from './actionTypes';
 
 const initialState = {
-    items: null
+    items: null,
+    item: null
 };
 
 const items = (state = initialState.items, action) => {
@@ -23,8 +24,26 @@ const items = (state = initialState.items, action) => {
 
 }
 
+const item = (state = initialState.item, action) => {
+
+    switch (action.type) {
+
+        case actionTypes.FIND_ITEM_BOX_BY_ID_COMPLETED:
+            return action.item;
+
+        case actionTypes.CLEAR_ITEM:
+            return initialState.item;
+
+        default:
+            return state;
+
+    }
+
+}
+
 const reducer = combineReducers({
-    items
+    items,
+    item
 });
 
 export default reducer;

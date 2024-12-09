@@ -35,3 +35,19 @@ export const previousCheckInventoryResultPage = (criteria) =>
 
 export const nextCheckInventoryResultPage = (criteria) =>
     checkInventory({...criteria, page: criteria.page + 1});
+
+const findItemBoxByIdCompleted = item => ({
+    type: actionTypes.FIND_ITEM_BOX_BY_ID_COMPLETED,
+    item
+});
+
+export const findItemBoxById = (itemBoxId) => dispatch => {
+    backend.itemsService.findItemBoxById(itemBoxId,
+        item => {
+            dispatch(findItemBoxByIdCompleted(item));
+        });
+}
+
+export const clearItem = () => ({
+    type: actionTypes.CLEAR_ITEM
+});

@@ -12,4 +12,6 @@ public interface ItemsService {
 
     Block<ItemBox> checkInventory(Long userId, int page, int size) throws PermissionException, InstanceNotFoundException;
 
+    ItemBox findItemBoxById(Long userId, Long itemBoxId) throws PermissionException, InstanceNotFoundException;
+
 }

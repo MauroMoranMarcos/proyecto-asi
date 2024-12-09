@@ -64,4 +64,23 @@ public class ItemsServiceImpl implements ItemsService {
 
     }
 
+    @Override
+    public ItemBox findItemBoxById(Long userId, Long itemBoxId) throws PermissionException, InstanceNotFoundException {
+
+        User user = permissionChecker.checkUser(userId);
+
+        if (!user.getRole().equals(User.RoleType.WAREHOUSE_STAFF)) {
+            throw new PermissionException();
+        }
+
+        Optional<ItemBox> itemBoxOpt = itemBoxDao.findById(itemBoxId);
+
+        if (!itemBoxOpt.isPresent()) {
+            throw new InstanceNotFoundException("project.entities.itemBox", itemBoxId);
+        }
+
+        return itemBoxOpt.get();
+
+    }
+
 }

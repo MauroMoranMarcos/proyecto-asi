@@ -51,4 +51,8 @@ export default {
 
     'project.items.CheckInventory.title': 'Inventario',
 
+    'project.items.ItemDetails.title': 'Información de la pieza',
+    'project.items.ItemDetails.fields.numBoxes': 'Número de cajas',
+    'project.items.ItemDetails.fields.numItems': 'Número de piezas en la caja',
+
 }
