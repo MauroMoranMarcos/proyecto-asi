@@ -8,6 +8,7 @@ import org.springframework.data.domain.Slice;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -80,6 +81,44 @@ public class ItemsServiceImpl implements ItemsService {
         }
 
         return itemBoxOpt.get();
+
+    }
+
+    @Override
+    public Long countNumBoxesOfItemBoxId(Long userId, Long itemBoxId) throws PermissionException, InstanceNotFoundException {
+
+        User user = permissionChecker.checkUser(userId);
+
+        if (!user.getRole().equals(User.RoleType.WAREHOUSE_STAFF)) {
+            throw new PermissionException();
+        }
+
+        Optional<ItemBox> itemBoxOpt = itemBoxDao.findById(itemBoxId);
+
+        if (!itemBoxOpt.isPresent()) {
+            throw new InstanceNotFoundException("project.entities.itemBox", itemBoxId);
+        }
+
+        return itemBoxDao.countByItemName(itemBoxOpt.get().getItemName());
+
+    }
+
+    @Override
+    public List<ItemBox> findAllBoxesOfItemBoxId(Long userId, Long itemBoxId) throws PermissionException, InstanceNotFoundException {
+
+        User user = permissionChecker.checkUser(userId);
+
+        if (!user.getRole().equals(User.RoleType.WAREHOUSE_STAFF)) {
+            throw new PermissionException();
+        }
+
+        Optional<ItemBox> itemBoxOpt = itemBoxDao.findById(itemBoxId);
+
+        if (!itemBoxOpt.isPresent()) {
+            throw new InstanceNotFoundException("project.entities.itemBox", itemBoxId);
+        }
+
+        return itemBoxDao.findByItemName(itemBoxOpt.get().getItemName());
 
     }
 

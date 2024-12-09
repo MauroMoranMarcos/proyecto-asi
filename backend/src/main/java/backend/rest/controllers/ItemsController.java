@@ -14,6 +14,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.io.IOException;
+import java.util.List;
 
 import static backend.rest.dtos.ItemBoxConversor.toItemBoxDto;
 import static backend.rest.dtos.ItemBoxConversor.toItemBoxDtos;
@@ -52,6 +53,22 @@ public class ItemsController {
             throws PermissionException, InstanceNotFoundException {
 
         return toItemBoxDto(itemsService.findItemBoxById(userId, id));
+
+    }
+
+    @GetMapping("/checkInventory/{id}/numBoxes")
+    public Long countNumBoxesOfItemBoxId(@RequestAttribute Long userId, @PathVariable Long id)
+            throws PermissionException, InstanceNotFoundException {
+
+        return itemsService.countNumBoxesOfItemBoxId(userId, id);
+
+    }
+
+    @GetMapping("/checkInventory/{id}/boxes")
+    private List<ItemBoxDto> findAllBoxesOfItemBoxId(@RequestAttribute Long userId, @PathVariable Long id)
+            throws PermissionException, InstanceNotFoundException {
+
+        return toItemBoxDtos(itemsService.findAllBoxesOfItemBoxId(userId, id));
 
     }
 
