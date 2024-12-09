@@ -65,7 +65,7 @@ public class ItemsController {
     }
 
     @GetMapping("/checkInventory/{id}/boxes")
-    private List<ItemBoxDto> findAllBoxesOfItemBoxId(@RequestAttribute Long userId, @PathVariable Long id)
+    public List<ItemBoxDto> findAllBoxesOfItemBoxId(@RequestAttribute Long userId, @PathVariable Long id)
             throws PermissionException, InstanceNotFoundException {
 
         return toItemBoxDtos(itemsService.findAllBoxesOfItemBoxId(userId, id));

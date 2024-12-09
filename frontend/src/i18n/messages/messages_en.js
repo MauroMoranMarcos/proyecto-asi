@@ -15,6 +15,7 @@ export default {
     'project.global.buttons.RestoreFields': 'Restore fields',
     'project.global.buttons.AddItems': 'Add new item',
     'project.global.buttons.CheckInventory': 'Check inventory',
+    'project.global.buttons.Close': 'Close',
 
     'project.global.validator.required': 'Required field',
     'project.global.validator.incorrectEmail': 'Incorrect mail format',
@@ -54,5 +55,10 @@ export default {
     'project.items.ItemDetails.title': 'Item info',
     'project.items.ItemDetails.fields.numBoxes': 'Number of boxes',
     'project.items.ItemDetails.fields.numItems': 'Number of items in box',
+    'project.items.ItemDetails.allBoxes': 'See all ',
+    'project.items.ItemDetails.allBoxesLink': 'boxes in detail',
+    'project.items.ItemDetails.seeBoxes.title': 'boxes of',
+    'project.items.ItemDetails.box': 'Box with ID',
+    'project.items.ItemDetails.numItemsInBox': 'items',
 
 }

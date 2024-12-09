@@ -5,16 +5,31 @@ import {FormattedMessage} from "react-intl";
 
 import * as selectors from '../selectors';
 import * as actions from '../actions';
-import {Alert, Box, Button, ButtonGroup, Container, Paper, Typography, useTheme} from "@mui/material";
+import {
+    Alert,
+    Box,
+    Button,
+    ButtonGroup,
+    Container, Dialog, DialogActions,
+    DialogContent, DialogTitle,
+    Link, List, ListItem, ListItemButton, ListItemText,
+    Paper, TextField,
+    Typography, useMediaQuery,
+    useTheme
+} from "@mui/material";
 import {BackButton, Errors} from "../../common";
 
 const ItemDetails = () => {
 
     const dispatch = useDispatch();
     const item = useSelector(selectors.getItem);
+    const [numBoxes, setNumBoxes] = useState(null);
+    const [boxes, setBoxes] = useState(null);
+    const [openSeeBoxesDialog, setOpenSeeBoxesDialog] = useState(false);
     const [backendErrors, setBackendErrors] = useState(null);
     const {id} = useParams();
     const theme = useTheme();
+    const fullScreen = useMediaQuery(theme.breakpoints.down('md'));
 
     useEffect(() => {
 
@@ -23,6 +38,10 @@ const ItemDetails = () => {
         if (!Number.isNaN(itemBoxId)) {
 
             dispatch(actions.findItemBoxById(itemBoxId));
+            dispatch(actions.countNumBoxesOfItemBoxId(itemBoxId,
+                numBoxes => setNumBoxes(numBoxes)));
+            dispatch(actions.findAllBoxesOfItemBoxId(itemBoxId,
+                boxes => setBoxes(boxes)));
 
         }
 
@@ -32,7 +51,19 @@ const ItemDetails = () => {
 
     }, [id, dispatch]);
 
-    if (!item) {
+    const handleOpenSeeBoxesDialog = () => {
+
+        setOpenSeeBoxesDialog(true);
+
+    }
+
+    const handleCloseSeeBoxesDialog = () => {
+
+        setOpenSeeBoxesDialog(false);
+
+    }
+
+    if (!item || !numBoxes || !boxes) {
         return null;
     }
 
@@ -124,11 +155,18 @@ const ItemDetails = () => {
                             </Typography>
                             <Typography gutterBottom variant="h3">
                                 <FormattedMessage id="project.items.ItemDetails.fields.numBoxes" />
-                                {': '}
-                            </Typography>
-                            <Typography gutterBottom variant="h3">
-                                <FormattedMessage id="project.items.ItemDetails.fields.numItems" />
-                                {': ' + item.numItems}
+                                {': ' + numBoxes + '. '}
+                                <FormattedMessage id="project.items.ItemDetails.allBoxes" />
+                                <Link
+                                    component="button"
+                                    variant="h3"
+                                    onClick={() => {
+                                        handleOpenSeeBoxesDialog();
+                                    }}
+                                >
+                                    <FormattedMessage id="project.items.ItemDetails.allBoxesLink" />
+                                </Link>
+                                {'.'}
                             </Typography>
                             <Typography gutterBottom variant="h3">
                                 <FormattedMessage id="project.global.fields.barCode" />
@@ -142,6 +180,48 @@ const ItemDetails = () => {
                                 <FormattedMessage id="project.global.fields.supplier" />
                                 {': ' + item.supplier}
                             </Typography>
+                            <Dialog
+                                fullScreen={fullScreen}
+                                open={openSeeBoxesDialog}
+                                onClose={handleCloseSeeBoxesDialog}
+                                aria-labelledby="responsive-dialog-title">
+                                <DialogTitle id="responsive-dialog-title">
+                                    <Typography variant="h2" sx={{ fontWeight: 'bold' }}>
+                                        {numBoxes + ' '}
+                                        {<FormattedMessage id="project.items.ItemDetails.seeBoxes.title" />}
+                                        {' ' + item.itemName}
+                                    </Typography>
+                                </DialogTitle>
+                                <DialogContent>
+                                    <List
+                                        sx={{bgcolor: 'background.paper', width: '100%' }}>
+                                        {boxes.map(box =>
+                                            <ListItem disablePadding key={box.id} sx={{ mb: 0.2, border: `1px solid ${theme.palette.primary.main}`, borderRadius: '4px' }}>
+                                                <ListItemButton>
+                                                    <ListItemText primary={<Typography>
+                                                        <FormattedMessage id="project.items.ItemDetails.box" />
+                                                        {' ' + box.id}
+                                                    </Typography>} secondary={<Typography>
+                                                        {box.numItems + ' '}
+                                                        <FormattedMessage id="project.items.ItemDetails.numItemsInBox" />
+                                                    </Typography>}/>
+                                                </ListItemButton>
+                                            </ListItem>
+                                        )}
+                                    </List>
+                                </DialogContent>
+                                <DialogActions>
+                                    <Button
+                                        variant="contained"
+                                        color="secondary"
+                                        onClick={handleCloseSeeBoxesDialog}
+                                        sx={{ mt: 1, mb: 1 }}>
+                                        <Typography>
+                                            <FormattedMessage id="project.global.buttons.Close"></FormattedMessage>
+                                        </Typography>
+                                    </Button>
+                                </DialogActions>
+                            </Dialog>
                         </Box>
                     </Box>
                 </Paper>
