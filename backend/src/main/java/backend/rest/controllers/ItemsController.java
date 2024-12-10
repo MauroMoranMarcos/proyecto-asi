@@ -97,7 +97,7 @@ public class ItemsController {
             throws IOException, PermissionException, InstanceNotFoundException {
 
         return itemsService.modifyItem(userId, id, params.getItemName(), params.getReferenceCode(), params.getBarCode(),
-                params.getManufacturerRef(), params.getSupplier(), params.getImgFile().getBytes());
+                params.getManufacturerRef(), params.getSupplier(), params.getImgFile() != null ? params.getImgFile().getBytes() : null);
 
     }
 

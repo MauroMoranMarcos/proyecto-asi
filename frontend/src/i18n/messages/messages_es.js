@@ -20,6 +20,8 @@ export default {
     'project.global.buttons.Confirm': 'Confirmar',
     'project.global.buttons.CreateItem': 'Añadir pieza',
     'project.global.buttons.AddBox': 'Añadir caja',
+    'project.global.buttons.ModifyItem': 'Modificar información de la pieza',
+    'project.global.buttons.Save': 'Guardar',
 
     'project.global.validator.required': 'Campo requerido',
     'project.global.validator.incorrectEmail': 'Formato de email incorrecto',
@@ -71,5 +73,6 @@ export default {
     'project.items.ItemDetails.addItemBox.text': 'Introduzca el número de piezas en la caja y seleccione el almacén en el que se encontrará.',
     'project.items.ItemDetails.deleteItemBox.title': 'Eliminar caja',
     'project.items.ItemDetails.deleteItemBox.text': 'Está a punto de eliminar esta caja definitivamente, junto con todos sus elementos del almacén. ¿Está seguro?',
+    'project.items.ItemDetails.modifyItem.title': 'Modificar información de la pieza',
 
 }

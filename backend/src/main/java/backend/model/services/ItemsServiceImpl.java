@@ -196,7 +196,9 @@ public class ItemsServiceImpl implements ItemsService {
         item.setBarCode(barCode);
         item.setManufacturerRef(manufacturerRef);
         item.setSupplier(supplier);
-        item.setImgFile(imgFile);
+        if (imgFile != null) {
+            item.setImgFile(imgFile);
+        }
 
         return item.getId();
 
