@@ -1,31 +1,41 @@
-import {useParams} from "react-router-dom";
+import {useNavigate, useParams} from "react-router-dom";
 import {useDispatch, useSelector} from "react-redux";
 import {useEffect, useState} from "react";
 import {FormattedMessage} from "react-intl";
 
 import * as selectors from '../selectors';
 import * as actions from '../actions';
+
+import admin from "../../admin";
+
 import {
     Alert,
     Box,
     Button,
     ButtonGroup,
     Container, Dialog, DialogActions,
-    DialogContent, DialogTitle,
+    DialogContent, DialogTitle, IconButton,
     Link, List, ListItem, ListItemButton, ListItemText,
     Paper, TextField,
     Typography, useMediaQuery,
     useTheme
 } from "@mui/material";
 import {BackButton, Errors} from "../../common";
+import AssignmentIndIcon from "@mui/icons-material/AssignmentInd";
+import CloseOutlinedIcon from "@mui/icons-material/CloseOutlined";
+import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
 
 const ItemDetails = () => {
 
+    const navigate = useNavigate();
     const dispatch = useDispatch();
     const item = useSelector(selectors.getItem);
+    const warehouses = useSelector(admin.selectors.getAllWarehouses);
     const [numBoxes, setNumBoxes] = useState(null);
     const [boxes, setBoxes] = useState(null);
+    const [warehouseName, setWarehouseName] = useState(null);
     const [openSeeBoxesDialog, setOpenSeeBoxesDialog] = useState(false);
+    const [openDeleteItemDialog, setOpenDeleteItemDialog] = useState(false);
     const [backendErrors, setBackendErrors] = useState(null);
     const {id} = useParams();
     const theme = useTheme();
@@ -51,6 +61,30 @@ const ItemDetails = () => {
 
     }, [id, dispatch]);
 
+    useEffect(() => {
+
+        if (item && item.warehouseId) {
+
+            const warehouse = warehouses.find(w => w.id === item.warehouseId);
+
+            if (warehouse) {
+                setWarehouseName(warehouse.name);
+            }
+
+        }
+
+    }, [warehouses, item]);
+
+    const handleDeleteItem = (itemId) => {
+
+        dispatch(actions.deleteItem(itemId,
+            () => {
+                handleCloseDeleteItemDialog();
+                navigate("/items/checkinventory");
+            }, errors => setBackendErrors(errors)));
+
+    }
+
     const handleOpenSeeBoxesDialog = () => {
 
         setOpenSeeBoxesDialog(true);
@@ -63,7 +97,19 @@ const ItemDetails = () => {
 
     }
 
-    if (!item || !numBoxes || !boxes) {
+    const handleOpenDeleteItemDialog = () => {
+
+        setOpenDeleteItemDialog(true);
+
+    }
+
+    const handleCloseDeleteItemDialog = () => {
+
+        setOpenDeleteItemDialog(false);
+
+    }
+
+    if (!item || !numBoxes || !boxes || !warehouseName) {
         return null;
     }
 
@@ -180,6 +226,10 @@ const ItemDetails = () => {
                                 <FormattedMessage id="project.global.fields.supplier" />
                                 {': ' + item.supplier}
                             </Typography>
+                            <Typography gutterBottom variant="h3">
+                                <FormattedMessage id="project.global.fields.warehouseName" />
+                                {': ' + warehouseName}
+                            </Typography>
                             <Dialog
                                 fullScreen={fullScreen}
                                 open={openSeeBoxesDialog}
@@ -223,6 +273,81 @@ const ItemDetails = () => {
                                 </DialogActions>
                             </Dialog>
                         </Box>
+                    </Box>
+                    <Box
+                        sx={{
+                            m: 2,
+                            position: "relative",
+                            display: "flex",
+                            alignItems: "center",
+                            justifyContent: "center",
+                        }}>
+                        <Button
+                            sx={{ m: 1 }}
+                            variant="contained"
+                            onClick={e => handleOpenDeleteItemDialog(e)}
+                            color="alertRed"
+                            startIcon={<DeleteForeverIcon />}
+                            style={{ textAlign: 'left', justifyContent: 'flex-start' }}>
+                            <Typography textAlign="center">
+                                <FormattedMessage id="project.global.buttons.DeleteItem"></FormattedMessage>
+                            </Typography>
+                        </Button>
+                        <Dialog
+                            fullScreen={fullScreen}
+                            open={openDeleteItemDialog}
+                            onClose={handleCloseDeleteItemDialog}
+                            aria-labelledby="responsive-dialog-title"
+                        >
+                            <DialogTitle id="responsive-dialog-title">
+                                <Typography variant="h2" sx={{ fontWeight: 'bold' }}>
+                                    {<FormattedMessage id="project.items.ItemDetails.deleteItem.title" />}
+                                </Typography>
+                            </DialogTitle>
+                            <IconButton
+                                aria-label="close"
+                                onClick={handleCloseDeleteItemDialog}
+                                sx={{
+                                    position: 'absolute',
+                                    right: 8,
+                                    top: 8,
+                                }}
+                            >
+                                <CloseOutlinedIcon color="primary" />
+                            </IconButton>
+                            <DialogContent>
+                                <Box
+                                    sx={{
+                                        position: "relative",
+                                        display: "flex",
+                                        alignItems: "center",
+                                        justifyContent: "center",
+                                    }}>
+                                    <Typography>
+                                        <FormattedMessage id="project.items.ItemDetails.deleteItem.text"></FormattedMessage>
+                                    </Typography>
+                                </Box>
+                            </DialogContent>
+                            <DialogActions>
+                                <Button
+                                    variant="contained"
+                                    onClick={() => handleDeleteItem(item.id)}
+                                    sx={{ mt: 1, mb: 1 }}>
+                                    <Typography>
+                                        <FormattedMessage id="project.global.buttons.Confirm"></FormattedMessage>
+                                    </Typography>
+                                </Button>
+                                <Button
+                                    variant="contained"
+                                    color="alertRed"
+                                    onClick={handleCloseDeleteItemDialog}
+                                    sx={{ mt: 1, mb: 1 }}>
+                                    <Typography>
+                                        <FormattedMessage id="project.global.buttons.Cancel"></FormattedMessage>
+                                    </Typography>
+                                </Button>
+                            </DialogActions>
+                        </Dialog>
                     </Box>
                 </Paper>
             </Box>

@@ -20,4 +20,6 @@ public interface ItemsService {
 
     List<ItemBox> findAllBoxesOfItemBoxId(Long userId, Long itemBoxId) throws PermissionException, InstanceNotFoundException;
 
+    Boolean deleteItem(Long userId, Long itemBoxId) throws PermissionException, InstanceNotFoundException;
+
 }

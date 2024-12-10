@@ -72,4 +72,12 @@ public class ItemsController {
 
     }
 
+    @PostMapping("/checkInventory/{id}/deleteItem")
+    public Boolean deleteItem(@RequestAttribute Long userId, @PathVariable Long id)
+            throws PermissionException, InstanceNotFoundException {
+
+        return itemsService.deleteItem(userId, id);
+
+    }
+
 }

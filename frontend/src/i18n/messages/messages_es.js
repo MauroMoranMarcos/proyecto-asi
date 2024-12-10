@@ -16,6 +16,8 @@ export default {
     'project.global.buttons.AddItems': 'Añadir nueva pieza',
     'project.global.buttons.CheckInventory': 'Consultar inventario',
     'project.global.buttons.Close': 'Cerrar',
+    'project.global.buttons.DeleteItem': 'Eliminar pieza',
+    'project.global.buttons.Confirm': 'Confirmar',
 
     'project.global.validator.required': 'Campo requerido',
     'project.global.validator.incorrectEmail': 'Formato de email incorrecto',
@@ -60,5 +62,7 @@ export default {
     'project.items.ItemDetails.seeBoxes.title': 'cajas de',
     'project.items.ItemDetails.box': 'Caja con ID',
     'project.items.ItemDetails.numItemsInBox': 'elementos',
+    'project.items.ItemDetails.deleteItem.title': 'Eliminar pieza',
+    'project.items.ItemDetails.deleteItem.text': 'Está a punto de eliminar esta pieza definitivamente, junto con todas sus cajas y elementos de todos los almacenes. ¿Está seguro?',
 
 }
