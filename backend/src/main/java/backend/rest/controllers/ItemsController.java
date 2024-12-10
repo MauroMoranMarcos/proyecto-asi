@@ -1,5 +1,6 @@
 package backend.rest.controllers;
 
+import backend.model.entities.Item;
 import backend.model.entities.ItemBox;
 import backend.model.entities.ItemBoxDao;
 import backend.model.entities.User;
@@ -16,6 +17,8 @@ import java.util.List;
 
 import static backend.rest.dtos.ItemBoxConversor.toItemBoxDto;
 import static backend.rest.dtos.ItemBoxConversor.toItemBoxDtos;
+import static backend.rest.dtos.ItemConversor.toItemDto;
+import static backend.rest.dtos.ItemConversor.toItemDtos;
 import static backend.rest.dtos.UserConversor.toUserDtos;
 
 @RestController
@@ -26,47 +29,56 @@ public class ItemsController {
     @Autowired
     private ItemsService itemsService;
 
-    @PostMapping("/addItemBoxToWarehouse")
-    public Long addItemBoxToWarehouse(@RequestAttribute Long userId, @ModelAttribute AddItemBoxToWarehouseParamsDto params)
-            throws PermissionException, InstanceNotFoundException, IOException {
+    @PostMapping("/createItem")
+    private ItemDto createItem(@RequestAttribute Long userId, @ModelAttribute CreateItemParamsDto params)
+            throws IOException, PermissionException, InstanceNotFoundException {
 
-        return itemsService.addItemBoxToWarehouse(userId, params.getItemName(), params.getReferenceCode(),
-                params.getNumItems(), params.getBarCode(), params.getManufacturerRef(), params.getSupplier(),
-                params.getImgFile().getBytes(), params.getWarehouseName());
+        return toItemDto(itemsService.createItem(userId, params.getItemName(), params.getReferenceCode(),
+                params.getBarCode(), params.getManufacturerRef(), params.getSupplier(), params.getImgFile().getBytes()));
 
     }
 
     @GetMapping("/checkInventory")
-    public BlockDto<ItemBoxDto> checkInventory(@RequestAttribute Long userId, @RequestParam(defaultValue = "0") int page)
+    public BlockDto<ItemDto> checkInventory(@RequestAttribute Long userId, @RequestParam(defaultValue = "0") int page)
             throws PermissionException, InstanceNotFoundException {
 
-        Block<ItemBox> itemBoxBlock = itemsService.checkInventory(userId, page, 12);
+        Block<Item> itemBlock = itemsService.checkInventory(userId, page, 12);
 
-        return new BlockDto<>(toItemBoxDtos(itemBoxBlock.getItems()), itemBoxBlock.getExistMoreItems());
+        return new BlockDto<>(toItemDtos(itemBlock.getItems()), itemBlock.getExistMoreItems());
+
+    }
+
+    @PostMapping("/checkInventory/{id}/addItemBoxToWarehouse")
+    public Long addItemBoxToWarehouse(@RequestAttribute Long userId,
+                                      @PathVariable Long id,
+                                      @RequestBody AddItemBoxToWarehouseParamsDto params)
+            throws PermissionException, InstanceNotFoundException {
+
+        return itemsService.addItemBoxToWarehouse(userId, id, params.getNumItems(), params.getWarehouseName());
 
     }
 
     @GetMapping("/checkInventory/{id}")
-    public ItemBoxDto findItemBoxById(@RequestAttribute Long userId, @PathVariable Long id)
+    public ItemDto findItemById(@RequestAttribute Long userId, @PathVariable Long id)
             throws PermissionException, InstanceNotFoundException {
 
-        return toItemBoxDto(itemsService.findItemBoxById(userId, id));
+        return toItemDto(itemsService.findItemById(userId, id));
 
     }
 
     @GetMapping("/checkInventory/{id}/numBoxes")
-    public Long countNumBoxesOfItemBoxId(@RequestAttribute Long userId, @PathVariable Long id)
+    public Long countNumBoxesOfItemId(@RequestAttribute Long userId, @PathVariable Long id)
             throws PermissionException, InstanceNotFoundException {
 
-        return itemsService.countNumBoxesOfItemBoxId(userId, id);
+        return itemsService.countNumBoxesOfItemId(userId, id);
 
     }
 
     @GetMapping("/checkInventory/{id}/boxes")
-    public List<ItemBoxDto> findAllBoxesOfItemBoxId(@RequestAttribute Long userId, @PathVariable Long id)
+    public List<ItemBoxDto> findAllBoxesOfItemId(@RequestAttribute Long userId, @PathVariable Long id)
             throws PermissionException, InstanceNotFoundException {
 
-        return toItemBoxDtos(itemsService.findAllBoxesOfItemBoxId(userId, id));
+        return toItemBoxDtos(itemsService.findAllBoxesOfItemId(userId, id));
 
     }
 

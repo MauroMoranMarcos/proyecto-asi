@@ -10,9 +10,7 @@ public class ItemBoxConversor {
     private ItemBoxConversor() {}
 
     public final static ItemBoxDto toItemBoxDto(ItemBox itemBox) {
-        return new ItemBoxDto(itemBox.getId(), itemBox.getItemName(), itemBox.getNumItems(), itemBox.getReferenceCode(),
-                itemBox.getBarCode(), itemBox.getManufacturerRef(), itemBox.getSupplier(), itemBox.getImgFile(),
-                itemBox.getWarehouse().getId());
+        return new ItemBoxDto(itemBox.getId(), itemBox.getNumItems(), itemBox.getItem().getId(), itemBox.getWarehouse().getId());
     }
 
     public final static List<ItemBoxDto> toItemBoxDtos(List<ItemBox> itemBoxes) {

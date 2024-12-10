@@ -56,7 +56,7 @@ CREATE TABLE ItemBox (
 
     CONSTRAINT ItemBoxPK PRIMARY KEY (id),
     CONSTRAINT ItemBoxItemIdFK FOREIGN KEY (itemId)
-        REFERENCES Item(id),
+        REFERENCES Item(id) ON DELETE CASCADE,
     CONSTRAINT ItemBoxWarehouseIdFK FOREIGN KEY (warehouseId)
         REFERENCES Warehouse(id)
 

@@ -22,12 +22,30 @@ public class ItemsServiceImpl implements ItemsService {
     private WarehouseDao warehouseDao;
 
     @Autowired
+    private ItemDao itemDao;
+
+    @Autowired
     private ItemBoxDao itemBoxDao;
 
     @Override
-    public Long addItemBoxToWarehouse(Long userId, String itemName, String referenceCode, Long numItems,
-                                      String barCode, String manufacturerRef, String supplier, byte[] imgFile,
-                                      String warehouseName)
+    public Item createItem(Long userId, String itemName, String referenceCode, String barCode, String manufacturerRef,
+                           String supplier, byte[] imgFile) throws PermissionException, InstanceNotFoundException {
+
+        User user = permissionChecker.checkUser(userId);
+
+        if (!user.getRole().equals(User.RoleType.WAREHOUSE_STAFF)) {
+            throw new PermissionException();
+        }
+
+        Item item = new Item(itemName, referenceCode, barCode, manufacturerRef, supplier, imgFile);
+        itemDao.save(item);
+
+        return item;
+
+    }
+
+    @Override
+    public Long addItemBoxToWarehouse(Long userId, Long itemId, Long numItems, String warehouseName)
             throws PermissionException, InstanceNotFoundException {
 
         User user = permissionChecker.checkUser(userId);
@@ -36,13 +54,19 @@ public class ItemsServiceImpl implements ItemsService {
             throw new PermissionException();
         }
 
+        Optional<Item> itemOpt = itemDao.findById(itemId);
+
+        if (!itemOpt.isPresent()) {
+            throw new InstanceNotFoundException("project.entities.item", itemId);
+        }
+
         Optional<Warehouse> warehouseOpt = warehouseDao.findByName(warehouseName);
 
         if (!warehouseOpt.isPresent()) {
             throw new InstanceNotFoundException("project.entities.warehouse", warehouseName);
         }
 
-        ItemBox itemBox = new ItemBox(itemName, numItems, referenceCode, barCode, manufacturerRef, supplier, imgFile, warehouseOpt.get());
+        ItemBox itemBox = new ItemBox(numItems, itemOpt.get(), warehouseOpt.get());
         itemBoxDao.save(itemBox);
 
         return itemBox.getId();
@@ -50,7 +74,7 @@ public class ItemsServiceImpl implements ItemsService {
     }
 
     @Override
-    public Block<ItemBox> checkInventory(Long userId, int page, int size) throws PermissionException,
+    public Block<Item> checkInventory(Long userId, int page, int size) throws PermissionException,
             InstanceNotFoundException {
 
         User user = permissionChecker.checkUser(userId);
@@ -59,14 +83,14 @@ public class ItemsServiceImpl implements ItemsService {
             throw new PermissionException();
         }
 
-        Slice<ItemBox> slice = itemBoxDao.findItems(page, size);
+        Slice<Item> slice = itemDao.findItems(page, size);
 
         return new Block<>(slice.getContent(), slice.hasNext());
 
     }
 
     @Override
-    public ItemBox findItemBoxById(Long userId, Long itemBoxId) throws PermissionException, InstanceNotFoundException {
+    public Item findItemById(Long userId, Long itemId) throws PermissionException, InstanceNotFoundException {
 
         User user = permissionChecker.checkUser(userId);
 
@@ -74,18 +98,18 @@ public class ItemsServiceImpl implements ItemsService {
             throw new PermissionException();
         }
 
-        Optional<ItemBox> itemBoxOpt = itemBoxDao.findById(itemBoxId);
+        Optional<Item> itemOpt = itemDao.findById(itemId);
 
-        if (!itemBoxOpt.isPresent()) {
-            throw new InstanceNotFoundException("project.entities.itemBox", itemBoxId);
+        if (!itemOpt.isPresent()) {
+            throw new InstanceNotFoundException("project.entities.item", itemId);
         }
 
-        return itemBoxOpt.get();
+        return itemOpt.get();
 
     }
 
     @Override
-    public Long countNumBoxesOfItemBoxId(Long userId, Long itemBoxId) throws PermissionException, InstanceNotFoundException {
+    public Long countNumBoxesOfItemId(Long userId, Long itemId) throws PermissionException, InstanceNotFoundException {
 
         User user = permissionChecker.checkUser(userId);
 
@@ -93,18 +117,18 @@ public class ItemsServiceImpl implements ItemsService {
             throw new PermissionException();
         }
 
-        Optional<ItemBox> itemBoxOpt = itemBoxDao.findById(itemBoxId);
+        Optional<Item> itemOpt = itemDao.findById(itemId);
 
-        if (!itemBoxOpt.isPresent()) {
-            throw new InstanceNotFoundException("project.entities.itemBox", itemBoxId);
+        if (!itemOpt.isPresent()) {
+            throw new InstanceNotFoundException("project.entities.item", itemId);
         }
 
-        return itemBoxDao.countByItemName(itemBoxOpt.get().getItemName());
+        return itemBoxDao.countByItem(itemOpt.get());
 
     }
 
     @Override
-    public List<ItemBox> findAllBoxesOfItemBoxId(Long userId, Long itemBoxId) throws PermissionException, InstanceNotFoundException {
+    public List<ItemBox> findAllBoxesOfItemId(Long userId, Long itemId) throws PermissionException, InstanceNotFoundException {
 
         User user = permissionChecker.checkUser(userId);
 
@@ -112,18 +136,18 @@ public class ItemsServiceImpl implements ItemsService {
             throw new PermissionException();
         }
 
-        Optional<ItemBox> itemBoxOpt = itemBoxDao.findById(itemBoxId);
+        Optional<Item> itemOpt = itemDao.findById(itemId);
 
-        if (!itemBoxOpt.isPresent()) {
-            throw new InstanceNotFoundException("project.entities.itemBox", itemBoxId);
+        if (!itemOpt.isPresent()) {
+            throw new InstanceNotFoundException("project.entities.item", itemId);
         }
 
-        return itemBoxDao.findByItemName(itemBoxOpt.get().getItemName());
+        return itemBoxDao.findByItem(itemOpt.get());
 
     }
 
     @Override
-    public Boolean deleteItem(Long userId, Long itemBoxId) throws PermissionException, InstanceNotFoundException {
+    public Boolean deleteItem(Long userId, Long itemId) throws PermissionException, InstanceNotFoundException {
 
         User user = permissionChecker.checkUser(userId);
 
@@ -131,25 +155,25 @@ public class ItemsServiceImpl implements ItemsService {
             throw new PermissionException();
         }
 
-        Optional<ItemBox> itemBoxOpt = itemBoxDao.findById(itemBoxId);
+        Optional<Item> itemOpt = itemDao.findById(itemId);
 
-        if (!itemBoxOpt.isPresent()) {
-            throw new InstanceNotFoundException("project.entities.itemBox", itemBoxId);
+        if (!itemOpt.isPresent()) {
+            throw new InstanceNotFoundException("project.entities.item", itemId);
         }
 
-        List<ItemBox> itemBoxes = itemBoxDao.findByItemName(itemBoxOpt.get().getItemName());
+        Item item = itemOpt.get();
 
-        itemBoxDao.deleteAll(itemBoxes);
+        itemDao.delete(item);
 
-        return !itemBoxDao.existsByItemName(itemBoxOpt.get().getItemName());
+        return !itemDao.existsById(itemId);
 
     }
 
     /*
-    Modifica la información de un item, de todas las cajas.
+    Modifica la información de un item.
      */
     @Override
-    public Long modifyItem(Long userId, Long itemBoxId, String itemName, String referenceCode, String barCode,
+    public Long modifyItem(Long userId, Long itemId, String itemName, String referenceCode, String barCode,
                            String manufacturerRef, String supplier, byte[] imgFile)
             throws PermissionException, InstanceNotFoundException {
 
@@ -159,29 +183,27 @@ public class ItemsServiceImpl implements ItemsService {
             throw new PermissionException();
         }
 
-        Optional<ItemBox> itemBoxOpt = itemBoxDao.findById(itemBoxId);
+        Optional<Item> itemOpt = itemDao.findById(itemId);
 
-        if (!itemBoxOpt.isPresent()) {
-            throw new InstanceNotFoundException("project.entities.itemBox", itemBoxId);
+        if (!itemOpt.isPresent()) {
+            throw new InstanceNotFoundException("project.entities.item", itemId);
         }
 
-        List<ItemBox> itemBoxes = itemBoxDao.findByItemName(itemBoxOpt.get().getItemName());
+        Item item = itemOpt.get();
 
-        for (ItemBox itemBox : itemBoxes) {
-            itemBox.setItemName(itemName);
-            itemBox.setReferenceCode(referenceCode);
-            itemBox.setBarCode(barCode);
-            itemBox.setManufacturerRef(manufacturerRef);
-            itemBox.setSupplier(supplier);
-            itemBox.setImgFile(imgFile);
-        }
+        item.setItemName(itemName);
+        item.setReferenceCode(referenceCode);
+        item.setBarCode(barCode);
+        item.setManufacturerRef(manufacturerRef);
+        item.setSupplier(supplier);
+        item.setImgFile(imgFile);
 
-        return itemBoxOpt.get().getId();
+        return item.getId();
 
     }
 
     /*
-    Modifica la información de una caja determinada, la cantidad de objetos que contiene.
+    Modifica la información de una caja de un item determinada, la cantidad de objetos que contiene.
      */
     @Override
     public Long modifyItemBox(Long userId, Long itemBoxId, Long numItems, String warehouseName)
