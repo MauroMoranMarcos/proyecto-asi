@@ -23,21 +23,19 @@ import CloseOutlinedIcon from "@mui/icons-material/CloseOutlined";
 import ImageIcon from '@mui/icons-material/Image';
 import DeleteIcon from '@mui/icons-material/Delete';
 
-const AddItemsToWarehouse = () => {
+const CreateItem = () => {
 
     const dispatch = useDispatch();
     const navigate = useNavigate();
     const allWarehouses = useSelector(admin.selectors.getAllWarehouses);
     const [itemName, setItemName] = useState('');
     const [referenceCode, setReferenceCode] = useState('');
-    const [numItems, setNumItems] = useState(0);
     const [barCode, setBarCode] = useState('');
     const [manufacturerRef, setManufacturerRef] = useState('');
     const [supplier, setSupplier] = useState('');
     const [imgFile, setImgFile] = useState(null);
-    const [warehouseName, setWarehouseName] = useState('');
     const [isFormValid, setIsFormValid] = useState(false);
-    const [openNumItemsBoxDialog, setOpenNumItemsBoxDialog] = useState(false);
+    const [imgFileRequired, setImgFileRequied] = useState(false);
     const [showSuccessMessage, setShowSuccessMessage] = useState(false);
     const [numItemsSuccess, setNumItemsSuccess] = useState(null);
     const [itemNameSuccess, setItemNameSuccess] = useState(null);
@@ -46,31 +44,32 @@ const AddItemsToWarehouse = () => {
     const [requiredAlertMessages, setRequiredAlertMessages] = useState({
         itemName: false,
         referenceCode: false,
-        numItems: false,
         barCode: false,
         manufacturerRef: false,
         supplier: false,
-        warehouseName: false,
+        imgFile: false,
     });
     const theme = useTheme();
-    const fullScreen = useMediaQuery(theme.breakpoints.down('md'));
 
-    const handleAddItemsToWarehouse = () => {
+    const handleCreateItem = () => {
 
         const newRequiredAlerts = {
             itemName: itemName === '',
             referenceCode: referenceCode === '',
-            numItems: numItems <= 0,
             barCode: barCode === '',
             manufacturerRef: manufacturerRef === '',
             supplier: supplier === '',
-            warehouseName: warehouseName === '',
+            imgFile: imgFile === null,
         };
         setRequiredAlertMessages(newRequiredAlerts);
-        const newIsFormValid = !newRequiredAlerts.itemName && !newRequiredAlerts.referenceCode &&
-            !newRequiredAlerts.numItems && !newRequiredAlerts.barCode && !newRequiredAlerts.manufacturerRef &&
-            !newRequiredAlerts.supplier && !newRequiredAlerts.warehouseName;
+        const newIsFormValid = !newRequiredAlerts.itemName && !newRequiredAlerts.referenceCode
+            && !newRequiredAlerts.barCode && !newRequiredAlerts.manufacturerRef && !newRequiredAlerts.supplier
+            && !newRequiredAlerts.imgFile;
         setIsFormValid(newIsFormValid);
+
+        if (newRequiredAlerts.imgFile) {
+            setImgFileRequied(true);
+        }
 
         if (newIsFormValid) {
 
@@ -78,20 +77,16 @@ const AddItemsToWarehouse = () => {
 
             formData.append('itemName', itemName.trim());
             formData.append('referenceCode', referenceCode.trim());
-            formData.append('numItems', numItems.trim());
             formData.append('barCode', barCode.trim());
             formData.append('manufacturerRef', manufacturerRef.trim());
             formData.append('supplier', supplier.trim());
             formData.append('imgFile', imgFile);
-            formData.append('warehouseName', warehouseName.trim());
 
-            dispatch(actions.addItemBoxToWarehouse(
+            dispatch(actions.createItem(
                 formData,
-                () => {
+                item => {
                     handleCloseSuccessMessage();
-                    handleUpdateSuccessMessage(numItems);
-                    handleCloseNumItemsBoxDialog();
-                    setNumItems(0);
+                    navigate(`/items/checkinventory/${item.id}`)
                 },
                 errors => setBackendErrors(errors)));
 
@@ -99,72 +94,9 @@ const AddItemsToWarehouse = () => {
 
     }
 
-    const handleValidation = () => {
-        const newRequiredAlerts = {
-            itemName: itemName === '',
-            referenceCode: referenceCode === '',
-            numItems: numItems <= 0,
-            barCode: barCode === '',
-            manufacturerRef: manufacturerRef === '',
-            supplier: supplier === '',
-            warehouseName: warehouseName === '',
-        };
-        setRequiredAlertMessages(newRequiredAlerts);
-    };
-
-    const handleOpenNumItemsBoxDialog = () => {
-
-        const newRequiredAlerts = {
-            itemName: itemName === '',
-            referenceCode: referenceCode === '',
-            barCode: barCode === '',
-            manufacturerRef: manufacturerRef === '',
-            supplier: supplier === '',
-            warehouseName: warehouseName === '',
-        };
-        setRequiredAlertMessages(newRequiredAlerts);
-        const newIsFormValid = !newRequiredAlerts.itemName && !newRequiredAlerts.referenceCode &&
-            !newRequiredAlerts.barCode && !newRequiredAlerts.manufacturerRef && !newRequiredAlerts.supplier &&
-            !newRequiredAlerts.warehouseName ;
-        setIsFormValid(newIsFormValid);
-
-        if (newIsFormValid) {
-            setOpenNumItemsBoxDialog(true);
-        }
-
-    }
-
-    const handleCloseNumItemsBoxDialog = () => {
-
-        setOpenNumItemsBoxDialog(false);
-
-    }
-
-    const handleUpdateSuccessMessage = (numItemsInBox) => {
-
-        setNumItemsSuccess(numItemsInBox);
-        setItemNameSuccess(itemName);
-        setWarehouseNameSuccess(warehouseName);
-        setShowSuccessMessage(true);
-
-    }
-
     const handleCloseSuccessMessage = () => {
 
         setShowSuccessMessage(false);
-
-    }
-
-    const handleRestoreFields = () => {
-
-        handleRemoveImage();
-        setItemName('');
-        setReferenceCode('');
-        setNumItems(0);
-        setBarCode('');
-        setManufacturerRef('');
-        setSupplier('');
-        setWarehouseName('');
 
     }
 
@@ -329,29 +261,6 @@ const AddItemsToWarehouse = () => {
                                     helperText={requiredAlertMessages.supplier &&
                                         <FormattedMessage id="project.global.validator.required" />}></TextField>
                             </Grid>
-                            <Grid item xs={12}>
-                                <FormControl fullWidth error={requiredAlertMessages.warehouseName}>
-                                    <InputLabel id="demo-simple-select-helper-label">
-                                        <FormattedMessage id="project.global.fields.warehouseName" />
-                                    </InputLabel>
-                                    <Select
-                                        value={warehouseName}
-                                        label={<FormattedMessage id="project.global.fields.warehouseName" />}
-                                        onChange={(e) => setWarehouseName(e.target.value)}>
-                                        {allWarehouses.map(warehouse =>
-                                            <MenuItem value={warehouse.name}>
-                                                <Typography>
-                                                    {warehouse.name}
-                                                </Typography>
-                                            </MenuItem>
-                                        )}
-                                    </Select>
-                                    <FormHelperText color="alertRed">
-                                        {requiredAlertMessages.warehouseName &&
-                                            <FormattedMessage id="project.global.validator.required" />}
-                                    </FormHelperText>
-                                </FormControl>
-                            </Grid>
                         </Grid>
                         <Box
                             sx={{
@@ -393,6 +302,11 @@ const AddItemsToWarehouse = () => {
                                     <DeleteIcon />
                                 </IconButton>
                             </Box>
+                            {imgFileRequired &&
+                                <Alert variant="outlined" severity="error" onClose={() => setImgFileRequied(false)}>
+                                    <FormattedMessage id="project.global.validator.imageRequired" />
+                                </Alert>
+                            }
                             {imgFile && (
                                 <Box
                                     sx={{
@@ -411,47 +325,6 @@ const AddItemsToWarehouse = () => {
                                 </Box>
                             )}
                         </Box>
-                        <Dialog
-                            fullScreen={fullScreen}
-                            open={openNumItemsBoxDialog}
-                            onClose={handleCloseNumItemsBoxDialog}
-                            aria-labelledby="responsive-dialog-title">
-                            <DialogContent>
-                                <Errors errors={backendErrors} onClose={() => setBackendErrors(null)}/>
-                                <TextField
-                                    value={numItems}
-                                    onChange={(e) => setNumItems(e.target.value)}
-                                    name="numItems"
-                                    inputProps={{ type: 'number'}}
-                                    required
-                                    fullWidth
-                                    id="numItems"
-                                    label={<FormattedMessage id="project.global.fields.numItems" />}
-                                    error={requiredAlertMessages.numItems}
-                                    helperText={requiredAlertMessages.numItems &&
-                                        <FormattedMessage id="project.global.validator.required" />}
-                                />
-                            </DialogContent>
-                            <DialogActions>
-                                <Button
-                                    variant="contained"
-                                    onClick={handleAddItemsToWarehouse}
-                                    sx={{ mt: 1, mb: 1 }}>
-                                    <Typography>
-                                        <FormattedMessage id="project.global.buttons.AddBoxToWarehouse"></FormattedMessage>
-                                    </Typography>
-                                </Button>
-                                <Button
-                                    variant="contained"
-                                    color="alertRed"
-                                    onClick={handleCloseNumItemsBoxDialog}
-                                    sx={{ mt: 1, mb: 1 }}>
-                                    <Typography>
-                                        <FormattedMessage id="project.global.buttons.Cancel"></FormattedMessage>
-                                    </Typography>
-                                </Button>
-                            </DialogActions>
-                        </Dialog>
                     </Box>
                     <Box
                         sx={{
@@ -464,20 +337,11 @@ const AddItemsToWarehouse = () => {
                             gap: 1,
                         }}>
                         <Button
-                            onClick={handleOpenNumItemsBoxDialog}
+                            onClick={handleCreateItem}
                             variant="contained"
                             sx={{ mt: 3, mb: 2 }}>
                             <Typography>
-                                <FormattedMessage id="project.global.buttons.AddItemsToWarehouseNext"></FormattedMessage>
-                            </Typography>
-                        </Button>
-                        <Button
-                            onClick={handleRestoreFields}
-                            color="secondary"
-                            variant="contained"
-                            sx={{ mt: 3, mb: 2 }}>
-                            <Typography>
-                                <FormattedMessage id="project.global.buttons.RestoreFields"></FormattedMessage>
+                                <FormattedMessage id="project.global.buttons.CreateItem"></FormattedMessage>
                             </Typography>
                         </Button>
                     </Box>
@@ -489,4 +353,4 @@ const AddItemsToWarehouse = () => {
 
 }
 
-export default AddItemsToWarehouse;
+export default CreateItem;

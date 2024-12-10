@@ -33,7 +33,7 @@ const Home = () => {
     const handleAddItemsToWarehouse = event => {
         event.preventDefault();
 
-        navigate('/items/additemstowarehouse');
+        navigate('/items/createitem');
     }
 
     const handleCheckInventory = event => {

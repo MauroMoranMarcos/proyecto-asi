@@ -33,12 +33,16 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers(HttpMethod.POST, "/staff/loginFromServiceToken").permitAll()
                 .antMatchers(HttpMethod.POST, "/admin/createWarehouse").permitAll()
                 .antMatchers(HttpMethod.GET, "/admin/findAllWarehouses").permitAll()
-                .antMatchers(HttpMethod.POST, "/items/addItemBoxToWarehouse").permitAll()
+                .antMatchers(HttpMethod.POST, "/items/createItem").permitAll()
+                .antMatchers(HttpMethod.POST, "/items/checkInventory/*/addItemBoxToWarehouse").permitAll()
                 .antMatchers(HttpMethod.GET, "/items/checkInventory").permitAll()
                 .antMatchers(HttpMethod.GET, "/items/checkInventory/*").permitAll()
                 .antMatchers(HttpMethod.GET, "/items/checkInventory/*/numBoxes").permitAll()
                 .antMatchers(HttpMethod.GET, "/items/checkInventory/*/boxes").permitAll()
                 .antMatchers(HttpMethod.POST, "/items/checkInventory/*/deleteItem").permitAll()
+                .antMatchers(HttpMethod.PUT, "/items/checkInventory/*/modifyItem").permitAll()
+                .antMatchers(HttpMethod.PUT, "/items/checkInventory/*/modifyItemBox").permitAll()
+                .antMatchers(HttpMethod.POST, "/items/checkInventory/*/deleteItemBox").permitAll()
                 .anyRequest().denyAll();
 
         //TODO: Add lines here for the rest of the HU

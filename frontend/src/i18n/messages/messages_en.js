@@ -18,9 +18,14 @@ export default {
     'project.global.buttons.Close': 'Close',
     'project.global.buttons.DeleteItem': 'Delete item',
     'project.global.buttons.Confirm': 'Confirm',
+    'project.global.buttons.CreateItem': 'Add item',
+    'project.global.buttons.AddBox': 'Add box',
+    'project.global.buttons.ModifyItem': 'Modify item info',
+    'project.global.buttons.Save': 'Save',
 
     'project.global.validator.required': 'Required field',
     'project.global.validator.incorrectEmail': 'Incorrect mail format',
+    'project.global.validator.imageRequired': 'Image required',
 
     'project.global.fields.userName': 'Username',
     'project.global.fields.password': 'Password',
@@ -53,6 +58,7 @@ export default {
     'project.items.AddItemsToWarehouse.title': 'Add items to warehouse',
 
     'project.items.CheckInventory.title': 'Inventory',
+    'project.items.CheckInventory.noItems': 'No items in inventory',
 
     'project.items.ItemDetails.title': 'Item info',
     'project.items.ItemDetails.fields.numBoxes': 'Number of boxes',
@@ -64,5 +70,11 @@ export default {
     'project.items.ItemDetails.numItemsInBox': 'items',
     'project.items.ItemDetails.deleteItem.title': 'Delete item',
     'project.items.ItemDetails.deleteItem.text': 'You are about to delete this item, meaning all of its boxes and elements in all warehouses. Are you sure?',
+    'project.items.ItemDetails.addItemBox.title': 'Add box',
+    'project.items.ItemDetails.addItemBox.text': 'Introduce the number of items in the box and select the warehouse to store it.',
+    'project.items.ItemDetails.deleteItemBox.title': 'Delete item box',
+    'project.items.ItemDetails.deleteItemBox.text': 'Your are about to delete this item box with its elements from this warehouse. Are you sure?',
+    'project.items.ItemDetails.modifyItem.title': 'Modify item information',
+    'project.items.ItemBox.editItemBox.title': 'Modify item box',
 
 }

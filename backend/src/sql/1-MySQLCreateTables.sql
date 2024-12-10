@@ -4,6 +4,7 @@
 -------------------------------------------------------------------------------
 DROP TABLE User;
 DROP TABLE ItemBox;
+DROP TABLE Item;
 DROP TABLE Warehouse;
 
 -- Creating table User to store users.
@@ -30,21 +31,33 @@ CREATE TABLE Warehouse (
 
 ) ENGINE = InnoDB;
 
--- Creating table Box to store info about Boxes with its items that are stored in a Warehouse
-CREATE TABLE ItemBox (
+-- Creating table Item to store info about items
+CREATE TABLE Item (
 
     id BIGINT NOT NULL AUTO_INCREMENT,
     itemName VARCHAR(60) NOT NULL,
-    numItems BIGINT NOT NULL,
     referenceCode VARCHAR(300) NOT NULL,
     barCode VARCHAR(300) NOT NULL,
     manufacturerRef VARCHAR(300) NOT NULL,
     supplier VARCHAR(120) NOT NULL,
     imgFile LONGBLOB,
+
+    CONSTRAINT ItemPK PRIMARY KEY (id)
+
+) ENGINE = InnoDB;
+
+-- Creating table ItemBox to store info about boxes with its items that are stored in a Warehouse
+CREATE TABLE ItemBox (
+
+    id BIGINT NOT NULL AUTO_INCREMENT,
+    numItems BIGINT NOT NULL,
+    itemId BIGINT NOT NULL,
     warehouseId BIGINT NOT NULL,
 
     CONSTRAINT ItemBoxPK PRIMARY KEY (id),
+    CONSTRAINT ItemBoxItemIdFK FOREIGN KEY (itemId)
+        REFERENCES Item(id) ON DELETE CASCADE,
     CONSTRAINT ItemBoxWarehouseIdFK FOREIGN KEY (warehouseId)
         REFERENCES Warehouse(id)
 
-)
+) ENGINE = InnoDB;

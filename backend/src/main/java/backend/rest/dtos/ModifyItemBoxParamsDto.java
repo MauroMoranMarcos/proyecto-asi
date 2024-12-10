@@ -1,11 +1,8 @@
 package backend.rest.dtos;
 
-import org.springframework.web.multipart.MultipartFile;
-
 import javax.validation.constraints.NotNull;
 
-public class AddItemBoxToWarehouseParamsDto {
-
+public class ModifyItemBoxParamsDto {
     private Long numItems;
     private String warehouseName;
 

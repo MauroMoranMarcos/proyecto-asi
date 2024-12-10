@@ -18,9 +18,14 @@ export default {
     'project.global.buttons.Close': 'Cerrar',
     'project.global.buttons.DeleteItem': 'Eliminar pieza',
     'project.global.buttons.Confirm': 'Confirmar',
+    'project.global.buttons.CreateItem': 'Añadir pieza',
+    'project.global.buttons.AddBox': 'Añadir caja',
+    'project.global.buttons.ModifyItem': 'Modificar información de la pieza',
+    'project.global.buttons.Save': 'Guardar',
 
     'project.global.validator.required': 'Campo requerido',
     'project.global.validator.incorrectEmail': 'Formato de email incorrecto',
+    'project.global.validator.imageRequired': 'Imagen requerida',
 
     'project.global.fields.userName': 'Nombre de usuario',
     'project.global.fields.password': 'Contraseña',
@@ -53,6 +58,7 @@ export default {
     'project.items.AddItemsToWarehouse.title': 'Añadir piezas al almacén',
 
     'project.items.CheckInventory.title': 'Inventario',
+    'project.items.CheckInventory.noItems': 'No hay piezas en el inventario',
 
     'project.items.ItemDetails.title': 'Información de la pieza',
     'project.items.ItemDetails.fields.numBoxes': 'Número de cajas',
@@ -64,5 +70,11 @@ export default {
     'project.items.ItemDetails.numItemsInBox': 'elementos',
     'project.items.ItemDetails.deleteItem.title': 'Eliminar pieza',
     'project.items.ItemDetails.deleteItem.text': 'Está a punto de eliminar esta pieza definitivamente, junto con todas sus cajas y elementos de todos los almacenes. ¿Está seguro?',
+    'project.items.ItemDetails.addItemBox.title': 'Añadir caja',
+    'project.items.ItemDetails.addItemBox.text': 'Introduzca el número de piezas en la caja y seleccione el almacén en el que se encontrará.',
+    'project.items.ItemDetails.deleteItemBox.title': 'Eliminar caja',
+    'project.items.ItemDetails.deleteItemBox.text': 'Está a punto de eliminar esta caja definitivamente, junto con todos sus elementos del almacén. ¿Está seguro?',
+    'project.items.ItemDetails.modifyItem.title': 'Modificar información de la pieza',
+    'project.items.ItemBox.editItemBox.title': 'Modificar caja',
 
 }

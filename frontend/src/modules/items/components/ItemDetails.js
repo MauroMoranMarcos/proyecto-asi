@@ -9,49 +9,71 @@ import * as actions from '../actions';
 import admin from "../../admin";
 
 import {
-    Alert,
     Box,
     Button,
-    ButtonGroup,
     Container, Dialog, DialogActions,
-    DialogContent, DialogTitle, IconButton,
-    Link, List, ListItem, ListItemButton, ListItemText,
-    Paper, TextField,
+    DialogContent, DialogTitle, FormControl, FormHelperText, IconButton, InputLabel,
+    Link, List, MenuItem,
+    Paper, Select, TextField,
     Typography, useMediaQuery,
     useTheme
 } from "@mui/material";
 import {BackButton, Errors} from "../../common";
-import AssignmentIndIcon from "@mui/icons-material/AssignmentInd";
 import CloseOutlinedIcon from "@mui/icons-material/CloseOutlined";
 import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
+import AddBoxIcon from '@mui/icons-material/AddBox';
+import EditIcon from '@mui/icons-material/Edit';
+import ItemBox from "./ItemBox";
+import ImageIcon from "@mui/icons-material/Image";
+import DeleteIcon from "@mui/icons-material/Delete";
 
 const ItemDetails = () => {
 
     const navigate = useNavigate();
     const dispatch = useDispatch();
     const item = useSelector(selectors.getItem);
+    const numItemBoxes = useSelector(selectors.getNumItemBoxes);
+    const itemBoxes = useSelector(selectors.getItemBoxes);
     const warehouses = useSelector(admin.selectors.getAllWarehouses);
-    const [numBoxes, setNumBoxes] = useState(null);
-    const [boxes, setBoxes] = useState(null);
-    const [warehouseName, setWarehouseName] = useState(null);
+    const [numItems, setNumItems] = useState(null);
+    const [warehouseName, setWarehouseName] = useState('');
     const [openSeeBoxesDialog, setOpenSeeBoxesDialog] = useState(false);
     const [openDeleteItemDialog, setOpenDeleteItemDialog] = useState(false);
+    const [openAddItemBoxDialog, setOpenAddItemBoxDialog] = useState(false);
+    const [openModifyItemDialog, setOpenModifyItemDialog] = useState(false);
+    const [itemName, setItemName] = useState(null);
+    const [referenceCode, setReferenceCode] = useState(null);
+    const [barCode, setBarCode] = useState(null);
+    const [manufacturerRef, setManufacturerRef] = useState(null);
+    const [supplier, setSupplier] = useState(null);
+    const [imgFile, setImgFile] = useState(null);
+    const [newImgFile, setNewImgfile] = useState(null);
     const [backendErrors, setBackendErrors] = useState(null);
+    const [isFormValid, setIsFormValid] = useState(false);
+    const [requiredAlertMessages, setRequiredAlertMessages] = useState({
+        numItems: false,
+        warehouseName: false,
+    });
+    const [requiredAlertMessagesEdit, setRequiredAlertMessagesEdit] = useState({
+        itemName: false,
+        referenceCode: false,
+        barCode: false,
+        manufacturerRef: false,
+        supplier: false,
+    });
     const {id} = useParams();
     const theme = useTheme();
     const fullScreen = useMediaQuery(theme.breakpoints.down('md'));
 
     useEffect(() => {
 
-        const itemBoxId = Number(id);
+        const itemId = Number(id);
 
-        if (!Number.isNaN(itemBoxId)) {
+        if (!Number.isNaN(itemId)) {
 
-            dispatch(actions.findItemBoxById(itemBoxId));
-            dispatch(actions.countNumBoxesOfItemBoxId(itemBoxId,
-                numBoxes => setNumBoxes(numBoxes)));
-            dispatch(actions.findAllBoxesOfItemBoxId(itemBoxId,
-                boxes => setBoxes(boxes)));
+            dispatch(actions.findItemById(itemId));
+            dispatch(actions.countNumBoxesOfItemId(itemId));
+            dispatch(actions.findAllBoxesOfItemId(itemId));
 
         }
 
@@ -75,6 +97,29 @@ const ItemDetails = () => {
 
     }, [warehouses, item]);
 
+    useEffect(() => {
+
+        if (item && item.itemName && item.referenceCode && item.barCode && item.manufacturerRef && item.supplier && item.imgFile) {
+
+            setItemName(item.itemName);
+            setReferenceCode(item.referenceCode);
+            setBarCode(item.barCode);
+            setManufacturerRef(item.manufacturerRef);
+            setSupplier(item.supplier);
+            setImgFile(item.imgFile);
+
+        }
+
+    }, [item]);
+
+    useEffect(() => {
+
+        if (numItemBoxes === 0) {
+            handleCloseSeeBoxesDialog();
+        }
+
+    }, [numItemBoxes]);
+
     const handleDeleteItem = (itemId) => {
 
         dispatch(actions.deleteItem(itemId,
@@ -82,6 +127,77 @@ const ItemDetails = () => {
                 handleCloseDeleteItemDialog();
                 navigate("/items/checkinventory");
             }, errors => setBackendErrors(errors)));
+
+    }
+
+    const handleAddItemBox = (itemId) => {
+
+        const newRequiredAlerts = {
+            numItems: numItems <= 0,
+            warehouseName: warehouseName === '',
+        };
+        setRequiredAlertMessages(newRequiredAlerts);
+        const newIsFormValid = !newRequiredAlerts.numItems && !newRequiredAlerts.warehouseName;
+        setIsFormValid(newIsFormValid);
+
+        if (newIsFormValid) {
+
+            dispatch(actions.addItemBoxToWarehouse(itemId, numItems, warehouseName,
+                () => {
+                    dispatch(actions.findAllBoxesOfItemId(itemId));
+                    dispatch(actions.countNumBoxesOfItemId(itemId));
+                    handleCloseAddItemBoxDialog();
+                    restoreFormFields();
+                }, errors => setBackendErrors(errors)));
+
+        }
+
+    }
+
+    const handleModifyItem = (itemId) => {
+
+        const newRequiredAlerts = {
+            itemName: itemName === '',
+            referenceCode: referenceCode === '',
+            barCode: barCode === '',
+            manufacturerRef: manufacturerRef === '',
+            supplier: supplier === '',
+        };
+        setRequiredAlertMessagesEdit(newRequiredAlerts);
+        const newIsFormValid = !newRequiredAlerts.itemName && !newRequiredAlerts.referenceCode
+            && !newRequiredAlerts.barCode && !newRequiredAlerts.manufacturerRef && !newRequiredAlerts.supplier;
+        setIsFormValid(newIsFormValid);
+
+        if (newIsFormValid) {
+
+            const formData = new FormData();
+
+            formData.append('itemName', itemName.trim());
+            formData.append('referenceCode', referenceCode.trim());
+            formData.append('barCode', barCode.trim());
+            formData.append('manufacturerRef', manufacturerRef.trim());
+            formData.append('supplier', supplier.trim());
+            if (newImgFile) {
+                formData.append('imgFile', newImgFile);
+            }
+
+            dispatch(actions.modifyItem(
+                itemId,
+                formData,
+                () => {
+                    dispatch(actions.findItemById(itemId));
+                    handleCloseModifyItemDialog();
+                },
+                errors => setBackendErrors(errors)));
+
+        }
+
+    }
+
+    const restoreFormFields = () => {
+
+        setNumItems(null);
+        setWarehouseName('');
 
     }
 
@@ -109,7 +225,51 @@ const ItemDetails = () => {
 
     }
 
-    if (!item || !numBoxes || !boxes || !warehouseName) {
+    const handleOpenAddItemBoxDialog = () => {
+
+        setOpenAddItemBoxDialog(true);
+
+    }
+
+    const handleCloseAddItemBoxDialog = () => {
+
+        restoreFormFields();
+        setOpenAddItemBoxDialog(false);
+
+    }
+
+    const handleOpenModifyItemDialog = () => {
+
+        setOpenModifyItemDialog(true);
+
+    }
+
+    const handleCloseModifyItemDialog = () => {
+
+        setItemName(item.itemName);
+        setReferenceCode(item.referenceCode);
+        setBarCode(item.barCode);
+        setManufacturerRef(item.manufacturerRef);
+        setSupplier(item.supplier);
+        setImgFile(item.imgFile);
+
+        setOpenModifyItemDialog(false);
+
+    }
+
+    const handleRemoveImage = () => {
+
+        if (imgFile && !newImgFile) {
+            setImgFile(null);
+        }
+
+        if (newImgFile) {
+            setNewImgfile(null);
+        }
+
+    }
+
+    if (!item || !itemBoxes || numItemBoxes === undefined) {
         return null;
     }
 
@@ -201,18 +361,23 @@ const ItemDetails = () => {
                             </Typography>
                             <Typography gutterBottom variant="h3">
                                 <FormattedMessage id="project.items.ItemDetails.fields.numBoxes" />
-                                {': ' + numBoxes + '. '}
-                                <FormattedMessage id="project.items.ItemDetails.allBoxes" />
-                                <Link
-                                    component="button"
-                                    variant="h3"
-                                    onClick={() => {
-                                        handleOpenSeeBoxesDialog();
-                                    }}
-                                >
-                                    <FormattedMessage id="project.items.ItemDetails.allBoxesLink" />
-                                </Link>
-                                {'.'}
+                                {': ' + numItemBoxes}
+                                {numItemBoxes > 0 && '. '}
+                                {numItemBoxes > 0 &&
+                                    <FormattedMessage id="project.items.ItemDetails.allBoxes" />
+                                }
+                                {numItemBoxes > 0 &&
+                                    <Link
+                                        component="button"
+                                        variant="h3"
+                                        onClick={() => {
+                                            handleOpenSeeBoxesDialog();
+                                        }}
+                                    >
+                                        <FormattedMessage id="project.items.ItemDetails.allBoxesLink" />
+                                    </Link>
+                                }
+                                {numItemBoxes > 0 && '.'}
                             </Typography>
                             <Typography gutterBottom variant="h3">
                                 <FormattedMessage id="project.global.fields.barCode" />
@@ -226,10 +391,6 @@ const ItemDetails = () => {
                                 <FormattedMessage id="project.global.fields.supplier" />
                                 {': ' + item.supplier}
                             </Typography>
-                            <Typography gutterBottom variant="h3">
-                                <FormattedMessage id="project.global.fields.warehouseName" />
-                                {': ' + warehouseName}
-                            </Typography>
                             <Dialog
                                 fullScreen={fullScreen}
                                 open={openSeeBoxesDialog}
@@ -237,7 +398,7 @@ const ItemDetails = () => {
                                 aria-labelledby="responsive-dialog-title">
                                 <DialogTitle id="responsive-dialog-title">
                                     <Typography variant="h2" sx={{ fontWeight: 'bold' }}>
-                                        {numBoxes + ' '}
+                                        {numItemBoxes + ' '}
                                         {<FormattedMessage id="project.items.ItemDetails.seeBoxes.title" />}
                                         {' ' + item.itemName}
                                     </Typography>
@@ -245,18 +406,8 @@ const ItemDetails = () => {
                                 <DialogContent>
                                     <List
                                         sx={{bgcolor: 'background.paper', width: '100%' }}>
-                                        {boxes.map(box =>
-                                            <ListItem disablePadding key={box.id} sx={{ mb: 0.2, border: `1px solid ${theme.palette.primary.main}`, borderRadius: '4px' }}>
-                                                <ListItemButton>
-                                                    <ListItemText primary={<Typography>
-                                                        <FormattedMessage id="project.items.ItemDetails.box" />
-                                                        {' ' + box.id}
-                                                    </Typography>} secondary={<Typography>
-                                                        {box.numItems + ' '}
-                                                        <FormattedMessage id="project.items.ItemDetails.numItemsInBox" />
-                                                    </Typography>}/>
-                                                </ListItemButton>
-                                            </ListItem>
+                                        {itemBoxes.map(itemBox =>
+                                            <ItemBox itemBox={itemBox} itemId={item.id}/>
                                         )}
                                     </List>
                                 </DialogContent>
@@ -284,6 +435,340 @@ const ItemDetails = () => {
                         }}>
                         <Button
                             sx={{ m: 1 }}
+                            variant="contained"
+                            onClick={e => handleOpenAddItemBoxDialog(e)}
+                            color="primary"
+                            startIcon={<AddBoxIcon />}
+                            style={{ textAlign: 'left', justifyContent: 'flex-start' }}>
+                            <Typography textAlign="center">
+                                <FormattedMessage id="project.global.buttons.AddBox"></FormattedMessage>
+                            </Typography>
+                        </Button>
+                        <Dialog
+                            fullScreen={fullScreen}
+                            open={openAddItemBoxDialog}
+                            onClose={handleCloseAddItemBoxDialog}
+                            aria-labelledby="responsive-dialog-title"
+                        >
+                            <DialogTitle id="responsive-dialog-title">
+                                <Typography variant="h2" sx={{ fontWeight: 'bold' }}>
+                                    {<FormattedMessage id="project.items.ItemDetails.addItemBox.title" />}
+                                </Typography>
+                            </DialogTitle>
+                            <DialogContent>
+                                <Box
+                                    sx={{
+                                        position: "relative",
+                                        display: "flex",
+                                        alignItems: "center",
+                                        justifyContent: "center",
+                                        m: 1
+                                    }}>
+                                    <Typography>
+                                        <FormattedMessage id="project.items.ItemDetails.addItemBox.text"></FormattedMessage>
+                                    </Typography>
+                                </Box>
+                                <Box
+                                    sx={{
+                                        position: "relative",
+                                        display: "flex",
+                                        alignItems: "center",
+                                        justifyContent: "center",
+                                        m: 1
+                                    }}>
+                                    <TextField
+                                        value={numItems}
+                                        onChange={(e) => setNumItems(e.target.value)}
+                                        name="numItems"
+                                        type="number"
+                                        onInput={(e) => {
+                                            e.target.value = e.target.value.replace(/[^0-9]/g, '');
+                                        }}
+                                        required
+                                        fullWidth
+                                        id="numItems"
+                                        label={<FormattedMessage id="project.global.fields.numItems" />}
+                                        error={requiredAlertMessages.numItems}
+                                        helperText={requiredAlertMessages.numItems &&
+                                            <FormattedMessage id="project.global.validator.required" />}
+                                    />
+                                </Box>
+                                <Box
+                                    sx={{
+                                        position: "relative",
+                                        display: "flex",
+                                        alignItems: "center",
+                                        justifyContent: "center",
+                                        m: 1
+                                    }}>
+                                    <FormControl fullWidth error={requiredAlertMessages.warehouseName}>
+                                        <InputLabel id="demo-simple-select-helper-label">
+                                            <FormattedMessage id="project.global.fields.warehouseName" />
+                                        </InputLabel>
+                                        <Select
+                                            value={warehouseName}
+                                            label={<FormattedMessage id="project.global.fields.warehouseName" />}
+                                            onChange={(e) => setWarehouseName(e.target.value)}>
+                                            {warehouses.map(warehouse =>
+                                                <MenuItem value={warehouse.name}>
+                                                    <Typography>
+                                                        {warehouse.name}
+                                                    </Typography>
+                                                </MenuItem>
+                                            )}
+                                        </Select>
+                                        <FormHelperText color="alertRed">
+                                            {requiredAlertMessages.warehouseName &&
+                                                <FormattedMessage id="project.global.validator.required" />}
+                                        </FormHelperText>
+                                    </FormControl>
+                                </Box>
+                            </DialogContent>
+                            <DialogActions>
+                                <Button
+                                    variant="contained"
+                                    onClick={() => handleAddItemBox(item.id)}
+                                    sx={{ mt: 1, mb: 1 }}>
+                                    <Typography>
+                                        <FormattedMessage id="project.global.buttons.Confirm"></FormattedMessage>
+                                    </Typography>
+                                </Button>
+                                <Button
+                                    variant="contained"
+                                    color="alertRed"
+                                    onClick={handleCloseAddItemBoxDialog}
+                                    sx={{ mt: 1, mb: 1 }}>
+                                    <Typography>
+                                        <FormattedMessage id="project.global.buttons.Cancel"></FormattedMessage>
+                                    </Typography>
+                                </Button>
+                            </DialogActions>
+                        </Dialog>
+                        <Button
+                            sx={{ m: 1 }}
+                            variant="contained"
+                            onClick={e => handleOpenModifyItemDialog(e)}
+                            color="primary"
+                            startIcon={<EditIcon />}
+                            style={{ textAlign: 'left', justifyContent: 'flex-start' }}>
+                            <Typography textAlign="center">
+                                <FormattedMessage id="project.global.buttons.ModifyItem"></FormattedMessage>
+                            </Typography>
+                        </Button>
+                        <Dialog
+                            fullScreen={fullScreen}
+                            open={openModifyItemDialog}
+                            onClose={handleCloseModifyItemDialog}
+                            aria-labelledby="responsive-dialog-title"
+                        >
+                            <DialogTitle id="responsive-dialog-title">
+                                <Typography variant="h2" sx={{ fontWeight: 'bold' }}>
+                                    {<FormattedMessage id="project.items.ItemDetails.modifyItem.title" />}
+                                </Typography>
+                            </DialogTitle>
+                            <DialogContent>
+                                <Box
+                                    sx={{
+                                        position: "relative",
+                                        display: "flex",
+                                        alignItems: "center",
+                                        justifyContent: "center",
+                                        m: 1
+                                    }}>
+                                    <TextField
+                                        value={itemName}
+                                        onChange={(e) => setItemName(e.target.value)}
+                                        name="itemName"
+                                        required
+                                        fullWidth
+                                        id="itemName"
+                                        label={<FormattedMessage id="project.global.fields.itemName" />}
+                                        autoFocus
+                                        error={requiredAlertMessagesEdit.itemName}
+                                        helperText={requiredAlertMessagesEdit.itemName &&
+                                            <FormattedMessage id="project.global.validator.required" />}
+                                    />
+                                </Box>
+                                <Box
+                                    sx={{
+                                        position: "relative",
+                                        display: "flex",
+                                        alignItems: "center",
+                                        justifyContent: "center",
+                                        m: 1
+                                    }}>
+                                    <TextField
+                                        value={referenceCode}
+                                        onChange={(e) => setReferenceCode(e.target.value)}
+                                        name="referenceCode"
+                                        required
+                                        fullWidth
+                                        id="referenceCode"
+                                        label={<FormattedMessage id="project.global.fields.referenceCode" />}
+                                        autoFocus
+                                        error={requiredAlertMessagesEdit.referenceCode}
+                                        helperText={requiredAlertMessagesEdit.referenceCode &&
+                                            <FormattedMessage id="project.global.validator.required" />}
+                                    />
+                                </Box>
+                                <Box
+                                    sx={{
+                                        position: "relative",
+                                        display: "flex",
+                                        alignItems: "center",
+                                        justifyContent: "center",
+                                        m: 1
+                                    }}>
+                                    <TextField
+                                        value={barCode}
+                                        onChange={(e) => setBarCode(e.target.value)}
+                                        name="barCode"
+                                        required
+                                        fullWidth
+                                        id="barCode"
+                                        label={<FormattedMessage id="project.global.fields.barCode" />}
+                                        autoFocus
+                                        error={requiredAlertMessagesEdit.barCode}
+                                        helperText={requiredAlertMessagesEdit.barCode &&
+                                            <FormattedMessage id="project.global.validator.required" />}
+                                    />
+                                </Box>
+                                <Box
+                                    sx={{
+                                        position: "relative",
+                                        display: "flex",
+                                        alignItems: "center",
+                                        justifyContent: "center",
+                                        m: 1
+                                    }}>
+                                    <TextField
+                                        value={manufacturerRef}
+                                        onChange={(e) => setManufacturerRef(e.target.value)}
+                                        name="manufacturerRef"
+                                        required
+                                        fullWidth
+                                        id="manufacturerRef"
+                                        label={<FormattedMessage id="project.global.fields.manufacturerRef" />}
+                                        autoFocus
+                                        error={requiredAlertMessagesEdit.manufacturerRef}
+                                        helperText={requiredAlertMessagesEdit.manufacturerRef &&
+                                            <FormattedMessage id="project.global.validator.required" />}
+                                    />
+                                </Box>
+                                <Box
+                                    sx={{
+                                        position: "relative",
+                                        display: "flex",
+                                        alignItems: "center",
+                                        justifyContent: "center",
+                                        m: 1
+                                    }}>
+                                    <TextField
+                                        value={supplier}
+                                        onChange={(e) => setSupplier(e.target.value)}
+                                        name="supplier"
+                                        required
+                                        fullWidth
+                                        id="supplier"
+                                        label={<FormattedMessage id="project.global.fields.supplier" />}
+                                        autoFocus
+                                        error={requiredAlertMessagesEdit.supplier}
+                                        helperText={requiredAlertMessagesEdit.supplier &&
+                                            <FormattedMessage id="project.global.validator.required" />}
+                                    />
+                                </Box>
+                                <Box
+                                    sx={{
+                                        position: "relative",
+                                        display: "flex",
+                                        alignItems: "center",
+                                        justifyContent: "center",
+                                        m: 1
+                                    }}>
+                                    <input
+                                        accept="image/*"
+                                        style={{display: 'none'}}
+                                        id="contained-button-file"
+                                        multiple
+                                        type="file"
+                                        onChange={(e) => setNewImgfile(e.target.files[0])}
+                                    />
+                                    <label htmlFor="contained-button-file">
+                                        <Button
+                                            variant="contained"
+                                            sx={{width: 225}}
+                                            component="span"
+                                            startIcon={<ImageIcon/>}>
+                                            <FormattedMessage id="project.global.fields.imgFile"/>
+                                        </Button>
+                                    </label>
+                                    <IconButton
+                                        aria-label="remove"
+                                        disabled={!imgFile && !newImgFile}
+                                        color="alertRed"
+                                        variant="contained"
+                                        onClick={e => handleRemoveImage(e)}
+                                        sx={{mt: 1, mb: 1.5, ml: 0.5}}>
+                                        <DeleteIcon/>
+                                    </IconButton>
+                                </Box>
+                                {imgFile && !newImgFile && (
+                                    <Box
+                                        sx={{
+                                            display: "flex",
+                                            alignItems: "center",
+                                            justifyContent: "center",
+                                            ml: "auto",
+                                            mr: "auto",
+                                            mb: 1,
+                                        }}>
+                                        <img
+                                            src={`data:image/jpeg;base64,${item.imgFile}`}
+                                            alt="Uploaded Image"
+                                            style={{ maxWidth: '100%', maxHeight: 300 }}
+                                        />
+                                    </Box>
+                                )}
+                                {newImgFile && (
+                                    <Box
+                                        sx={{
+                                            display: "flex",
+                                            alignItems: "center",
+                                            justifyContent: "center",
+                                            ml: "auto",
+                                            mr: "auto",
+                                            mb: 1,
+                                        }}>
+                                        <img
+                                            src={URL.createObjectURL(newImgFile)}
+                                            alt="Uploaded Image"
+                                            style={{ maxWidth: '100%', maxHeight: 300 }}
+                                        />
+                                    </Box>
+                                )}
+                            </DialogContent>
+                            <DialogActions>
+                                <Button
+                                    variant="contained"
+                                    onClick={() => handleModifyItem(item.id)}
+                                    sx={{mt: 1, mb: 1}}>
+                                    <Typography>
+                                        <FormattedMessage id="project.global.buttons.Save"></FormattedMessage>
+                                    </Typography>
+                                </Button>
+                                <Button
+                                    variant="contained"
+                                    color="alertRed"
+                                    onClick={handleCloseModifyItemDialog}
+                                    sx={{mt: 1, mb: 1}}>
+                                    <Typography>
+                                        <FormattedMessage id="project.global.buttons.Cancel"></FormattedMessage>
+                                    </Typography>
+                                </Button>
+                            </DialogActions>
+                        </Dialog>
+                        <Button
+                            sx={{m: 1}}
                             variant="contained"
                             onClick={e => handleOpenDeleteItemDialog(e)}
                             color="alertRed"

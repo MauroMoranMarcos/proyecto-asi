@@ -3,7 +3,7 @@ import * as actionTypes from './actionTypes';
 import reducer from './reducer';
 import * as selectors from './selectors';
 
-export {default as AddItemsToWarehouse} from './components/AddItemsToWarehouse';
+export {default as CreateItem} from './components/CreateItem';
 export {default as CheckInventory} from './components/CheckInventory';
 export {default as ItemDetails} from './components/ItemDetails';
 
