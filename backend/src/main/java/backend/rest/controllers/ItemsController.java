@@ -7,9 +7,7 @@ import backend.model.exceptions.InstanceNotFoundException;
 import backend.model.exceptions.PermissionException;
 import backend.model.services.Block;
 import backend.model.services.ItemsService;
-import backend.rest.dtos.AddItemBoxToWarehouseParamsDto;
-import backend.rest.dtos.BlockDto;
-import backend.rest.dtos.ItemBoxDto;
+import backend.rest.dtos.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -77,6 +75,35 @@ public class ItemsController {
             throws PermissionException, InstanceNotFoundException {
 
         return itemsService.deleteItem(userId, id);
+
+    }
+
+    @PutMapping("/checkInventory/{id}/modifyItem")
+    public Long modifyItem(@RequestAttribute Long userId,
+                           @PathVariable Long id,
+                           @ModelAttribute ModifyItemParamsDto params)
+            throws IOException, PermissionException, InstanceNotFoundException {
+
+        return itemsService.modifyItem(userId, id, params.getItemName(), params.getReferenceCode(), params.getBarCode(),
+                params.getManufacturerRef(), params.getSupplier(), params.getImgFile().getBytes());
+
+    }
+
+    @PutMapping("/checkInventory/{id}/modifyItemBox")
+    public Long modifyItemBox(@RequestAttribute Long userId,
+                              @PathVariable Long id,
+                              @RequestBody ModifyItemBoxParamsDto params)
+            throws PermissionException, InstanceNotFoundException {
+
+        return itemsService.modifyItemBox(userId, id, params.getNumItems(), params.getWarehouseName());
+
+    }
+
+    @PostMapping("/checkInventory/{id}/deleteItemBox")
+    public Boolean deleteItemBox(@RequestAttribute Long userId, @PathVariable Long id)
+            throws PermissionException, InstanceNotFoundException {
+
+        return itemsService.deleteItemBox(userId, id);
 
     }
 

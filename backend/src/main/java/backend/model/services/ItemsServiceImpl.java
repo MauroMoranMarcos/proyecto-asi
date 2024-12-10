@@ -145,4 +145,99 @@ public class ItemsServiceImpl implements ItemsService {
 
     }
 
+    /*
+    Modifica la información de un item, de todas las cajas.
+     */
+    @Override
+    public Long modifyItem(Long userId, Long itemBoxId, String itemName, String referenceCode, String barCode,
+                           String manufacturerRef, String supplier, byte[] imgFile)
+            throws PermissionException, InstanceNotFoundException {
+
+        User user = permissionChecker.checkUser(userId);
+
+        if (!user.getRole().equals(User.RoleType.WAREHOUSE_STAFF)) {
+            throw new PermissionException();
+        }
+
+        Optional<ItemBox> itemBoxOpt = itemBoxDao.findById(itemBoxId);
+
+        if (!itemBoxOpt.isPresent()) {
+            throw new InstanceNotFoundException("project.entities.itemBox", itemBoxId);
+        }
+
+        List<ItemBox> itemBoxes = itemBoxDao.findByItemName(itemBoxOpt.get().getItemName());
+
+        for (ItemBox itemBox : itemBoxes) {
+            itemBox.setItemName(itemName);
+            itemBox.setReferenceCode(referenceCode);
+            itemBox.setBarCode(barCode);
+            itemBox.setManufacturerRef(manufacturerRef);
+            itemBox.setSupplier(supplier);
+            itemBox.setImgFile(imgFile);
+        }
+
+        return itemBoxOpt.get().getId();
+
+    }
+
+    /*
+    Modifica la información de una caja determinada, la cantidad de objetos que contiene.
+     */
+    @Override
+    public Long modifyItemBox(Long userId, Long itemBoxId, Long numItems, String warehouseName)
+            throws PermissionException, InstanceNotFoundException {
+
+        User user = permissionChecker.checkUser(userId);
+
+        if (!user.getRole().equals(User.RoleType.WAREHOUSE_STAFF)) {
+            throw new PermissionException();
+        }
+
+        Optional<ItemBox> itemBoxOpt = itemBoxDao.findById(itemBoxId);
+
+        if (!itemBoxOpt.isPresent()) {
+            throw new InstanceNotFoundException("project.entities.itemBox", itemBoxId);
+        }
+
+        Optional<Warehouse> warehouseOpt = warehouseDao.findByName(warehouseName);
+
+        if (!warehouseOpt.isPresent()) {
+            throw new InstanceNotFoundException("project.entities.warehouse", warehouseName);
+        }
+
+        ItemBox itemBox = itemBoxOpt.get();
+
+        Warehouse warehouse = warehouseOpt.get();
+
+        itemBox.setNumItems(numItems);
+        itemBox.setWarehouse(warehouse);
+
+        return itemBox.getId();
+
+    }
+
+    /*
+    Elimina una caja determinada.
+     */
+    @Override
+    public Boolean deleteItemBox(Long userId, Long itemBoxId) throws PermissionException, InstanceNotFoundException {
+
+        User user = permissionChecker.checkUser(userId);
+
+        if (!user.getRole().equals(User.RoleType.WAREHOUSE_STAFF)) {
+            throw new PermissionException();
+        }
+
+        Optional<ItemBox> itemBoxOpt = itemBoxDao.findById(itemBoxId);
+
+        if (!itemBoxOpt.isPresent()) {
+            throw new InstanceNotFoundException("project.entities.itemBox", itemBoxId);
+        }
+
+        itemBoxDao.delete(itemBoxOpt.get());
+
+        return !itemBoxDao.existsById(itemBoxId);
+
+    }
+
 }

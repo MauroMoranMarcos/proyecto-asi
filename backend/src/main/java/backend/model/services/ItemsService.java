@@ -22,4 +22,13 @@ public interface ItemsService {
 
     Boolean deleteItem(Long userId, Long itemBoxId) throws PermissionException, InstanceNotFoundException;
 
+    Long modifyItem(Long userId, Long itemBoxId, String itemName, String referenceCode, String barCode,
+                    String manufacturerRef, String supplier, byte[] imgFile)
+            throws PermissionException, InstanceNotFoundException;
+
+    Long modifyItemBox(Long userId, Long itemBoxId, Long numItems, String warehouseName)
+            throws PermissionException, InstanceNotFoundException;
+
+    Boolean deleteItemBox(Long userId, Long itemBoxId) throws PermissionException, InstanceNotFoundException;
+
 }
