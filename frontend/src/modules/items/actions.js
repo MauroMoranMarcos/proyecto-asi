@@ -91,3 +91,39 @@ export const deleteItem = (itemBoxId, onSuccess, onErrors) => dispatch =>
             onSuccess();
         },
         onErrors);
+
+const modifyItemCompleted = () => ({
+    type: actionTypes.MODIFY_ITEM_COMPLETED,
+});
+
+export const modifyItem = (itemBoxId, formData, onSuccess, onErrors) => dispatch =>
+    backend.itemsService.modifyItem(itemBoxId, formData,
+        () => {
+            dispatch(modifyItemCompleted());
+            onSuccess();
+        },
+        onErrors);
+
+const modifyItemBoxCompleted = () => ({
+    type: actionTypes.MODIFY_ITEM_BOX_COMPLETED,
+});
+
+export const modifyItemBox = (itemBoxId, numItems, warehouseName, onSuccess, onErrors) => dispatch =>
+    backend.itemsService.modifyItemBox(itemBoxId, numItems, warehouseName,
+        () => {
+            dispatch(modifyItemBoxCompleted());
+            onSuccess();
+        },
+        onErrors);
+
+const deleteItemBoxCompleted = () => ({
+    type: actionTypes.DELETE_ITEM_BOX_COMPLETED,
+});
+
+export const deleteItemBox = (itemBoxId, onSuccess, onErrors) => dispatch =>
+    backend.itemsService.deleteItemBox(itemBoxId,
+        () => {
+            dispatch(deleteItemBoxCompleted());
+            onSuccess();
+        },
+        onErrors);

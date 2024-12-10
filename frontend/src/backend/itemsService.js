@@ -23,3 +23,15 @@ export const findAllBoxesOfItemBoxId = (itemBoxId, onSuccess, onErrors) =>
 export const deleteItem = (itemBoxId, onSuccess, onErrors) =>
     appFetch(`/items/checkInventory/${itemBoxId}/deleteItem`,
         config('POST'), onSuccess, onErrors);
+
+export const modifyItem = (itemBoxId, formData, onSuccess, onErrors) =>
+    appFetch(`/items/checkInventory/${itemBoxId}/modifyItem`,
+        config('PUT', formData), onSuccess, onErrors);
+
+export const modifyItemBox = (itemBoxId, numItems, warehouseName, onSuccess, onErrors) =>
+    appFetch(`/items/checkInventory/${itemBoxId}/modifyItemBox`,
+        config('PUT', {numItems, warehouseName}), onSuccess, onErrors);
+
+export const deleteItemBox = (itemBoxId, onSuccess, onErrors) =>
+    appFetch(`/items/checkInventory/${itemBoxId}/deleteItemBox`,
+        config('POST'), onSuccess, onErrors);
