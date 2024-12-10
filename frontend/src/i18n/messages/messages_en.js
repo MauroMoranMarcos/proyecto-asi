@@ -16,6 +16,8 @@ export default {
     'project.global.buttons.AddItems': 'Add new item',
     'project.global.buttons.CheckInventory': 'Check inventory',
     'project.global.buttons.Close': 'Close',
+    'project.global.buttons.DeleteItem': 'Delete item',
+    'project.global.buttons.Confirm': 'Confirm',
 
     'project.global.validator.required': 'Required field',
     'project.global.validator.incorrectEmail': 'Incorrect mail format',
@@ -60,5 +62,7 @@ export default {
     'project.items.ItemDetails.seeBoxes.title': 'boxes of',
     'project.items.ItemDetails.box': 'Box with ID',
     'project.items.ItemDetails.numItemsInBox': 'items',
+    'project.items.ItemDetails.deleteItem.title': 'Delete item',
+    'project.items.ItemDetails.deleteItem.text': 'You are about to delete this item, meaning all of its boxes and elements in all warehouses. Are you sure?',
 
 }

@@ -79,3 +79,15 @@ export const findAllBoxesOfItemBoxId = (itemBoxId, onSuccess, onErrors) => dispa
         },
         onErrors);
 }
+
+const deleteItemCompleted = () => ({
+    type: actionTypes.DELETE_ITEM_COMPLETED,
+});
+
+export const deleteItem = (itemBoxId, onSuccess, onErrors) => dispatch =>
+    backend.itemsService.deleteItem(itemBoxId,
+        () => {
+            dispatch(deleteItemCompleted());
+            onSuccess();
+        },
+        onErrors);

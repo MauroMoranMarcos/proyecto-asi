@@ -19,3 +19,7 @@ export const countNumBoxesOfItemBoxId = (itemBoxId, onSuccess, onErrors) =>
 export const findAllBoxesOfItemBoxId = (itemBoxId, onSuccess, onErrors) =>
     appFetch(`/items/checkInventory/${itemBoxId}/boxes`,
         config('GET'), onSuccess, onErrors);
+
+export const deleteItem = (itemBoxId, onSuccess, onErrors) =>
+    appFetch(`/items/checkInventory/${itemBoxId}/deleteItem`,
+        config('POST'), onSuccess, onErrors);
