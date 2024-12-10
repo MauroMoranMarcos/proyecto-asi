@@ -47,7 +47,7 @@ const ItemBox = ({ itemBox, itemId }) => {
             () => {
                 dispatch(actions.countNumBoxesOfItemId(itemId));
                 dispatch(actions.findAllBoxesOfItemId(itemId));
-                handleCloseDeleteItemBoxDialog(); 
+                handleCloseDeleteItemBoxDialog();
             }, errors => setBackendErrors(errors)));
 
     }

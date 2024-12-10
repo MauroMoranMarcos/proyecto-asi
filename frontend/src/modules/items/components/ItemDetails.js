@@ -79,6 +79,14 @@ const ItemDetails = () => {
 
     }, [warehouses, item]);
 
+    useEffect(() => {
+
+        if (numItemBoxes === 0) {
+            handleCloseSeeBoxesDialog();
+        }
+
+    }, [numItemBoxes]);
+
     const handleDeleteItem = (itemId) => {
 
         dispatch(actions.deleteItem(itemId,
