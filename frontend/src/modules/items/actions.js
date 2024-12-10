@@ -1,15 +1,15 @@
 import * as actionTypes from './actionTypes';
 import backend from '../../backend';
 
-const addItemBoxToWarehouseCompleted = () => ({
-    type: actionTypes.ADD_ITEM_BOX_TO_WAREHOUSE_COMPLETED,
+const createItemCompleted = () => ({
+    type: actionTypes.CREATE_ITEM_COMPLETED,
 });
 
-export const addItemBoxToWarehouse = (formData, onSuccess, onErrors) => dispatch =>
-    backend.itemsService.addItemBoxToWarehouse(formData,
-        () => {
-            dispatch(addItemBoxToWarehouseCompleted());
-            onSuccess();
+export const createItem = (formData, onSuccess, onErrors) => dispatch =>
+    backend.itemsService.createItem(formData,
+        item => {
+            dispatch(createItemCompleted());
+            onSuccess(item);
         },
         onErrors);
 
@@ -36,15 +36,27 @@ export const previousCheckInventoryResultPage = (criteria) =>
 export const nextCheckInventoryResultPage = (criteria) =>
     checkInventory({...criteria, page: criteria.page + 1});
 
-const findItemBoxByIdCompleted = item => ({
-    type: actionTypes.FIND_ITEM_BOX_BY_ID_COMPLETED,
+const addItemBoxToWarehouseCompleted = () => ({
+    type: actionTypes.ADD_ITEM_BOX_TO_WAREHOUSE_COMPLETED,
+});
+
+export const addItemBoxToWarehouse = (itemId, numItems, warehouseName, onSuccess, onErrors) => dispatch =>
+    backend.itemsService.addItemBoxToWarehouse(itemId, numItems, warehouseName,
+        () => {
+            dispatch(addItemBoxToWarehouseCompleted());
+            onSuccess();
+        },
+        onErrors);
+
+const findItemByIdCompleted = item => ({
+    type: actionTypes.FIND_ITEM_BY_ID_COMPLETED,
     item
 });
 
-export const findItemBoxById = (itemBoxId) => dispatch => {
-    backend.itemsService.findItemBoxById(itemBoxId,
+export const findItemById = (itemId) => dispatch => {
+    backend.itemsService.findItemById(itemId,
         item => {
-            dispatch(findItemBoxByIdCompleted(item));
+            dispatch(findItemByIdCompleted(item));
         });
 }
 
@@ -52,40 +64,46 @@ export const clearItem = () => ({
     type: actionTypes.CLEAR_ITEM
 });
 
-const countNumBoxesOfItemBoxIdCompleted = numBoxes => ({
-    type: actionTypes.COUNT_NUM_BOXES_OF_ITEM_BOX_ID_COMPLETED,
-    numBoxes
+const countNumBoxesOfItemIdCompleted = numItemBoxes => ({
+    type: actionTypes.COUNT_NUM_BOXES_OF_ITEM_ID_COMPLETED,
+    numItemBoxes
 });
 
-export const countNumBoxesOfItemBoxId = (itemBoxId, onSuccess, onErrors) => dispatch => {
-    backend.itemsService.countNumBoxesOfItemBoxId(itemBoxId,
-        numBoxes => {
-            dispatch(countNumBoxesOfItemBoxIdCompleted(numBoxes));
-            onSuccess(numBoxes);
+export const countNumBoxesOfItemId = (itemId, onSuccess, onErrors) => dispatch => {
+    backend.itemsService.countNumBoxesOfItemId(itemId,
+        numItemBoxes => {
+            dispatch(countNumBoxesOfItemIdCompleted(numItemBoxes));
         },
         onErrors);
 }
 
-const findAllBoxesOfItemBoxIdCompleted = numBoxes => ({
-    type: actionTypes.FIND_ALL_BOXES_OF_ITEM_BOX_ID_COMPLETED,
-    numBoxes
+export const clearNumItemBoxes = () => ({
+    type: actionTypes.CLEAR_NUM_ITEM_BOXES
 });
 
-export const findAllBoxesOfItemBoxId = (itemBoxId, onSuccess, onErrors) => dispatch => {
-    backend.itemsService.findAllBoxesOfItemBoxId(itemBoxId,
-        boxes => {
-            dispatch(findAllBoxesOfItemBoxIdCompleted(boxes));
-            onSuccess(boxes);
+const findAllBoxesOfItemIdCompleted = itemBoxes => ({
+    type: actionTypes.FIND_ALL_BOXES_OF_ITEM_ID_COMPLETED,
+    itemBoxes
+});
+
+export const findAllBoxesOfItemId = (itemId, onSuccess, onErrors) => dispatch => {
+    backend.itemsService.findAllBoxesOfItemId(itemId,
+        itemBoxes => {
+            dispatch(findAllBoxesOfItemIdCompleted(itemBoxes));
         },
         onErrors);
 }
+
+export const clearItemBoxes = () => ({
+    type: actionTypes.CLEAR_ITEM_BOXES
+});
 
 const deleteItemCompleted = () => ({
     type: actionTypes.DELETE_ITEM_COMPLETED,
 });
 
-export const deleteItem = (itemBoxId, onSuccess, onErrors) => dispatch =>
-    backend.itemsService.deleteItem(itemBoxId,
+export const deleteItem = (itemId, onSuccess, onErrors) => dispatch =>
+    backend.itemsService.deleteItem(itemId,
         () => {
             dispatch(deleteItemCompleted());
             onSuccess();
@@ -96,8 +114,8 @@ const modifyItemCompleted = () => ({
     type: actionTypes.MODIFY_ITEM_COMPLETED,
 });
 
-export const modifyItem = (itemBoxId, formData, onSuccess, onErrors) => dispatch =>
-    backend.itemsService.modifyItem(itemBoxId, formData,
+export const modifyItem = (itemId, formData, onSuccess, onErrors) => dispatch =>
+    backend.itemsService.modifyItem(itemId, formData,
         () => {
             dispatch(modifyItemCompleted());
             onSuccess();

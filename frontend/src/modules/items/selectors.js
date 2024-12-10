@@ -5,3 +5,9 @@ export const getItems = state =>
 
 export const getItem = state =>
     getModuleState(state).item;
+
+export const getNumItemBoxes = state =>
+    getModuleState(state).numItemBoxes;
+
+export const getItemBoxes = state =>
+    getModuleState(state).itemBoxes;
