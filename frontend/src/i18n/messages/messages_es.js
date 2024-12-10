@@ -75,5 +75,6 @@ export default {
     'project.items.ItemDetails.deleteItemBox.title': 'Eliminar caja',
     'project.items.ItemDetails.deleteItemBox.text': 'Está a punto de eliminar esta caja definitivamente, junto con todos sus elementos del almacén. ¿Está seguro?',
     'project.items.ItemDetails.modifyItem.title': 'Modificar información de la pieza',
+    'project.items.ItemBox.editItemBox.title': 'Modificar caja',
 
 }

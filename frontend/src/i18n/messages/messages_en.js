@@ -75,5 +75,6 @@ export default {
     'project.items.ItemDetails.deleteItemBox.title': 'Delete item box',
     'project.items.ItemDetails.deleteItemBox.text': 'Your are about to delete this item box with its elements from this warehouse. Are you sure?',
     'project.items.ItemDetails.modifyItem.title': 'Modify item information',
+    'project.items.ItemBox.editItemBox.title': 'Modify item box',
 
 }

@@ -9,11 +9,11 @@ import admin from "../../admin";
 import {
     Box, Button, Dialog, DialogActions, DialogContent,
     DialogTitle,
-    Fab,
-    IconButton,
+    Fab, FormControl, FormHelperText,
+    IconButton, InputLabel,
     ListItem,
     ListItemButton,
-    ListItemText,
+    ListItemText, MenuItem, Select, TextField,
     Typography, useMediaQuery,
     useTheme
 } from "@mui/material";
@@ -25,9 +25,15 @@ const ItemBox = ({ itemBox, itemId }) => {
 
     const dispatch = useDispatch();
     const warehouses = useSelector(admin.selectors.getAllWarehouses);
+    const [numItems, setNumItems] = useState(itemBox.numItems);
     const [warehouseName, setWarehouseName] = useState(null);
     const [openDeleteItemBoxDialog, setOpenDeleteItemBoxDialog] = useState(false);
+    const [openEditItemBoxDialog, setOpenEditItemBoxDialog] = useState(false);
     const [backendErrors, setBackendErrors] = useState(null);
+    const [requiredAlertMessages, setRequiredAlertMessages] = useState({
+        numItems: false,
+        warehouseName: false,
+    });
     const theme = useTheme();
     const fullScreen = useMediaQuery(theme.breakpoints.down('md'));
 
@@ -52,6 +58,27 @@ const ItemBox = ({ itemBox, itemId }) => {
 
     }
 
+    const handleEditItemBox = (itemBoxId) => {
+
+        const newRequiredAlerts = {
+            numItems: numItems <= 0,
+            warehouseName: warehouseName === '',
+        };
+        setRequiredAlertMessages(newRequiredAlerts);
+        const newIsFormValid = !newRequiredAlerts.numItems && !newRequiredAlerts.warehouseName;
+
+        if (newIsFormValid) {
+
+            dispatch(actions.modifyItemBox(itemBoxId, numItems, warehouseName,
+                () => {
+                    dispatch(actions.findAllBoxesOfItemId(itemId));
+                    handleCloseEditItemBoxDialog();
+                }, errors => setBackendErrors(errors)));
+
+        }
+
+    }
+
     const handleOpenDeleteItemBoxDialog = () => {
 
         setOpenDeleteItemBoxDialog(true);
@@ -61,6 +88,18 @@ const ItemBox = ({ itemBox, itemId }) => {
     const handleCloseDeleteItemBoxDialog = () => {
 
         setOpenDeleteItemBoxDialog(false);
+
+    }
+
+    const handleOpenEditItemBoxDialog = () => {
+
+        setOpenEditItemBoxDialog(true);
+
+    }
+
+    const handleCloseEditItemBoxDialog = () => {
+
+        setOpenEditItemBoxDialog(false);
 
     }
 
@@ -88,6 +127,7 @@ const ItemBox = ({ itemBox, itemId }) => {
                     sx={{ zIndex: 0 }}
                     size="small"
                     color="primary"
+                    onClick={handleOpenEditItemBoxDialog}
                 >
                     <EditIcon />
                 </Fab>
@@ -151,6 +191,94 @@ const ItemBox = ({ itemBox, itemId }) => {
                         variant="contained"
                         color="alertRed"
                         onClick={handleCloseDeleteItemBoxDialog}
+                        sx={{ mt: 1, mb: 1 }}>
+                        <Typography>
+                            <FormattedMessage id="project.global.buttons.Cancel"></FormattedMessage>
+                        </Typography>
+                    </Button>
+                </DialogActions>
+            </Dialog>
+            <Dialog
+                fullScreen={fullScreen}
+                open={openEditItemBoxDialog}
+                onClose={handleCloseEditItemBoxDialog}
+                aria-labelledby="responsive-dialog-title"
+            >
+                <DialogTitle id="responsive-dialog-title">
+                    <Typography variant="h2" sx={{ fontWeight: 'bold' }}>
+                        {<FormattedMessage id="project.items.ItemBox.editItemBox.title" />}
+                    </Typography>
+                </DialogTitle>
+                <DialogContent>
+                    <Box
+                        sx={{
+                            position: "relative",
+                            display: "flex",
+                            alignItems: "center",
+                            justifyContent: "center",
+                            m: 1
+                        }}>
+                        <TextField
+                            value={numItems}
+                            onChange={(e) => setNumItems(e.target.value)}
+                            name="numItems"
+                            type="number"
+                            onInput={(e) => {
+                                e.target.value = e.target.value.replace(/[^0-9]/g, '');
+                            }}
+                            required
+                            fullWidth
+                            id="numItems"
+                            label={<FormattedMessage id="project.global.fields.numItems" />}
+                            error={requiredAlertMessages.numItems}
+                            helperText={requiredAlertMessages.numItems &&
+                                <FormattedMessage id="project.global.validator.required" />}
+                        />
+                    </Box>
+                    <Box
+                        sx={{
+                            position: "relative",
+                            display: "flex",
+                            alignItems: "center",
+                            justifyContent: "center",
+                            m: 1
+                        }}>
+                        <FormControl fullWidth error={requiredAlertMessages.warehouseName}>
+                            <InputLabel id="demo-simple-select-helper-label">
+                                <FormattedMessage id="project.global.fields.warehouseName" />
+                            </InputLabel>
+                            <Select
+                                value={warehouseName}
+                                label={<FormattedMessage id="project.global.fields.warehouseName" />}
+                                onChange={(e) => setWarehouseName(e.target.value)}>
+                                {warehouses.map(warehouse =>
+                                    <MenuItem value={warehouse.name}>
+                                        <Typography>
+                                            {warehouse.name}
+                                        </Typography>
+                                    </MenuItem>
+                                )}
+                            </Select>
+                            <FormHelperText color="alertRed">
+                                {requiredAlertMessages.warehouseName &&
+                                    <FormattedMessage id="project.global.validator.required" />}
+                            </FormHelperText>
+                        </FormControl>
+                    </Box>
+                </DialogContent>
+                <DialogActions>
+                    <Button
+                        variant="contained"
+                        onClick={() => handleEditItemBox(itemBox.id)}
+                        sx={{ mt: 1, mb: 1 }}>
+                        <Typography>
+                            <FormattedMessage id="project.global.buttons.Confirm"></FormattedMessage>
+                        </Typography>
+                    </Button>
+                    <Button
+                        variant="contained"
+                        color="alertRed"
+                        onClick={handleCloseEditItemBoxDialog}
                         sx={{ mt: 1, mb: 1 }}>
                         <Typography>
                             <FormattedMessage id="project.global.buttons.Cancel"></FormattedMessage>
