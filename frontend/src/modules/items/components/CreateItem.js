@@ -35,7 +35,7 @@ const CreateItem = () => {
     const [supplier, setSupplier] = useState('');
     const [imgFile, setImgFile] = useState(null);
     const [isFormValid, setIsFormValid] = useState(false);
-    const [openNumItemsBoxDialog, setOpenNumItemsBoxDialog] = useState(false);
+    const [imgFileRequired, setImgFileRequied] = useState(false);
     const [showSuccessMessage, setShowSuccessMessage] = useState(false);
     const [numItemsSuccess, setNumItemsSuccess] = useState(null);
     const [itemNameSuccess, setItemNameSuccess] = useState(null);
@@ -47,9 +47,9 @@ const CreateItem = () => {
         barCode: false,
         manufacturerRef: false,
         supplier: false,
+        imgFile: false,
     });
     const theme = useTheme();
-    const fullScreen = useMediaQuery(theme.breakpoints.down('md'));
 
     const handleCreateItem = () => {
 
@@ -59,11 +59,17 @@ const CreateItem = () => {
             barCode: barCode === '',
             manufacturerRef: manufacturerRef === '',
             supplier: supplier === '',
+            imgFile: imgFile === null,
         };
         setRequiredAlertMessages(newRequiredAlerts);
         const newIsFormValid = !newRequiredAlerts.itemName && !newRequiredAlerts.referenceCode
-            && !newRequiredAlerts.barCode && !newRequiredAlerts.manufacturerRef && !newRequiredAlerts.supplier;
+            && !newRequiredAlerts.barCode && !newRequiredAlerts.manufacturerRef && !newRequiredAlerts.supplier
+            && !newRequiredAlerts.imgFile;
         setIsFormValid(newIsFormValid);
+
+        if (newRequiredAlerts.imgFile) {
+            setImgFileRequied(true);
+        }
 
         if (newIsFormValid) {
 
@@ -88,65 +94,9 @@ const CreateItem = () => {
 
     }
 
-    const handleValidation = () => {
-        const newRequiredAlerts = {
-            itemName: itemName === '',
-            referenceCode: referenceCode === '',
-            barCode: barCode === '',
-            manufacturerRef: manufacturerRef === '',
-            supplier: supplier === '',
-        };
-        setRequiredAlertMessages(newRequiredAlerts);
-    };
-
-    const handleOpenNumItemsBoxDialog = () => {
-
-        const newRequiredAlerts = {
-            itemName: itemName === '',
-            barCode: barCode === '',
-            manufacturerRef: manufacturerRef === '',
-            supplier: supplier === '',
-        };
-        setRequiredAlertMessages(newRequiredAlerts);
-        const newIsFormValid = !newRequiredAlerts.itemName && !newRequiredAlerts.referenceCode &&
-            !newRequiredAlerts.barCode && !newRequiredAlerts.manufacturerRef && !newRequiredAlerts.supplier &&
-            !newRequiredAlerts.warehouseName ;
-        setIsFormValid(newIsFormValid);
-
-        if (newIsFormValid) {
-            setOpenNumItemsBoxDialog(true);
-        }
-
-    }
-
-    const handleCloseNumItemsBoxDialog = () => {
-
-        setOpenNumItemsBoxDialog(false);
-
-    }
-
-    const handleUpdateSuccessMessage = (numItemsInBox) => {
-
-        setNumItemsSuccess(numItemsInBox);
-        setItemNameSuccess(itemName);
-        setShowSuccessMessage(true);
-
-    }
-
     const handleCloseSuccessMessage = () => {
 
         setShowSuccessMessage(false);
-
-    }
-
-    const handleRestoreFields = () => {
-
-        handleRemoveImage();
-        setItemName('');
-        setReferenceCode('');
-        setBarCode('');
-        setManufacturerRef('');
-        setSupplier('');
 
     }
 
@@ -352,6 +302,11 @@ const CreateItem = () => {
                                     <DeleteIcon />
                                 </IconButton>
                             </Box>
+                            {imgFileRequired &&
+                                <Alert variant="outlined" severity="error" onClose={() => setImgFileRequied(false)}>
+                                    <FormattedMessage id="project.global.validator.imageRequired" />
+                                </Alert>
+                            }
                             {imgFile && (
                                 <Box
                                     sx={{

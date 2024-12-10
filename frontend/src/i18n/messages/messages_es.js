@@ -25,6 +25,7 @@ export default {
 
     'project.global.validator.required': 'Campo requerido',
     'project.global.validator.incorrectEmail': 'Formato de email incorrecto',
+    'project.global.validator.imageRequired': 'Imagen requerida',
 
     'project.global.fields.userName': 'Nombre de usuario',
     'project.global.fields.password': 'Contraseña',
