@@ -34,17 +34,23 @@ public class CustomizedItemDaoImpl implements CustomizedItemDao {
         if (tokens.length > 0) {
             queryString += " WHERE (";
             for (int i = 0; i<tokens.length; i++) {
-                queryString += "(LOWER(p.itemName) || LOWER(p.referenceCode) || LOWER(p.barCode)) LIKE LOWER(:token" + i + ")";
+                queryString += "(LOWER(i.itemName) || LOWER(i.referenceCode) || LOWER(i.barCode)) LIKE LOWER(:token" + i + ")";
                 if (i < tokens.length - 1) {
                     queryString += " AND ";
                 }
             }
-            queryString += ")";
+            queryString += " )";
         }
 
         queryString += " ORDER BY i.itemName";
 
         Query query = entityManager.createQuery(queryString).setFirstResult(page * size).setMaxResults(size + 1);
+
+        if (tokens.length != 0) {
+            for (int i = 0; i<tokens.length; i++) {
+                query.setParameter("token" + i, '%' + tokens[i] + '%');
+            }
+        }
 
         List<Item> items = query.getResultList();
         boolean hasNext = items.size() == (size+1);
