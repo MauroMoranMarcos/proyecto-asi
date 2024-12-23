@@ -19,7 +19,7 @@ public class CustomizedItemDaoImpl implements CustomizedItemDao {
     @Override
     public Slice<Item> findItems(int page, int size) {
 
-        String queryString = "SELECT i FROM Item i GROUP BY i.itemName ORDER BY i.itemName";
+        String queryString = "SELECT i FROM Item i ORDER BY i.itemName";    // GROUP BY i.itemName
 
         Query query = entityManager.createQuery(queryString).setFirstResult(page * size).setMaxResults(size + 1);
 
