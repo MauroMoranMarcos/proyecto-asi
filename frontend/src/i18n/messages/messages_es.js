@@ -39,6 +39,7 @@ export default {
     'project.global.fields.supplier': 'Proveedor',
     'project.global.fields.numItems': 'Número de piezas en la caja',
     'project.global.fields.imgFile': 'Seleccionar imagen',
+    'project.global.fields.searchBar': 'Buscar por nombre o código',
 
     'project.app.Home.title': 'Inicio',
     'project.app.Home.InventoryAdministration': 'Administración de inventario',

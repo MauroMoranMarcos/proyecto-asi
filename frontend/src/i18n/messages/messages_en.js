@@ -39,6 +39,7 @@ export default {
     'project.global.fields.supplier': 'Supplier',
     'project.global.fields.numItems': 'Number of items in the box',
     'project.global.fields.imgFile': 'Select image',
+    'project.global.fields.searchBar': 'Search by name or code',
 
     'project.app.Home.title': 'Home',
     'project.app.Home.InventoryAdministration': 'Inventory administration',

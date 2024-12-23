@@ -4,9 +4,16 @@ export const createItem = (formData, onSuccess, onErrors) =>
     appFetch(`/items/createItem`,
         config('POST', formData), onSuccess, onErrors);
 
-export const checkInventory = ({page}, onSuccess, onErrors) =>
-    appFetch(`/items/checkInventory?page=${page}`,
-        config('GET'), onSuccess, onErrors);
+export const checkInventory = ({keywords, page}, onSuccess, onErrors) => {
+
+    let path = `/items/checkInventory?page=${page}`;
+
+    if(keywords) {
+        path +=`&keywords=${encodeURIComponent(keywords)}`;
+    }
+
+    appFetch(path, config('GET'), onSuccess, onErrors);
+}
 
 export const addItemBoxToWarehouse = (itemId, numItems, warehouseName, onSuccess, onErrors) =>
     appFetch(`/items/checkInventory/${itemId}/addItemBoxToWarehouse`,
