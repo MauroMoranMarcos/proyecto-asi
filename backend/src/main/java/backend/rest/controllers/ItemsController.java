@@ -39,10 +39,11 @@ public class ItemsController {
     }
 
     @GetMapping("/checkInventory")
-    public BlockDto<ItemDto> checkInventory(@RequestAttribute Long userId, @RequestParam(defaultValue = "0") int page)
+    public BlockDto<ItemDto> checkInventory(@RequestAttribute Long userId,
+            @RequestParam(required = false) String keywords, @RequestParam(defaultValue = "0") int page)
             throws PermissionException, InstanceNotFoundException {
 
-        Block<Item> itemBlock = itemsService.checkInventory(userId, page, 12);
+        Block<Item> itemBlock = itemsService.checkInventory(userId, keywords, page, 12);
 
         return new BlockDto<>(toItemDtos(itemBlock.getItems()), itemBlock.getExistMoreItems());
 

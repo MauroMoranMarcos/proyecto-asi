@@ -16,10 +16,33 @@ public class CustomizedItemDaoImpl implements CustomizedItemDao {
     @PersistenceContext
     private EntityManager entityManager;
 
-    @Override
-    public Slice<Item> findItems(int page, int size) {
+    private String[] getTokens(String keywords) {
 
-        String queryString = "SELECT i FROM Item i ORDER BY i.itemName";    // GROUP BY i.itemName
+        if (keywords == null || keywords.length() == 0) {
+            return new String[0];
+        } else {
+            return keywords.split("\\s");
+        }
+    }
+
+    @Override
+    public Slice<Item> findItems(String keywords, int page, int size) {
+
+        String[] tokens = getTokens(keywords);
+        String queryString = "SELECT i FROM Item i";
+
+        if (tokens.length > 0) {
+            queryString += " WHERE (";
+            for (int i = 0; i<tokens.length; i++) {
+                queryString += "(LOWER(p.itemName) || LOWER(p.referenceCode) || LOWER(p.barCode)) LIKE LOWER(:token" + i + ")";
+                if (i < tokens.length - 1) {
+                    queryString += " AND ";
+                }
+            }
+            queryString += ")";
+        }
+
+        queryString += " ORDER BY i.itemName";
 
         Query query = entityManager.createQuery(queryString).setFirstResult(page * size).setMaxResults(size + 1);
 

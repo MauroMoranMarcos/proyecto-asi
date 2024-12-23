@@ -15,7 +15,7 @@ public interface ItemsService {
     Long addItemBoxToWarehouse(Long userId, Long itemId, Long numItems, String warehouseName)
             throws PermissionException, InstanceNotFoundException;
 
-    Block<Item> checkInventory(Long userId, int page, int size) throws PermissionException, InstanceNotFoundException;
+    Block<Item> checkInventory(Long userId, String keywords, int page, int size) throws PermissionException, InstanceNotFoundException;
 
     Item findItemById(Long userId, Long itemId) throws PermissionException, InstanceNotFoundException;
 

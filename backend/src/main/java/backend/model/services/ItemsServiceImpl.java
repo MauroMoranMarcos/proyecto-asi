@@ -74,7 +74,7 @@ public class ItemsServiceImpl implements ItemsService {
     }
 
     @Override
-    public Block<Item> checkInventory(Long userId, int page, int size) throws PermissionException,
+    public Block<Item> checkInventory(Long userId, String keywords, int page, int size) throws PermissionException,
             InstanceNotFoundException {
 
         User user = permissionChecker.checkUser(userId);
@@ -83,7 +83,7 @@ public class ItemsServiceImpl implements ItemsService {
             throw new PermissionException();
         }
 
-        Slice<Item> slice = itemDao.findItems(page, size);
+        Slice<Item> slice = itemDao.findItems(keywords, page, size);
 
         return new Block<>(slice.getContent(), slice.hasNext());
 

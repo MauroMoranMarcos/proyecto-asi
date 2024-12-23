@@ -4,6 +4,6 @@ import org.springframework.data.domain.Slice;
 
 public interface CustomizedItemDao {
 
-    Slice<Item> findItems(int page, int size);
+    Slice<Item> findItems(String keywords, int page, int size);
 
 }
