@@ -1,6 +1,6 @@
 import {useDispatch, useSelector} from "react-redux";
 import {useEffect, useState} from "react";
-import {FormattedMessage} from "react-intl";
+import {FormattedMessage, useIntl} from "react-intl";
 
 import * as actions from "../actions";
 
@@ -13,20 +13,26 @@ import {
     IconButton, InputLabel,
     ListItem,
     ListItemButton,
-    ListItemText, MenuItem, Select, TextField,
+    ListItemText, MenuItem, Select, TextField, Tooltip,
     Typography, useMediaQuery,
     useTheme
 } from "@mui/material";
 import EditIcon from "@mui/icons-material/Edit";
 import DeleteForeverIcon from "@mui/icons-material/DeleteForever";
 import CloseOutlinedIcon from "@mui/icons-material/CloseOutlined";
+import AddCircleOutlineIcon from "@mui/icons-material/AddCircleOutline";
+import RemoveCircleOutlineIcon from "@mui/icons-material/RemoveCircleOutline";
 
 const ItemBox = ({ itemBox, itemId }) => {
 
     const dispatch = useDispatch();
     const warehouses = useSelector(admin.selectors.getAllWarehouses);
     const [numItems, setNumItems] = useState(itemBox.numItems);
+    const [numItemsToAdd, setNumItemsToAdd] = useState(null);
+    const [numItemsToRemove, setNumItemsToRemove] = useState(null);
     const [warehouseName, setWarehouseName] = useState(null);
+    const [openAddItemsToBoxDialog, setOpenAddItemsToBoxDialog] = useState(false);
+    const [openRemoveItemsFromBoxDialog, setOpenRemoveItemsFromBoxDialog] = useState(false);
     const [openDeleteItemBoxDialog, setOpenDeleteItemBoxDialog] = useState(false);
     const [openEditItemBoxDialog, setOpenEditItemBoxDialog] = useState(false);
     const [backendErrors, setBackendErrors] = useState(null);
@@ -36,6 +42,7 @@ const ItemBox = ({ itemBox, itemId }) => {
     });
     const theme = useTheme();
     const fullScreen = useMediaQuery(theme.breakpoints.down('md'));
+    const intl = useIntl();
 
     useEffect(() => {
 
@@ -79,6 +86,70 @@ const ItemBox = ({ itemBox, itemId }) => {
 
     }
 
+    const handleAddItemsToBox = (itemBoxId) => {
+
+        const newRequiredAlerts = {
+            numItemsToAdd: numItemsToAdd <= 0,
+        };
+        setRequiredAlertMessages(newRequiredAlerts);
+        const newIsFormValid = !newRequiredAlerts.numItemsToAdd;
+
+        if (newIsFormValid) {
+
+            dispatch(actions.addItemsToBox(itemBoxId, numItemsToAdd,
+                () => {
+                    dispatch(actions.findAllBoxesOfItemId(itemId));
+                    handleCloseAddItemsToBoxDialog();
+                }, errors => setBackendErrors(errors)));
+
+        }
+
+    }
+
+    const handleRemoveItemsFromBox = (itemBoxId) => {
+
+        const newRequiredAlerts = {
+            numItemsToRemove: numItemsToRemove <= 0,
+        };
+        setRequiredAlertMessages(newRequiredAlerts);
+        const newIsFormValid = !newRequiredAlerts.numItemsToRemove;
+
+        if (newIsFormValid) {
+
+            dispatch(actions.removeItemsFromBox(itemBoxId, numItemsToRemove,
+                () => {
+                    dispatch(actions.findAllBoxesOfItemId(itemId));
+                    handleCloseRemoveItemsFromBoxDialog();
+                }, errors => setBackendErrors(errors)));
+
+        }
+
+    }
+
+    const handleOpenRemoveItemsFromBoxDialog = () => {
+
+        setOpenRemoveItemsFromBoxDialog(true);
+
+    }
+
+    const handleCloseRemoveItemsFromBoxDialog = () => {
+
+        setOpenRemoveItemsFromBoxDialog(false);
+
+    }
+
+    const handleOpenAddItemsToBoxDialog = () => {
+
+        setOpenAddItemsToBoxDialog(true);
+
+    }
+
+    const handleCloseAddItemsToBoxDialog = () => {
+
+        setOpenAddItemsToBoxDialog(false);
+
+    }
+
     const handleOpenDeleteItemBoxDialog = () => {
 
         setOpenDeleteItemBoxDialog(true);
@@ -115,12 +186,41 @@ const ItemBox = ({ itemBox, itemId }) => {
                     {' ' + itemBox.id}
                 </Typography>} secondary={<Typography sx={{ color: 'text.secondary' }}>
                     {itemBox.numItems + ' '}
-                    <FormattedMessage id="project.items.ItemDetails.numItemsInBox" />
+                    <FormattedMessage id="project.items.ItemDetails.boxCapacity" />
+                    {' (' + itemBox.currentNumItems + ' '}
+                    <FormattedMessage id="project.items.ItemDetails.currentItems" />
+                    {')'}
                 </Typography>}/>
                 <Box sx={{ m: 2, p: 1 }}>
                     <Typography sx={{ color: 'text.secondary' }}>{warehouseName}</Typography>
                 </Box>
             </ListItemButton>
+            <Box
+                sx={{ mr: 0.5, ml: 1 }}>
+                <Tooltip title={intl.formatMessage({ id: "project.items.ItemDetails.addItemsToBox.title" })} arrow>
+                    <Fab
+                        sx={{ zIndex: 0 }}
+                        size="small"
+                        color="success"
+                        onClick={handleOpenAddItemsToBoxDialog}
+                    >
+                        <AddCircleOutlineIcon />
+                    </Fab>
+                </Tooltip>
+            </Box>
+            <Box
+                sx={{ mr: 3, ml: 0.5 }}>
+                <Tooltip title={intl.formatMessage({ id: "project.items.ItemDetails.removeItemsFromBox.title" })} arrow>
+                    <Fab
+                        sx={{ zIndex: 0 }}
+                        size="small"
+                        color="error"
+                        onClick={handleOpenRemoveItemsFromBoxDialog}
+                    >
+                        <RemoveCircleOutlineIcon />
+                    </Fab>
+                </Tooltip>
+            </Box>
             <Box
                 sx={{ mr: 0.5, ml: 0.5 }}>
                 <Fab
@@ -191,6 +291,122 @@ const ItemBox = ({ itemBox, itemId }) => {
                         variant="contained"
                         color="alertRed"
                         onClick={handleCloseDeleteItemBoxDialog}
+                        sx={{ mt: 1, mb: 1 }}>
+                        <Typography>
+                            <FormattedMessage id="project.global.buttons.Cancel"></FormattedMessage>
+                        </Typography>
+                    </Button>
+                </DialogActions>
+            </Dialog>
+            <Dialog
+                fullScreen={fullScreen}
+                open={openAddItemsToBoxDialog}
+                onClose={handleCloseAddItemsToBoxDialog}
+                aria-labelledby="responsive-dialog-title"
+            >
+                <DialogTitle id="responsive-dialog-title">
+                    <Typography variant="h2" sx={{ fontWeight: 'bold' }}>
+                        {<FormattedMessage id="project.items.ItemDetails.addItemsToBox.title" />}
+                    </Typography>
+                </DialogTitle>
+                <DialogContent>
+                    <Box
+                        sx={{
+                            position: "relative",
+                            display: "flex",
+                            alignItems: "center",
+                            justifyContent: "center",
+                            m: 1
+                        }}>
+                        <TextField
+                            value={numItemsToAdd}
+                            onChange={(e) => setNumItemsToAdd(e.target.value)}
+                            name="numItemsToAdd"
+                            type="number"
+                            onInput={(e) => {
+                                e.target.value = e.target.value.replace(/[^0-9]/g, '');
+                            }}
+                            required
+                            fullWidth
+                            id="numItemsToAdd"
+                            label={<FormattedMessage id="project.global.fields.numItemsToAdd" />}
+                            error={requiredAlertMessages.numItemsToAdd}
+                            helperText={requiredAlertMessages.numItemsToAdd &&
+                                <FormattedMessage id="project.global.validator.required" />}
+                        />
+                    </Box>
+                </DialogContent>
+                <DialogActions>
+                    <Button
+                        variant="contained"
+                        onClick={() => handleAddItemsToBox(itemBox.id)}
+                        sx={{ mt: 1, mb: 1 }}>
+                        <Typography>
+                            <FormattedMessage id="project.global.buttons.Confirm"></FormattedMessage>
+                        </Typography>
+                    </Button>
+                    <Button
+                        variant="contained"
+                        color="alertRed"
+                        onClick={handleCloseAddItemsToBoxDialog}
+                        sx={{ mt: 1, mb: 1 }}>
+                        <Typography>
+                            <FormattedMessage id="project.global.buttons.Cancel"></FormattedMessage>
+                        </Typography>
+                    </Button>
+                </DialogActions>
+            </Dialog>
+            <Dialog
+                fullScreen={fullScreen}
+                open={openRemoveItemsFromBoxDialog}
+                onClose={handleCloseRemoveItemsFromBoxDialog}
+                aria-labelledby="responsive-dialog-title"
+            >
+                <DialogTitle id="responsive-dialog-title">
+                    <Typography variant="h2" sx={{ fontWeight: 'bold' }}>
+                        {<FormattedMessage id="project.items.ItemDetails.removeItemsFromBox.title" />}
+                    </Typography>
+                </DialogTitle>
+                <DialogContent>
+                    <Box
+                        sx={{
+                            position: "relative",
+                            display: "flex",
+                            alignItems: "center",
+                            justifyContent: "center",
+                            m: 1
+                        }}>
+                        <TextField
+                            value={numItemsToRemove}
+                            onChange={(e) => setNumItemsToRemove(e.target.value)}
+                            name="numItemsToRemove"
+                            type="number"
+                            onInput={(e) => {
+                                e.target.value = e.target.value.replace(/[^0-9]/g, '');
+                            }}
+                            required
+                            fullWidth
+                            id="numItemsToRemove"
+                            label={<FormattedMessage id="project.global.fields.numItemsToRemove" />}
+                            error={requiredAlertMessages.numItemsToRemove}
+                            helperText={requiredAlertMessages.numItemsToRemove &&
+                                <FormattedMessage id="project.global.validator.required" />}
+                        />
+                    </Box>
+                </DialogContent>
+                <DialogActions>
+                    <Button
+                        variant="contained"
+                        onClick={() => handleRemoveItemsFromBox(itemBox.id)}
+                        sx={{ mt: 1, mb: 1 }}>
+                        <Typography>
+                            <FormattedMessage id="project.global.buttons.Confirm"></FormattedMessage>
+                        </Typography>
+                    </Button>
+                    <Button
+                        variant="contained"
+                        color="alertRed"
+                        onClick={handleCloseRemoveItemsFromBoxDialog}
                         sx={{ mt: 1, mb: 1 }}>
                         <Typography>
                             <FormattedMessage id="project.global.buttons.Cancel"></FormattedMessage>

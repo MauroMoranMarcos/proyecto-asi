@@ -134,6 +134,30 @@ export const modifyItemBox = (itemBoxId, numItems, warehouseName, onSuccess, onE
         },
         onErrors);
 
+const addItemsToBoxCompleted = () => ({
+    type: actionTypes.ADD_ITEMS_TO_BOX_COMPLETED,
+});
+
+export const addItemsToBox = (itemBoxId, numItemsToAdd, onSuccess, onErrors) => dispatch =>
+    backend.itemsService.addItemsToBox(itemBoxId, numItemsToAdd,
+        () => {
+            dispatch(addItemsToBoxCompleted());
+            onSuccess();
+        },
+        onErrors);
+
+const removeItemsFromBoxCompleted = () => ({
+    type: actionTypes.REMOVE_ITEMS_FROM_BOX_COMPLETED,
+});
+
+export const removeItemsFromBox = (itemBoxId, numItemsToRemove, onSuccess, onErrors) => dispatch =>
+    backend.itemsService.removeItemsFromBox(itemBoxId, numItemsToRemove,
+        () => {
+            dispatch(removeItemsFromBoxCompleted());
+            onSuccess();
+        },
+        onErrors);
+
 const deleteItemBoxCompleted = () => ({
     type: actionTypes.DELETE_ITEM_BOX_COMPLETED,
 });

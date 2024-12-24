@@ -43,6 +43,14 @@ export const modifyItemBox = (itemBoxId, numItems, warehouseName, onSuccess, onE
     appFetch(`/items/checkInventory/${itemBoxId}/modifyItemBox`,
         config('PUT', {numItems, warehouseName}), onSuccess, onErrors);
 
+export const addItemsToBox = (itemBoxId, numItemsToAdd, onSuccess, onErrors) =>
+    appFetch(`/items/checkInventory/${itemBoxId}/addItemsToBox?numItemsToAdd=${numItemsToAdd}`,
+        config('PUT'), onSuccess, onErrors);
+
+export const removeItemsFromBox = (itemBoxId, numItemsToRemove, onSuccess, onErrors) =>
+    appFetch(`/items/checkInventory/${itemBoxId}/removeItemsFromBox?numItemsToRemove=${numItemsToRemove}`,
+        config('PUT'), onSuccess, onErrors);
+
 export const deleteItemBox = (itemBoxId, onSuccess, onErrors) =>
     appFetch(`/items/checkInventory/${itemBoxId}/deleteItemBox`,
         config('POST'), onSuccess, onErrors);

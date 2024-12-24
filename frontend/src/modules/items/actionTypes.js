@@ -11,4 +11,6 @@ export const CLEAR_ITEM_BOXES = "project/items/clearItemBoxes";
 export const DELETE_ITEM_COMPLETED = "project/items/deleteItemCompleted";
 export const MODIFY_ITEM_COMPLETED = "project/items/modifyItemCompleted";
 export const MODIFY_ITEM_BOX_COMPLETED = "project/items/modifyItemBoxCompleted";
+export const ADD_ITEMS_TO_BOX_COMPLETED = "project/items/addItemsToBoxCompleted";
+export const REMOVE_ITEMS_FROM_BOX_COMPLETED = "project/items/removeItemsFromBoxCompleted";
 export const DELETE_ITEM_BOX_COMPLETED = "project/items/deleteItemBoxCompleted";
