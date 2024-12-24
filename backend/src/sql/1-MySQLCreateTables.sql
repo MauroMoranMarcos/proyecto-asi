@@ -51,6 +51,7 @@ CREATE TABLE ItemBox (
 
     id BIGINT NOT NULL AUTO_INCREMENT,
     numItems BIGINT NOT NULL,
+    currentNumItems BIGINT NOT NULL,
     itemId BIGINT NOT NULL,
     warehouseId BIGINT NOT NULL,
 
