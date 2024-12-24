@@ -2,6 +2,8 @@ package backend.model.services;
 
 import backend.model.entities.*;
 import backend.model.exceptions.InstanceNotFoundException;
+import backend.model.exceptions.InvalidNumberOfItemsToAddToBox;
+import backend.model.exceptions.InvalidNumberOfItemsToRemoveFromBox;
 import backend.model.exceptions.PermissionException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Slice;
@@ -235,6 +237,72 @@ public class ItemsServiceImpl implements ItemsService {
 
         itemBox.setNumItems(numItems);
         itemBox.setWarehouse(warehouse);
+
+        return itemBox.getId();
+
+    }
+
+    /*
+    Añade una cantidad de items de una caja
+     */
+    @Override
+    public Long addItemsToBox(Long userId, Long itemBoxId, Long numItemsToAdd)
+            throws PermissionException, InstanceNotFoundException, InvalidNumberOfItemsToAddToBox {
+
+        User user = permissionChecker.checkUser(userId);
+
+        if (!user.getRole().equals(User.RoleType.WAREHOUSE_STAFF)) {
+            throw new PermissionException();
+        }
+
+        Optional<ItemBox> itemBoxOpt = itemBoxDao.findById(itemBoxId);
+
+        if (!itemBoxOpt.isPresent()) {
+            throw new InstanceNotFoundException("project.entities.itemBox", itemBoxId);
+        }
+
+        ItemBox itemBox = itemBoxOpt.get();
+
+        Long newCurrentNumItems = itemBox.getCurrentNumItems() + numItemsToAdd;
+
+        if (newCurrentNumItems > itemBox.getNumItems()) {
+            throw new InvalidNumberOfItemsToAddToBox();
+        }
+
+        itemBox.setCurrentNumItems(newCurrentNumItems);
+
+        return itemBox.getId();
+
+    }
+
+    /*
+    Elimina una cantidad de items de una caja
+     */
+    @Override
+    public Long removeItemsFromBox(Long userId, Long itemBoxId, Long numItemsToRemove)
+            throws PermissionException, InstanceNotFoundException, InvalidNumberOfItemsToRemoveFromBox {
+
+        User user = permissionChecker.checkUser(userId);
+
+        if (!user.getRole().equals(User.RoleType.WAREHOUSE_STAFF)) {
+            throw new PermissionException();
+        }
+
+        Optional<ItemBox> itemBoxOpt = itemBoxDao.findById(itemBoxId);
+
+        if (!itemBoxOpt.isPresent()) {
+            throw new InstanceNotFoundException("project.entities.itemBox", itemBoxId);
+        }
+
+        ItemBox itemBox = itemBoxOpt.get();
+
+        Long newCurrentNumItems = itemBox.getCurrentNumItems() - numItemsToRemove;
+
+        if (newCurrentNumItems < 0) {
+            throw new InvalidNumberOfItemsToRemoveFromBox();
+        }
+
+        itemBox.setCurrentNumItems(newCurrentNumItems);
 
         return itemBox.getId();
 

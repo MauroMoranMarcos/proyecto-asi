@@ -5,6 +5,8 @@ import backend.model.entities.ItemBox;
 import backend.model.entities.ItemBoxDao;
 import backend.model.entities.User;
 import backend.model.exceptions.InstanceNotFoundException;
+import backend.model.exceptions.InvalidNumberOfItemsToAddToBox;
+import backend.model.exceptions.InvalidNumberOfItemsToRemoveFromBox;
 import backend.model.exceptions.PermissionException;
 import backend.model.services.Block;
 import backend.model.services.ItemsService;
@@ -109,6 +111,26 @@ public class ItemsController {
             throws PermissionException, InstanceNotFoundException {
 
         return itemsService.modifyItemBox(userId, id, params.getNumItems(), params.getWarehouseName());
+
+    }
+
+    @PutMapping("/checkInventory/{id}/addItemsFromBox")
+    public Long addItemsToBox(@RequestAttribute Long userId,
+                                             @PathVariable Long id,
+                                             @RequestParam Long numItemsToAdd)
+            throws PermissionException, InstanceNotFoundException, InvalidNumberOfItemsToAddToBox {
+
+        return itemsService.addItemsToBox(userId, id, numItemsToAdd);
+
+    }
+
+    @PutMapping("/checkInventory/{id}/removeItemsFromBox")
+    public Long removeItemsToBox(@RequestAttribute Long userId,
+                              @PathVariable Long id,
+                              @RequestParam Long numItemsToRemove)
+            throws PermissionException, InstanceNotFoundException, InvalidNumberOfItemsToRemoveFromBox {
+
+        return itemsService.removeItemsFromBox(userId, id, numItemsToRemove);
 
     }
 
