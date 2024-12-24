@@ -6,15 +6,17 @@ public class ItemBoxDto {
 
     private Long id;
     private Long numItems;
+    private Long currentNumItems;
     private Long itemId;
     private Long warehouseId;
 
     public ItemBoxDto() {
     }
 
-    public ItemBoxDto(Long id, Long numItems, Long itemId, Long warehouseId) {
+    public ItemBoxDto(Long id, Long numItems, Long currentNumItems, Long itemId, Long warehouseId) {
         this.id = id;
         this.numItems = numItems;
+        this.currentNumItems = currentNumItems;
         this.itemId = itemId;
         this.warehouseId = warehouseId;
     }
@@ -33,6 +35,14 @@ public class ItemBoxDto {
 
     public void setNumItems(Long numItems) {
         this.numItems = numItems;
+    }
+
+    public Long getCurrentNumItems() {
+        return currentNumItems;
+    }
+
+    public void setCurrentNumItems(Long currentNumItems) {
+        this.currentNumItems = currentNumItems;
     }
 
     public Long getItemId() {
