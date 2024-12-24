@@ -114,7 +114,7 @@ public class ItemsController {
 
     }
 
-    @PutMapping("/checkInventory/{id}/addItemsFromBox")
+    @PutMapping("/checkInventory/{id}/addItemsToBox")
     public Long addItemsToBox(@RequestAttribute Long userId,
                                              @PathVariable Long id,
                                              @RequestParam Long numItemsToAdd)
