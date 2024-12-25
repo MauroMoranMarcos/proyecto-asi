@@ -5,6 +5,7 @@
 DROP TABLE User;
 DROP TABLE ItemBox;
 DROP TABLE Item;
+DROP TABLE Supplier;
 DROP TABLE Warehouse;
 
 -- Creating table User to store users.
@@ -31,6 +32,15 @@ CREATE TABLE Warehouse (
 
 ) ENGINE = InnoDB;
 
+CREATE TABLE Supplier (
+
+    id BIGINT NOT NULL AUTO_INCREMENT,
+    name VARCHAR(120) NOT NULL,
+
+    CONSTRAINT SupplierPK PRIMARY KEY (id)
+
+) ENGINE = InnoDB;
+
 -- Creating table Item to store info about items
 CREATE TABLE Item (
 
@@ -39,10 +49,12 @@ CREATE TABLE Item (
     referenceCode VARCHAR(300) NOT NULL,
     barCode VARCHAR(300) NOT NULL,
     manufacturerRef VARCHAR(300) NOT NULL,
-    supplier VARCHAR(120) NOT NULL,
     imgFile LONGBLOB,
+    supplierId BIGINT NOT NULL,
 
-    CONSTRAINT ItemPK PRIMARY KEY (id)
+    CONSTRAINT ItemPK PRIMARY KEY (id),
+    CONSTRAINT ItemSupplierIdFK FOREIGN KEY (supplierId)
+        REFERENCES Supplier(id)
 
 ) ENGINE = InnoDB;
 
