@@ -11,7 +11,7 @@ public class ItemConversor {
 
     public final static ItemDto toItemDto(Item item) {
         return new ItemDto(item.getId(), item.getItemName(), item.getReferenceCode(),
-                item.getBarCode(), item.getManufacturerRef(), item.getSupplier(), item.getImgFile());
+                item.getBarCode(), item.getManufacturerRef(), item.getImgFile(), item.getSupplier().getId());
     }
 
     public final static List<ItemDto> toItemDtos(List<Item> items) {

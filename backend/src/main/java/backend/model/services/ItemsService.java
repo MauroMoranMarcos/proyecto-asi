@@ -2,6 +2,7 @@ package backend.model.services;
 
 import backend.model.entities.Item;
 import backend.model.entities.ItemBox;
+import backend.model.entities.Supplier;
 import backend.model.exceptions.InstanceNotFoundException;
 import backend.model.exceptions.InvalidNumberOfItemsToAddToBox;
 import backend.model.exceptions.InvalidNumberOfItemsToRemoveFromBox;
@@ -41,5 +42,11 @@ public interface ItemsService {
             throws PermissionException, InstanceNotFoundException, InvalidNumberOfItemsToRemoveFromBox;
 
     Boolean deleteItemBox(Long userId, Long itemBoxId) throws PermissionException, InstanceNotFoundException;
+
+    Supplier createSupplier(String supplierName);
+
+    List<Supplier> findAllSuppliers();
+
+    Block<Item> findItemsFromSupplier(Long supplierId, int page, int size) throws InstanceNotFoundException;
 
 }

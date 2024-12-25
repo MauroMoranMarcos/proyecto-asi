@@ -63,4 +63,26 @@ public class CustomizedItemDaoImpl implements CustomizedItemDao {
 
     }
 
+    @Override
+    public Slice<Item> findItemsBySupplier(Long supplierId, int page, int size) {
+
+        String queryString = "SELECT i FROM Item i WHERE i.supplier.id = :supplierId";
+
+        Query query = entityManager.createQuery(queryString).setFirstResult(page * size).setMaxResults(size + 1);
+
+        if (supplierId != null) {
+            query.setParameter("supplierId", supplierId);
+        }
+
+        List<Item> items = query.getResultList();
+        boolean hasNext = items.size() == (size+1);
+
+        if (hasNext) {
+            items.remove(items.size()-1);
+        }
+
+        return new SliceImpl<>(items, PageRequest.of(page, size), hasNext);
+
+    }
+
 }

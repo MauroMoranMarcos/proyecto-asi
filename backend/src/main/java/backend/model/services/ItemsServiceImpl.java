@@ -10,6 +10,7 @@ import org.springframework.data.domain.Slice;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -29,6 +30,9 @@ public class ItemsServiceImpl implements ItemsService {
     @Autowired
     private ItemBoxDao itemBoxDao;
 
+    @Autowired
+    private SupplierDao supplierDao;
+
     @Override
     public Item createItem(Long userId, String itemName, String referenceCode, String barCode, String manufacturerRef,
                            String supplier, byte[] imgFile) throws PermissionException, InstanceNotFoundException {
@@ -39,7 +43,13 @@ public class ItemsServiceImpl implements ItemsService {
             throw new PermissionException();
         }
 
-        Item item = new Item(itemName, referenceCode, barCode, manufacturerRef, supplier, imgFile);
+        Optional<Supplier> supplierOpt = supplierDao.findByName(supplier);
+
+        if (!supplierOpt.isPresent()) {
+            throw new InstanceNotFoundException("project.entities.supplier", supplier);
+        }
+
+        Item item = new Item(itemName, referenceCode, barCode, manufacturerRef, imgFile, supplierOpt.get());
         itemDao.save(item);
 
         return item;
@@ -193,11 +203,17 @@ public class ItemsServiceImpl implements ItemsService {
 
         Item item = itemOpt.get();
 
+        Optional<Supplier> supplierOpt = supplierDao.findByName(supplier);
+
+        if (!supplierOpt.isPresent()) {
+            throw new InstanceNotFoundException("project.entities.supplier", supplier);
+        }
+
         item.setItemName(itemName);
         item.setReferenceCode(referenceCode);
         item.setBarCode(barCode);
         item.setManufacturerRef(manufacturerRef);
-        item.setSupplier(supplier);
+        item.setSupplier(supplierOpt.get());
         if (imgFile != null) {
             item.setImgFile(imgFile);
         }
@@ -329,6 +345,44 @@ public class ItemsServiceImpl implements ItemsService {
         itemBoxDao.delete(itemBoxOpt.get());
 
         return !itemBoxDao.existsById(itemBoxId);
+
+    }
+
+    @Override
+    public Supplier createSupplier(String supplierName) {
+
+        Supplier supplier = new Supplier(supplierName);
+
+        supplierDao.save(supplier);
+
+        return supplier;
+
+    }
+
+    @Override
+    public List<Supplier> findAllSuppliers() {
+
+        Iterable<Supplier> suppliers = supplierDao.findAll();
+        List<Supplier> suppliersAsList = new ArrayList<>();
+
+        suppliers.forEach(s -> suppliersAsList.add(s));
+
+        return suppliersAsList;
+
+    }
+
+    @Override
+    public Block<Item> findItemsFromSupplier(Long supplierId, int page, int size) throws InstanceNotFoundException {
+
+        Optional<Supplier> supplierOpt = supplierDao.findById(supplierId);
+
+        if (!supplierOpt.isPresent()) {
+            throw new InstanceNotFoundException("project.entities.supplier", supplierId);
+        }
+
+        Slice<Item> slice = itemDao.findItemsBySupplier(supplierId, page, size);
+
+        return new Block<>(slice.getContent(), slice.hasNext());
 
     }
 
