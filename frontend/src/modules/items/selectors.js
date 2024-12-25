@@ -11,3 +11,9 @@ export const getNumItemBoxes = state =>
 
 export const getItemBoxes = state =>
     getModuleState(state).itemBoxes;
+
+export const getSupplier = state =>
+    getModuleState(state).supplier;
+
+export const getSuppliers = state =>
+    getModuleState(state).suppliers;

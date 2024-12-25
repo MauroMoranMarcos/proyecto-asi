@@ -1,9 +1,7 @@
-import {
-    Box,
-} from "@mui/material";
-import Item from "./Item";
+import {Box} from "@mui/material";
+import Supplier from "./Supplier";
 
-const Items = ({ items, fromSupplier }) => {
+const Suppliers = ({ suppliers }) => {
 
     return (
         <Box sx={{
@@ -15,8 +13,8 @@ const Items = ({ items, fromSupplier }) => {
             mt: 1,
             mb: 1,
         }}>
-            {items.map(item => (
-                <Item item={item} fromSupplier={fromSupplier}></Item>
+            {suppliers.map(supplier => (
+                <Supplier supplier={supplier}></Supplier>
             ))}
         </Box>
 
@@ -24,4 +22,4 @@ const Items = ({ items, fromSupplier }) => {
 
 }
 
-export default Items;
+export default Suppliers;

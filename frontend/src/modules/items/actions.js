@@ -169,3 +169,51 @@ export const deleteItemBox = (itemBoxId, onSuccess, onErrors) => dispatch =>
             onSuccess();
         },
         onErrors);
+
+const createSupplierCompleted = () => ({
+    type: actionTypes.CREATE_SUPPLIER_COMPLETED,
+});
+
+export const createSupplier = (supplierName, onSuccess, onErrors) => dispatch =>
+    backend.itemsService.createSupplier(supplierName,
+        supplierCreated => {
+            dispatch(createSupplierCompleted());
+            onSuccess(supplierCreated);
+        },
+        onErrors);
+
+const findAllSuppliersCompleted = suppliers => ({
+    type: actionTypes.FIND_ALL_SUPPLIERS_COMPLETED,
+    suppliers
+});
+
+const clearFindAllSuppliers = () => ({
+    type: actionTypes.CLEAR_FIND_ALL_SUPPLIERS
+});
+
+export const findAllSuppliers = () => dispatch => {
+
+    dispatch(clearFindAllSuppliers());
+    backend.itemsService.findAllSuppliers(result => dispatch(findAllSuppliersCompleted(result)));
+
+}
+
+const findItemsFromSupplierCompleted = () => ({
+    type: actionTypes.FIND_ITEMS_FROM_SUPPLIER_COMPLETED,
+});
+
+export const findItemsFromSupplier = (supplierId, page, onSuccess, onErrors) => dispatch => {
+
+    backend.itemsService.findItemsFromSupplier(supplierId, page,
+        itemsFromSupplier => {
+            dispatch(findItemsFromSupplierCompleted());
+            onSuccess(itemsFromSupplier);
+        }, onErrors);
+
+}
+
+export const previousFindItemsFromSupplierResultPage = (criteria) =>
+    findItemsFromSupplier({...criteria, page: criteria.page - 1});
+
+export const nextFindItemsFromSupplierResultPage = (criteria) =>
+    findItemsFromSupplier({...criteria, page: criteria.page + 1});

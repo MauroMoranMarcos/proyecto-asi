@@ -7,6 +7,8 @@ const initialState = {
     item: null,
     numItemBoxes: null,
     itemBoxes: null,
+    supplier: null,
+    suppliers: null,
 };
 
 const items = (state = initialState.items, action) => {
@@ -77,11 +79,41 @@ const itemBoxes = (state = initialState.itemBoxes, action) => {
 
 }
 
+const supplier = (state = initialState.supplier, action) => {
+
+    switch (action.type) {
+
+        case actionTypes.CREATE_SUPPLIER_COMPLETED:
+            return action.supplierCreated;
+
+        default:
+            return state;
+
+    }
+
+}
+
+const suppliers = (state = initialState.suppliers, action) => {
+
+    switch (action.type) {
+
+        case actionTypes.FIND_ALL_SUPPLIERS_COMPLETED:
+            return action.suppliers;
+
+        default:
+            return state;
+
+    }
+
+}
+
 const reducer = combineReducers({
     items,
     item,
     numItemBoxes,
-    itemBoxes
+    itemBoxes,
+    supplier,
+    suppliers
 });
 
 export default reducer;

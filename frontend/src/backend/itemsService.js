@@ -54,3 +54,15 @@ export const removeItemsFromBox = (itemBoxId, numItemsToRemove, onSuccess, onErr
 export const deleteItemBox = (itemBoxId, onSuccess, onErrors) =>
     appFetch(`/items/checkInventory/${itemBoxId}/deleteItemBox`,
         config('POST'), onSuccess, onErrors);
+
+export const createSupplier = (supplierName, onSuccess, onErrors) =>
+    appFetch(`/items/suppliers/create`,
+        config('POST', {supplierName}), onSuccess, onErrors);
+
+export const findAllSuppliers = (onSuccess, onErrors) =>
+    appFetch(`/items/suppliers/findSuppliers`,
+        config('GET'), onSuccess, onErrors);
+
+export const findItemsFromSupplier = (supplierId, page, onSuccess, onErrors) =>
+    appFetch(`/items/suppliers/${supplierId}/findItemsFromSupplier?page=${page}`,
+        config('GET'), onSuccess, onErrors);
