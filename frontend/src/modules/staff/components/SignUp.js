@@ -28,7 +28,7 @@ const SignUp = () => {
     const [confirmPassword, setConfirmPassword] = useState('');
     const [showPassword, setShowPassword] = useState(false);
     const [email, setEmail]  = useState('');
-    const [role, setRole] = useState('ADMIN_STAFF');
+    const [role, setRole] = useState('WAREHOUSE_STAFF');
     const [backendErrors, setBackendErrors] = useState(null);
     const [passwordsDoNotMatch, setPasswordsDoNotMatch] = useState(false);
     const [incorrectEmail, setIncorrectEmail] = useState(false);
