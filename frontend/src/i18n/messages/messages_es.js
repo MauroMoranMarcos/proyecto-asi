@@ -76,6 +76,7 @@ export default {
     'project.items.ItemDetails.deleteItem.text': 'Está a punto de eliminar esta pieza definitivamente, junto con todas sus cajas y elementos de todos los almacenes. ¿Está seguro?',
     'project.items.ItemDetails.addItemBox.title': 'Añadir caja',
     'project.items.ItemDetails.addItemsToBox.title': 'Añadir elementos a la caja',
+    'project.items.ItemDetails.removeItemsFromBox.title': 'Quitar elementos de la caja',
     'project.items.ItemDetails.addItemBox.text': 'Introduzca el número de piezas en la caja y seleccione el almacén en el que se encontrará.',
     'project.items.ItemDetails.deleteItemBox.title': 'Eliminar caja',
     'project.items.ItemDetails.deleteItemBox.text': 'Está a punto de eliminar esta caja definitivamente, junto con todos sus elementos del almacén. ¿Está seguro?',

@@ -434,31 +434,6 @@ const ItemBox = ({ itemBox, itemId }) => {
                             justifyContent: "center",
                             m: 1
                         }}>
-                        <TextField
-                            value={numItems}
-                            onChange={(e) => setNumItems(e.target.value)}
-                            name="numItems"
-                            type="number"
-                            onInput={(e) => {
-                                e.target.value = e.target.value.replace(/[^0-9]/g, '');
-                            }}
-                            required
-                            fullWidth
-                            id="numItems"
-                            label={<FormattedMessage id="project.global.fields.numItems" />}
-                            error={requiredAlertMessages.numItems}
-                            helperText={requiredAlertMessages.numItems &&
-                                <FormattedMessage id="project.global.validator.required" />}
-                        />
-                    </Box>
-                    <Box
-                        sx={{
-                            position: "relative",
-                            display: "flex",
-                            alignItems: "center",
-                            justifyContent: "center",
-                            m: 1
-                        }}>
                         <FormControl fullWidth error={requiredAlertMessages.warehouseName}>
                             <InputLabel id="demo-simple-select-helper-label">
                                 <FormattedMessage id="project.global.fields.warehouseName" />
