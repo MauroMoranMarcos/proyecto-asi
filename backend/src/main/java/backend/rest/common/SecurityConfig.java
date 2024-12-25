@@ -42,6 +42,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers(HttpMethod.POST, "/items/checkInventory/*/deleteItem").permitAll()
                 .antMatchers(HttpMethod.PUT, "/items/checkInventory/*/modifyItem").permitAll()
                 .antMatchers(HttpMethod.PUT, "/items/checkInventory/*/modifyItemBox").permitAll()
+                .antMatchers(HttpMethod.PUT, "/items/checkInventory/*/addItemsToBox").permitAll()
+                .antMatchers(HttpMethod.PUT, "/items/checkInventory/*/removeItemsFromBox").permitAll()
                 .antMatchers(HttpMethod.POST, "/items/checkInventory/*/deleteItemBox").permitAll()
                 .anyRequest().denyAll();
 

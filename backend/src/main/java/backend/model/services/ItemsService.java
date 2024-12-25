@@ -3,6 +3,8 @@ package backend.model.services;
 import backend.model.entities.Item;
 import backend.model.entities.ItemBox;
 import backend.model.exceptions.InstanceNotFoundException;
+import backend.model.exceptions.InvalidNumberOfItemsToAddToBox;
+import backend.model.exceptions.InvalidNumberOfItemsToRemoveFromBox;
 import backend.model.exceptions.PermissionException;
 
 import java.util.List;
@@ -31,6 +33,12 @@ public interface ItemsService {
 
     Long modifyItemBox(Long userId, Long itemBoxId, Long numItems, String warehouseName)
             throws PermissionException, InstanceNotFoundException;
+
+    Long addItemsToBox(Long userId, Long itemBoxId, Long numItemsToAdd)
+            throws PermissionException, InstanceNotFoundException, InvalidNumberOfItemsToAddToBox;
+
+    Long removeItemsFromBox(Long userId, Long itemBoxId, Long numItemsToRemove)
+            throws PermissionException, InstanceNotFoundException, InvalidNumberOfItemsToRemoveFromBox;
 
     Boolean deleteItemBox(Long userId, Long itemBoxId) throws PermissionException, InstanceNotFoundException;
 

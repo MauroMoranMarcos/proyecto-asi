@@ -7,6 +7,7 @@ public class ItemBox {
 
     private Long id;
     private Long numItems;
+    private Long currentNumItems;
     private Item item;
     private Warehouse warehouse;
 
@@ -22,6 +23,7 @@ public class ItemBox {
 
     public ItemBox(Long numItems, Item item, Warehouse warehouse) {
         this.numItems = numItems;
+        this.currentNumItems = numItems;
         this.item = item;
         this.warehouse = warehouse;
     }
@@ -42,6 +44,14 @@ public class ItemBox {
 
     public void setNumItems(Long numItems) {
         this.numItems = numItems;
+    }
+
+    public Long getCurrentNumItems() {
+        return currentNumItems;
+    }
+
+    public void setCurrentNumItems(Long currentNumItems) {
+        this.currentNumItems = currentNumItems;
     }
 
     @ManyToOne(optional = false, fetch = FetchType.LAZY)
