@@ -1,9 +1,6 @@
 package backend.model.entities;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 @Entity
 public class Item {
@@ -12,29 +9,29 @@ public class Item {
     private String referenceCode;
     private String barCode;
     private String manufacturerRef;
-    private String supplier;
     private byte[] imgFile;
+    private Supplier supplier;
 
     public Item() {
     }
 
-    public Item(Long id, String itemName, String referenceCode, String barCode, String manufacturerRef, String supplier, byte[] imgFile) {
+    public Item(String itemName, String referenceCode, String barCode, String manufacturerRef, byte[] imgFile, Supplier supplier) {
+        this.itemName = itemName;
+        this.referenceCode = referenceCode;
+        this.barCode = barCode;
+        this.manufacturerRef = manufacturerRef;
+        this.imgFile = imgFile;
+        this.supplier = supplier;
+    }
+
+    public Item(Long id, String itemName, String referenceCode, String barCode, String manufacturerRef, byte[] imgFile, Supplier supplier) {
         this.id = id;
         this.itemName = itemName;
         this.referenceCode = referenceCode;
         this.barCode = barCode;
         this.manufacturerRef = manufacturerRef;
-        this.supplier = supplier;
         this.imgFile = imgFile;
-    }
-
-    public Item(String itemName, String referenceCode, String barCode, String manufacturerRef, String supplier, byte[] imgFile) {
-        this.itemName = itemName;
-        this.referenceCode = referenceCode;
-        this.barCode = barCode;
-        this.manufacturerRef = manufacturerRef;
         this.supplier = supplier;
-        this.imgFile = imgFile;
     }
 
     @Id
@@ -79,19 +76,21 @@ public class Item {
         this.manufacturerRef = manufacturerRef;
     }
 
-    public String getSupplier() {
-        return supplier;
-    }
-
-    public void setSupplier(String supplier) {
-        this.supplier = supplier;
-    }
-
     public byte[] getImgFile() {
         return imgFile;
     }
 
     public void setImgFile(byte[] imgFile) {
         this.imgFile = imgFile;
+    }
+
+    @ManyToOne(optional = false, fetch = FetchType.LAZY)
+    @JoinColumn(name = "supplierId")
+    public Supplier getSupplier() {
+        return supplier;
+    }
+
+    public void setSupplier(Supplier supplier) {
+        this.supplier = supplier;
     }
 }
