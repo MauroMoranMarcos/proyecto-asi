@@ -22,7 +22,7 @@ export default {
     'project.global.buttons.AddBox': 'Add box',
     'project.global.buttons.ModifyItem': 'Modify item info',
     'project.global.buttons.Save': 'Save',
-    'project.global.buttons.SuppliersCatalog': 'Suppliers catalog',
+    'project.global.buttons.SuppliersCatalog': 'Check suppliers catalog',
     'project.global.buttons.CreateSupplier': 'Add supplier',
 
     'project.global.validator.required': 'Required field',

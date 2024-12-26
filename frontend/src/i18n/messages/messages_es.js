@@ -22,7 +22,7 @@ export default {
     'project.global.buttons.AddBox': 'Añadir caja',
     'project.global.buttons.ModifyItem': 'Modificar información de la pieza',
     'project.global.buttons.Save': 'Guardar',
-    'project.global.buttons.SuppliersCatalog': 'Catálogo de proveedores',
+    'project.global.buttons.SuppliersCatalog': 'Consultar catálogo de proveedores',
     'project.global.buttons.CreateSupplier': 'Añadir proveedor',
 
     'project.global.validator.required': 'Campo requerido',
