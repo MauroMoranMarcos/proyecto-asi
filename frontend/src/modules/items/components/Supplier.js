@@ -5,7 +5,17 @@ import {useDispatch, useSelector} from "react-redux";
 import * as actions from '../actions';
 import * as selectors from '../selectors';
 
-import {Button, Card, CardActionArea, CardActions, CardContent, CardMedia, Typography, useTheme} from "@mui/material";
+import {
+    Button,
+    Card,
+    CardActionArea,
+    CardActions,
+    CardContent,
+    CardMedia,
+    Divider,
+    Typography,
+    useTheme
+} from "@mui/material";
 import Items from "./Items";
 
 const Supplier = ({ supplier }) => {
@@ -44,6 +54,7 @@ const Supplier = ({ supplier }) => {
                     <Typography gutterBottom variant="h3" sx={{ color: 'text.secondary' }}>
                         {supplier.id}
                     </Typography>
+                    <Divider sx={{ m: "auto" }}></Divider>
                     <Items items={itemsFromSupplier.items} fromSupplier={true} />
                 </CardContent>
             </CardActionArea>
