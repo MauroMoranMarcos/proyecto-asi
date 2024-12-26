@@ -147,7 +147,7 @@ public class ItemsController {
     @PostMapping("/suppliers/create")
     public SupplierDto createSupplier(@RequestBody CreateSupplierParamsDto params) {
 
-        return toSupplierDto(itemsService.createSupplier(params.getName()));
+        return toSupplierDto(itemsService.createSupplier(params.getSupplierName()));
 
     }
 

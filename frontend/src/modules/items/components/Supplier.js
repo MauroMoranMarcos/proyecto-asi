@@ -51,9 +51,6 @@ const Supplier = ({ supplier }) => {
                     <Typography gutterBottom variant="h2" component="div">
                         {supplier.name}
                     </Typography>
-                    <Typography gutterBottom variant="h3" sx={{ color: 'text.secondary' }}>
-                        {supplier.id}
-                    </Typography>
                     <Divider sx={{ m: "auto" }}></Divider>
                     <Items items={itemsFromSupplier.items} fromSupplier={true} />
                 </CardContent>

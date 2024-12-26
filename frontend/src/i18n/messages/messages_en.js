@@ -23,6 +23,7 @@ export default {
     'project.global.buttons.ModifyItem': 'Modify item info',
     'project.global.buttons.Save': 'Save',
     'project.global.buttons.SuppliersCatalog': 'Suppliers catalog',
+    'project.global.buttons.CreateSupplier': 'Add supplier',
 
     'project.global.validator.required': 'Required field',
     'project.global.validator.incorrectEmail': 'Incorrect mail format',
@@ -43,6 +44,7 @@ export default {
     'project.global.fields.numItemsToRemove': 'Number of items to remove',
     'project.global.fields.imgFile': 'Select image',
     'project.global.fields.searchBar': 'Search by name or code',
+    'project.global.fields.supplierName': 'Supplier name',
 
     'project.app.Home.title': 'Home',
     'project.app.Home.InventoryAdministration': 'Inventory administration',
@@ -87,5 +89,6 @@ export default {
     'project.items.ItemBox.editItemBox.title': 'Modify item box',
 
     'project.items.SuppliersCatalog.title': 'Suppliers catalog',
+    'project.items.SuppliersCatalog.createSupplier.title': 'Add new supplier',
 
 }

@@ -170,14 +170,15 @@ export const deleteItemBox = (itemBoxId, onSuccess, onErrors) => dispatch =>
         },
         onErrors);
 
-const createSupplierCompleted = () => ({
+const createSupplierCompleted = (supplierCreated) => ({
     type: actionTypes.CREATE_SUPPLIER_COMPLETED,
+    supplierCreated
 });
 
 export const createSupplier = (supplierName, onSuccess, onErrors) => dispatch =>
     backend.itemsService.createSupplier(supplierName,
         supplierCreated => {
-            dispatch(createSupplierCompleted());
+            dispatch(createSupplierCompleted(supplierCreated));
             onSuccess(supplierCreated);
         },
         onErrors);

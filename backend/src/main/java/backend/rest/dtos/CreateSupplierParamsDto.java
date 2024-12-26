@@ -4,14 +4,14 @@ import javax.validation.constraints.NotNull;
 
 public class CreateSupplierParamsDto {
 
-    private String name;
+    private String supplierName;
 
     @NotNull
-    public String getName() {
-        return name;
+    public String getSupplierName() {
+        return supplierName;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setSupplierName(String supplierName) {
+        this.supplierName = supplierName;
     }
 }
