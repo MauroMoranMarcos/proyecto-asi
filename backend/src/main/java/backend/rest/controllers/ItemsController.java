@@ -168,4 +168,11 @@ public class ItemsController {
 
     }
 
+    @GetMapping("/suppliers/{id}")
+    public SupplierDto findSupplierById(@PathVariable Long id) throws InstanceNotFoundException {
+
+        return toSupplierDto(itemsService.findSupplierById(id));
+
+    }
+
 }

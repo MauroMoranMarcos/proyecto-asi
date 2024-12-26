@@ -218,3 +218,15 @@ export const previousFindItemsFromSupplierResultPage = (criteria) =>
 
 export const nextFindItemsFromSupplierResultPage = (criteria) =>
     findItemsFromSupplier({...criteria, page: criteria.page + 1});
+
+const findSupplierByIdCompleted = (supplier) => ({
+    type: actionTypes.FIND_SUPPLIER_BY_ID_COMPLETED,
+    supplier
+});
+
+export const findSupplierById = (supplierId, onSuccess, onErrors) => dispatch =>
+    backend.itemsService.findSupplierById(supplierId,
+        supplier => {
+            dispatch(findSupplierByIdCompleted(supplier));
+        },
+        onErrors);

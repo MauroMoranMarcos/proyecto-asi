@@ -386,4 +386,17 @@ public class ItemsServiceImpl implements ItemsService {
 
     }
 
+    @Override
+    public Supplier findSupplierById(Long supplierId) throws InstanceNotFoundException {
+
+        Optional<Supplier> supplierOpt = supplierDao.findById(supplierId);
+
+        if (!supplierOpt.isPresent()) {
+            throw new InstanceNotFoundException("project.entities.supplier", supplierId);
+        }
+
+        return supplierOpt.get();
+
+    }
+
 }

@@ -86,6 +86,9 @@ const supplier = (state = initialState.supplier, action) => {
         case actionTypes.CREATE_SUPPLIER_COMPLETED:
             return action.supplierCreated;
 
+        case actionTypes.FIND_SUPPLIER_BY_ID_COMPLETED:
+            return action.supplier;
+
         default:
             return state;
 

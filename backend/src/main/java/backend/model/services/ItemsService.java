@@ -49,4 +49,6 @@ public interface ItemsService {
 
     Block<Item> findItemsFromSupplier(Long supplierId, int page, int size) throws InstanceNotFoundException;
 
+    Supplier findSupplierById(Long supplierId) throws InstanceNotFoundException;
+
 }

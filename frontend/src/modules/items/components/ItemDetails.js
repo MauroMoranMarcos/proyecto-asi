@@ -35,6 +35,8 @@ const ItemDetails = () => {
     const numItemBoxes = useSelector(selectors.getNumItemBoxes);
     const itemBoxes = useSelector(selectors.getItemBoxes);
     const warehouses = useSelector(admin.selectors.getAllWarehouses);
+    const supplier = useSelector(selectors.getSupplier);
+    const suppliers = useSelector(selectors.getSuppliers);
     const [numItems, setNumItems] = useState(null);
     const [warehouseName, setWarehouseName] = useState('');
     const [openSeeBoxesDialog, setOpenSeeBoxesDialog] = useState(false);
@@ -45,7 +47,8 @@ const ItemDetails = () => {
     const [referenceCode, setReferenceCode] = useState(null);
     const [barCode, setBarCode] = useState(null);
     const [manufacturerRef, setManufacturerRef] = useState(null);
-    const [supplier, setSupplier] = useState(null);
+    //const [supplier, setSupplier] = useState(null);
+    const [supplierName, setSupplierName] = useState(null);
     const [imgFile, setImgFile] = useState(null);
     const [newImgFile, setNewImgfile] = useState(null);
     const [backendErrors, setBackendErrors] = useState(null);
@@ -99,14 +102,24 @@ const ItemDetails = () => {
 
     useEffect(() => {
 
-        if (item && item.itemName && item.referenceCode && item.barCode && item.manufacturerRef && item.supplier && item.imgFile) {
+        if (item && item.itemName && item.referenceCode && item.barCode && item.manufacturerRef && item.imgFile) {
 
             setItemName(item.itemName);
             setReferenceCode(item.referenceCode);
             setBarCode(item.barCode);
             setManufacturerRef(item.manufacturerRef);
-            setSupplier(item.supplier);
             setImgFile(item.imgFile);
+
+        }
+
+    }, [item]);
+
+    useEffect(() => {
+
+        if (item && item.supplierId) {
+
+            dispatch(actions.findSupplierById(item.supplierId));
+            dispatch(actions.findAllSuppliers());
 
         }
 
@@ -176,7 +189,7 @@ const ItemDetails = () => {
             formData.append('referenceCode', referenceCode.trim());
             formData.append('barCode', barCode.trim());
             formData.append('manufacturerRef', manufacturerRef.trim());
-            formData.append('supplier', supplier.trim());
+            formData.append('supplier', supplierName.trim());
             if (newImgFile) {
                 formData.append('imgFile', newImgFile);
             }
@@ -240,6 +253,7 @@ const ItemDetails = () => {
 
     const handleOpenModifyItemDialog = () => {
 
+        setSupplierName(supplier.name);
         setOpenModifyItemDialog(true);
 
     }
@@ -250,7 +264,7 @@ const ItemDetails = () => {
         setReferenceCode(item.referenceCode);
         setBarCode(item.barCode);
         setManufacturerRef(item.manufacturerRef);
-        setSupplier(item.supplier);
+        setSupplierName(supplier.name);
         setImgFile(item.imgFile);
 
         setOpenModifyItemDialog(false);
@@ -269,7 +283,7 @@ const ItemDetails = () => {
 
     }
 
-    if (!item || !itemBoxes || numItemBoxes === undefined) {
+    if (!item || !itemBoxes || !supplier || !suppliers || numItemBoxes === undefined) {
         return null;
     }
 
@@ -389,7 +403,7 @@ const ItemDetails = () => {
                             </Typography>
                             <Typography gutterBottom variant="h3">
                                 <FormattedMessage id="project.global.fields.supplier" />
-                                {': ' + item.supplier}
+                                {': ' + supplier.name}
                             </Typography>
                             <Dialog
                                 fullScreen={fullScreen}
@@ -663,19 +677,27 @@ const ItemDetails = () => {
                                         justifyContent: "center",
                                         m: 1
                                     }}>
-                                    <TextField
-                                        value={supplier}
-                                        onChange={(e) => setSupplier(e.target.value)}
-                                        name="supplier"
-                                        required
-                                        fullWidth
-                                        id="supplier"
-                                        label={<FormattedMessage id="project.global.fields.supplier" />}
-                                        autoFocus
-                                        error={requiredAlertMessagesEdit.supplier}
-                                        helperText={requiredAlertMessagesEdit.supplier &&
-                                            <FormattedMessage id="project.global.validator.required" />}
-                                    />
+                                    <FormControl fullWidth error={requiredAlertMessages.supplier}>
+                                        <InputLabel id="demo-simple-select-helper-label">
+                                            <FormattedMessage id="project.global.fields.supplier" />
+                                        </InputLabel>
+                                        <Select
+                                            value={supplierName}
+                                            label={<FormattedMessage id="project.global.fields.supplier" />}
+                                            onChange={(e) => setSupplierName(e.target.value)}>
+                                            {suppliers.map(supplier =>
+                                                <MenuItem value={supplier.name}>
+                                                    <Typography>
+                                                        {supplier.name}
+                                                    </Typography>
+                                                </MenuItem>
+                                            )}
+                                        </Select>
+                                        <FormHelperText color="alertRed">
+                                            {requiredAlertMessages.supplier &&
+                                                <FormattedMessage id="project.global.validator.required" />}
+                                        </FormHelperText>
+                                    </FormControl>
                                 </Box>
                                 <Box
                                     sx={{
