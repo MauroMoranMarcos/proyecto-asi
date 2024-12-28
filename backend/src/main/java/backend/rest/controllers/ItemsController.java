@@ -21,6 +21,8 @@ import static backend.rest.dtos.ItemBoxConversor.toItemBoxDto;
 import static backend.rest.dtos.ItemBoxConversor.toItemBoxDtos;
 import static backend.rest.dtos.ItemConversor.toItemDto;
 import static backend.rest.dtos.ItemConversor.toItemDtos;
+import static backend.rest.dtos.SupplierConversor.toSupplierDto;
+import static backend.rest.dtos.SupplierConversor.toSupplierDtos;
 import static backend.rest.dtos.UserConversor.toUserDtos;
 
 @RestController
@@ -139,6 +141,37 @@ public class ItemsController {
             throws PermissionException, InstanceNotFoundException {
 
         return itemsService.deleteItemBox(userId, id);
+
+    }
+
+    @PostMapping("/suppliers/create")
+    public SupplierDto createSupplier(@RequestBody CreateSupplierParamsDto params) {
+
+        return toSupplierDto(itemsService.createSupplier(params.getSupplierName()));
+
+    }
+
+    @GetMapping("/suppliers/findSuppliers")
+    public List<SupplierDto> findAllSuppliers() {
+
+        return toSupplierDtos(itemsService.findAllSuppliers());
+
+    }
+
+    @GetMapping("/suppliers/{id}/findItemsFromSupplier")
+    public BlockDto<ItemDto> findItemsFromSupplier(@PathVariable Long id, @RequestParam(defaultValue = "0") int page)
+            throws InstanceNotFoundException {
+
+        Block<Item> itemBlock = itemsService.findItemsFromSupplier(id, page, 6);
+
+        return new BlockDto<>(toItemDtos(itemBlock.getItems()), itemBlock.getExistMoreItems());
+
+    }
+
+    @GetMapping("/suppliers/{id}")
+    public SupplierDto findSupplierById(@PathVariable Long id) throws InstanceNotFoundException {
+
+        return toSupplierDto(itemsService.findSupplierById(id));
 
     }
 

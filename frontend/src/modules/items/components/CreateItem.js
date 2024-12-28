@@ -3,10 +3,12 @@ import {useDispatch, useSelector} from 'react-redux';
 import {FormattedMessage} from 'react-intl';
 import {useNavigate} from 'react-router-dom';
 
+import * as actions from '../actions';
+import * as selectors from '../selectors';
+
 import admin from '../../admin';
 
 import {BackButton, Errors} from '../../common';
-import * as actions from '../actions';
 import {
     Alert, AlertTitle,
     Box,
@@ -27,6 +29,7 @@ const CreateItem = () => {
 
     const dispatch = useDispatch();
     const navigate = useNavigate();
+    const allSuppliers = useSelector(selectors.getSuppliers);
     const allWarehouses = useSelector(admin.selectors.getAllWarehouses);
     const [itemName, setItemName] = useState('');
     const [referenceCode, setReferenceCode] = useState('');
@@ -50,6 +53,12 @@ const CreateItem = () => {
         imgFile: false,
     });
     const theme = useTheme();
+
+    useEffect(() => {
+
+        dispatch(actions.findAllSuppliers());
+
+    }, []);
 
     const handleCreateItem = () => {
 
@@ -106,7 +115,7 @@ const CreateItem = () => {
 
     }
 
-    if (!allWarehouses) {
+    if (!allWarehouses || !allSuppliers) {
         return null;
     }
 
@@ -248,18 +257,27 @@ const CreateItem = () => {
                                         <FormattedMessage id="project.global.validator.required" />}></TextField>
                             </Grid>
                             <Grid item xs={12}>
-                                <TextField
-                                    value={supplier}
-                                    onChange={(e) => setSupplier(e.target.value)}
-                                    name="supplier"
-                                    type='text'
-                                    fullWidth
-                                    required
-                                    id="supplier"
-                                    label={<FormattedMessage id="project.global.fields.supplier" />}
-                                    error={requiredAlertMessages.supplier}
-                                    helperText={requiredAlertMessages.supplier &&
-                                        <FormattedMessage id="project.global.validator.required" />}></TextField>
+                                <FormControl fullWidth error={requiredAlertMessages.supplier}>
+                                    <InputLabel id="demo-simple-select-helper-label">
+                                        <FormattedMessage id="project.global.fields.supplier" />
+                                    </InputLabel>
+                                    <Select
+                                        value={supplier}
+                                        label={<FormattedMessage id="project.global.fields.supplier" />}
+                                        onChange={(e) => setSupplier(e.target.value)}>
+                                        {allSuppliers.map(supplier =>
+                                            <MenuItem value={supplier.name}>
+                                                <Typography>
+                                                    {supplier.name}
+                                                </Typography>
+                                            </MenuItem>
+                                        )}
+                                    </Select>
+                                    <FormHelperText color="alertRed">
+                                        {requiredAlertMessages.supplier &&
+                                            <FormattedMessage id="project.global.validator.required" />}
+                                    </FormHelperText>
+                                </FormControl>
                             </Grid>
                         </Grid>
                         <Box

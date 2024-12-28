@@ -3,6 +3,7 @@ import {useDispatch} from 'react-redux';
 
 import staff from '../../staff';
 import admin from "../../admin";
+import items from "../../items";
 
 import Header from './Header';
 import Body from './Body';
@@ -20,6 +21,7 @@ const App = () => {
             () => dispatch(staff.actions.logout())));
 
         dispatch(admin.actions.findAllWarehouses());
+        //dispatch(items.actions.findAllSuppliers());
 
     });
 

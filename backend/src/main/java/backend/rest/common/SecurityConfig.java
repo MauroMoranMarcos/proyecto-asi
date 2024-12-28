@@ -45,6 +45,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers(HttpMethod.PUT, "/items/checkInventory/*/addItemsToBox").permitAll()
                 .antMatchers(HttpMethod.PUT, "/items/checkInventory/*/removeItemsFromBox").permitAll()
                 .antMatchers(HttpMethod.POST, "/items/checkInventory/*/deleteItemBox").permitAll()
+                .antMatchers(HttpMethod.POST, "/items/suppliers/create").permitAll()
+                .antMatchers(HttpMethod.GET, "/items/suppliers/findSuppliers").permitAll()
+                .antMatchers(HttpMethod.GET, "/items/suppliers/*/findItemsFromSupplier").permitAll()
+                .antMatchers(HttpMethod.GET, "/items/suppliers/*").permitAll()
                 .anyRequest().denyAll();
 
         //TODO: Add lines here for the rest of the HU

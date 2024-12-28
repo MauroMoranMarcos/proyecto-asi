@@ -22,6 +22,8 @@ export default {
     'project.global.buttons.AddBox': 'Add box',
     'project.global.buttons.ModifyItem': 'Modify item info',
     'project.global.buttons.Save': 'Save',
+    'project.global.buttons.SuppliersCatalog': 'Check suppliers catalog',
+    'project.global.buttons.CreateSupplier': 'Add supplier',
 
     'project.global.validator.required': 'Required field',
     'project.global.validator.incorrectEmail': 'Incorrect mail format',
@@ -42,11 +44,13 @@ export default {
     'project.global.fields.numItemsToRemove': 'Number of items to remove',
     'project.global.fields.imgFile': 'Select image',
     'project.global.fields.searchBar': 'Search by name or code',
+    'project.global.fields.supplierName': 'Supplier name',
 
     'project.app.Home.title': 'Home',
     'project.app.Home.InventoryAdministration': 'Inventory administration',
     'project.app.Home.WarehouseAdministration': 'Warehouse administration',
     'project.app.Home.ActiveWarehouses': 'Active warehouses:',
+    'project.app.Home.Suppliers': 'Suppliers',
 
     'project.staff.SignUp.title': 'Sign Up',
     'project.staff.Login.title': 'Login',
@@ -81,6 +85,14 @@ export default {
     'project.items.ItemDetails.deleteItemBox.title': 'Delete item box',
     'project.items.ItemDetails.deleteItemBox.text': 'Your are about to delete this item box with its elements from this warehouse. Are you sure?',
     'project.items.ItemDetails.modifyItem.title': 'Modify item information',
+
     'project.items.ItemBox.editItemBox.title': 'Modify item box',
+
+    'project.items.SuppliersCatalog.title': 'Suppliers catalog',
+    'project.items.SuppliersCatalog.createSupplier.title': 'Add new supplier',
+    'project.items.SuppliersCatalog.seeAllItemsFromSupplier': 'See all items',
+
+    'project.items.ItemsFromSupplier.noItems': 'This supplier has no items.',
+    'project.items.ItemsFromSupplier.title': 'Items from supplier',
 
 }

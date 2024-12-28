@@ -169,3 +169,71 @@ export const deleteItemBox = (itemBoxId, onSuccess, onErrors) => dispatch =>
             onSuccess();
         },
         onErrors);
+
+const createSupplierCompleted = (supplierCreated) => ({
+    type: actionTypes.CREATE_SUPPLIER_COMPLETED,
+    supplierCreated
+});
+
+export const createSupplier = (supplierName, onSuccess, onErrors) => dispatch =>
+    backend.itemsService.createSupplier(supplierName,
+        supplierCreated => {
+            dispatch(createSupplierCompleted(supplierCreated));
+            onSuccess(supplierCreated);
+        },
+        onErrors);
+
+const findAllSuppliersCompleted = suppliers => ({
+    type: actionTypes.FIND_ALL_SUPPLIERS_COMPLETED,
+    suppliers
+});
+
+const clearFindAllSuppliers = () => ({
+    type: actionTypes.CLEAR_FIND_ALL_SUPPLIERS
+});
+
+export const findAllSuppliers = () => dispatch => {
+
+    dispatch(clearFindAllSuppliers());
+    backend.itemsService.findAllSuppliers(result => dispatch(findAllSuppliersCompleted(result)));
+
+}
+
+const findItemsFromSupplierCompleted = (itemsFromSupplier) => ({
+    type: actionTypes.FIND_ITEMS_FROM_SUPPLIER_COMPLETED,
+    itemsFromSupplier
+});
+
+export const findItemsFromSupplier = (criteria, onSuccess, onErrors) => dispatch => {
+
+    backend.itemsService.findItemsFromSupplier(criteria,
+        result => {
+            dispatch(findItemsFromSupplierCompleted({criteria, result}));
+            if (typeof onSuccess === 'function') {
+                onSuccess(result);
+            }
+        }, onErrors);
+
+}
+
+export const previousFindItemsFromSupplierResultPage = (criteria) =>
+    findItemsFromSupplier({...criteria, page: criteria.page - 1});
+
+export const nextFindItemsFromSupplierResultPage = (criteria) =>
+    findItemsFromSupplier({...criteria, page: criteria.page + 1});
+
+const findSupplierByIdCompleted = (supplier) => ({
+    type: actionTypes.FIND_SUPPLIER_BY_ID_COMPLETED,
+    supplier
+});
+
+export const findSupplierById = (supplierId, onSuccess, onErrors) => dispatch =>
+    backend.itemsService.findSupplierById(supplierId,
+        supplier => {
+            dispatch(findSupplierByIdCompleted(supplier));
+        },
+        onErrors);
+
+export const clearSupplier = () => ({
+    type: actionTypes.CLEAR_SUPPLIER
+});

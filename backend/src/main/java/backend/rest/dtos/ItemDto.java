@@ -7,20 +7,20 @@ public class ItemDto {
     private String referenceCode;
     private String barCode;
     private String manufacturerRef;
-    private String supplier;
     private byte[] imgFile;
+    private Long supplierId;
 
     public ItemDto() {
     }
 
-    public ItemDto(Long id, String itemName, String referenceCode, String barCode, String manufacturerRef, String supplier, byte[] imgFile) {
+    public ItemDto(Long id, String itemName, String referenceCode, String barCode, String manufacturerRef, byte[] imgFile, Long supplierId) {
         this.id = id;
         this.itemName = itemName;
         this.referenceCode = referenceCode;
         this.barCode = barCode;
         this.manufacturerRef = manufacturerRef;
-        this.supplier = supplier;
         this.imgFile = imgFile;
+        this.supplierId = supplierId;
     }
 
     public Long getId() {
@@ -63,19 +63,19 @@ public class ItemDto {
         this.manufacturerRef = manufacturerRef;
     }
 
-    public String getSupplier() {
-        return supplier;
-    }
-
-    public void setSupplier(String supplier) {
-        this.supplier = supplier;
-    }
-
     public byte[] getImgFile() {
         return imgFile;
     }
 
     public void setImgFile(byte[] imgFile) {
         this.imgFile = imgFile;
+    }
+
+    public Long getSupplierId() {
+        return supplierId;
+    }
+
+    public void setSupplierId(Long supplierId) {
+        this.supplierId = supplierId;
     }
 }

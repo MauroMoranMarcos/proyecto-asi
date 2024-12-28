@@ -22,6 +22,8 @@ export default {
     'project.global.buttons.AddBox': 'Añadir caja',
     'project.global.buttons.ModifyItem': 'Modificar información de la pieza',
     'project.global.buttons.Save': 'Guardar',
+    'project.global.buttons.SuppliersCatalog': 'Consultar catálogo de proveedores',
+    'project.global.buttons.CreateSupplier': 'Añadir proveedor',
 
     'project.global.validator.required': 'Campo requerido',
     'project.global.validator.incorrectEmail': 'Formato de email incorrecto',
@@ -42,11 +44,13 @@ export default {
     'project.global.fields.numItemsToRemove': 'Número de piezas para quitar',
     'project.global.fields.imgFile': 'Seleccionar imagen',
     'project.global.fields.searchBar': 'Buscar por nombre o código',
+    'project.global.fields.supplierName': 'Nombre del proveedor',
 
     'project.app.Home.title': 'Inicio',
     'project.app.Home.InventoryAdministration': 'Administración de inventario',
     'project.app.Home.WarehouseAdministration': 'Administración de almacenes',
     'project.app.Home.ActiveWarehouses': 'Almacenes activos:',
+    'project.app.Home.Suppliers': 'Proveedores',
 
     'project.staff.SignUp.title': 'Crear cuenta',
     'project.staff.Login.title': 'Iniciar sesión',
@@ -81,6 +85,14 @@ export default {
     'project.items.ItemDetails.deleteItemBox.title': 'Eliminar caja',
     'project.items.ItemDetails.deleteItemBox.text': 'Está a punto de eliminar esta caja definitivamente, junto con todos sus elementos del almacén. ¿Está seguro?',
     'project.items.ItemDetails.modifyItem.title': 'Modificar información de la pieza',
+
     'project.items.ItemBox.editItemBox.title': 'Modificar caja',
+
+    'project.items.SuppliersCatalog.title': 'Catálogo de proveedores',
+    'project.items.SuppliersCatalog.createSupplier.title': 'Añadir nuevo proveedor',
+    'project.items.SuppliersCatalog.seeAllItemsFromSupplier': 'Ver todas las piezas',
+
+    'project.items.ItemsFromSupplier.noItems': 'Este proveedor no tiene piezas.',
+    'project.items.ItemsFromSupplier.title': 'Piezas del proveedor',
 
 }
