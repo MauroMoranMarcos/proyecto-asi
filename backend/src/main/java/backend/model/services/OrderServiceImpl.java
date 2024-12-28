@@ -23,7 +23,7 @@ public class OrderServiceImpl implements OrderService{
     private OrderDao orderDao;
 
     @Override
-    public Order createOrder(Long userId, Order order) throws PermissionException, InstanceNotFoundException {
+    public Order createOrder(Long userId) throws PermissionException, InstanceNotFoundException {
 
         User user = permissionChecker.checkUser(userId);
 
@@ -31,9 +31,10 @@ public class OrderServiceImpl implements OrderService{
             throw new PermissionException();
         }
 
-        orderDao.save(order);
+        // Le damos valor 0 al estado de la órden porque está como borrador
+        Order createdOrder = new Order((short) 0);
 
-        return order;
+        return orderDao.save(createdOrder);
     }
 
     @Override

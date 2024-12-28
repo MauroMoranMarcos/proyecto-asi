@@ -1,33 +1,26 @@
-package backend.model.entities;
+package backend.rest.dtos;
 
-import javax.persistence.*;
 import java.util.Date;
-import java.util.HashSet;
-import java.util.Set;
 
-@Entity
-public class Order {
+public class OrderDto {
 
     private Long id;
     private Date orderDate;
     private Short state;
-    private Set<OrderBox> boxes = new HashSet<>();
 
-    public Order() {}
+    public OrderDto() {}
 
-    public Order(Short state) {
+    public OrderDto(Long id, Short state) {
+        this.id = id;
         this.state = state;
     }
 
-    public Order(Long id, Date orderDate, Short state, Set<OrderBox> boxes) {
+    public OrderDto(Long id, Date orderDate, Short state) {
         this.id = id;
         this.orderDate = orderDate;
         this.state = state;
-        this.boxes = boxes;
     }
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     public Long getId() {
         return id;
     }
@@ -50,14 +43,5 @@ public class Order {
 
     public void setState(Short state) {
         this.state = state;
-    }
-
-    @OneToMany(mappedBy = "order")
-    public Set<OrderBox> getBoxes() {
-        return boxes;
-    }
-
-    public void setBoxes(Set<OrderBox> boxes) {
-        this.boxes = boxes;
     }
 }

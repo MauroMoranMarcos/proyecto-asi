@@ -8,7 +8,7 @@ import java.util.List;
 
 public interface OrderService {
 
-    Order createOrder(Long userId, Order order) throws PermissionException, InstanceNotFoundException;
+    Order createOrder(Long userId) throws PermissionException, InstanceNotFoundException;
 
     Order updateOrder(Long userId, Order order) throws PermissionException, InstanceNotFoundException;
 
