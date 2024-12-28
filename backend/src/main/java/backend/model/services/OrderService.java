@@ -8,7 +8,7 @@ import java.util.List;
 
 public interface OrderService {
 
-    Order createOrder(Long userId, Order order) throws PermissionException;
+    Order createOrder(Long userId, Order order) throws PermissionException, InstanceNotFoundException;
 
     Order updateOrder(Long userId, Order order) throws PermissionException, InstanceNotFoundException;
 
@@ -19,5 +19,5 @@ public interface OrderService {
     void setOrderDone(Long userId, Long orderId) throws PermissionException, InstanceNotFoundException;
 
     List<Order> findOrderHistory(Long userid);
-    
+
 }
