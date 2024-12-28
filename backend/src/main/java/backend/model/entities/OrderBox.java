@@ -1,24 +1,23 @@
 package backend.model.entities;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 @Entity
 public class OrderBox {
 
     private Long id;
     private Order order;
-    private ItemBox box;
+    private Item item;
     private Long numBoxes;
+    private Long numItemsInBox;
 
     public OrderBox() {}
 
-    public OrderBox(Order order, ItemBox box, Long numBoxes) {
+    public OrderBox(Order order, Item item, Long numBoxes, Long numItemsInBox) {
         this.order = order;
-        this.box = box;
+        this.item = item;
         this.numBoxes = numBoxes;
+        this.numItemsInBox = numItemsInBox;
     }
 
     @Id
@@ -31,6 +30,8 @@ public class OrderBox {
         this.id = id;
     }
 
+    @ManyToOne(optional = false, fetch = FetchType.LAZY)
+    @JoinColumn(name = "orderId")
     public Order getOrder() {
         return order;
     }
@@ -39,12 +40,14 @@ public class OrderBox {
         this.order = order;
     }
 
-    public ItemBox getBox() {
-        return box;
+    @ManyToOne(optional = false, fetch = FetchType.LAZY)
+    @JoinColumn(name = "itemId")
+    public Item getItem() {
+        return item;
     }
 
-    public void setBox(ItemBox box) {
-        this.box = box;
+    public void setItem(Item item) {
+        this.item = item;
     }
 
     public Long getNumBoxes() {
@@ -53,5 +56,13 @@ public class OrderBox {
 
     public void setNumBoxes(Long numBoxes) {
         this.numBoxes = numBoxes;
+    }
+
+    public Long getNumItemsInBox() {
+        return numItemsInBox;
+    }
+
+    public void setNumItemsInBox(Long numItemsInBox) {
+        this.numItemsInBox = numItemsInBox;
     }
 }

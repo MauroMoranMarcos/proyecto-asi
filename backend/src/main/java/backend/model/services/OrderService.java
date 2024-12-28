@@ -1,6 +1,8 @@
 package backend.model.services;
 
+import backend.model.entities.ItemBox;
 import backend.model.entities.Order;
+import backend.model.entities.OrderBox;
 import backend.model.exceptions.InstanceNotFoundException;
 import backend.model.exceptions.PermissionException;
 
@@ -10,7 +12,13 @@ public interface OrderService {
 
     Order createOrder(Long userId) throws PermissionException, InstanceNotFoundException;
 
-    Order updateOrder(Long userId, Order order) throws PermissionException, InstanceNotFoundException;
+    OrderBox addBoxToOrder(Long userId, Long orderId, Long itemId, int numBoxes, int numItemsInBox)
+            throws PermissionException, InstanceNotFoundException;
+
+    void updateNumberOfBoxesInOrder(Long userId, Long orderId, Long orderBoxId, int newNumberOfBoxes)
+            throws PermissionException, InstanceNotFoundException;
+
+    void removeBoxFromOrder(Long userId, Long orderId, Long orderBoxId);
 
     void deleteOrderById(Long userId, Long orderId) throws PermissionException, InstanceNotFoundException;
 

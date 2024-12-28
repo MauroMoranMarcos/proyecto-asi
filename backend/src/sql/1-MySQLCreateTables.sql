@@ -96,12 +96,13 @@ CREATE TABLE OrderBox (
 
     id BIGINT NOT NULL AUTO_INCREMENT,
     numBoxes INT NOT NULL,
+    numItemsInBox INT NOT NULL,
+    itemId BIGINT NOT NULL,
     orderId BIGINT NOT NULL,
-    boxId BIGINT NOT NULL,
 
     CONSTRAINT OrderBoxPK PRIMARY KEY (id),
+    CONSTRAINT OrderBoxItemIdFK FOREIGN KEY (itemId)
+        REFERENCES Item(id),
     CONSTRAINT OrderBoxOrderIdFK FOREIGN KEY (orderId)
-        REFERENCES `Order`(id),
-    CONSTRAINT OrderBoxBoxIdFK FOREIGN KEY (boxId)
-        REFERENCES ItemBox(id)
+        REFERENCES `Order`(id)
 )

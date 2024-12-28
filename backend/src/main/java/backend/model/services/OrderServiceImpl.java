@@ -1,9 +1,6 @@
 package backend.model.services;
 
-import backend.model.entities.Order;
-import backend.model.entities.OrderDao;
-import backend.model.entities.SupplierDao;
-import backend.model.entities.User;
+import backend.model.entities.*;
 import backend.model.exceptions.InstanceNotFoundException;
 import backend.model.exceptions.PermissionException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -38,8 +35,18 @@ public class OrderServiceImpl implements OrderService{
     }
 
     @Override
-    public Order updateOrder(Long userId, Order order) throws PermissionException, InstanceNotFoundException {
+    public OrderBox addBoxToOrder(Long userId, Long orderId, Long itemId, int numBoxes, int numItemsInBox) throws PermissionException, InstanceNotFoundException {
         return null;
+    }
+
+    @Override
+    public void updateNumberOfBoxesInOrder(Long userId, Long orderId, Long orderBoxId, int newNumberOfBoxes) throws PermissionException, InstanceNotFoundException {
+
+    }
+
+    @Override
+    public void removeBoxFromOrder(Long userId, Long orderId, Long orderBoxId) {
+
     }
 
     @Override
