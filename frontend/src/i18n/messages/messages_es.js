@@ -90,5 +90,9 @@ export default {
 
     'project.items.SuppliersCatalog.title': 'Catálogo de proveedores',
     'project.items.SuppliersCatalog.createSupplier.title': 'Añadir nuevo proveedor',
+    'project.items.SuppliersCatalog.seeAllItemsFromSupplier': 'Ver todas las piezas',
+
+    'project.items.ItemsFromSupplier.noItems': 'Este proveedor no tiene piezas.',
+    'project.items.ItemsFromSupplier.title': 'Piezas del proveedor',
 
 }

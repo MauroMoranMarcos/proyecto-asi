@@ -63,7 +63,7 @@ export const findAllSuppliers = (onSuccess, onErrors) =>
     appFetch(`/items/suppliers/findSuppliers`,
         config('GET'), onSuccess, onErrors);
 
-export const findItemsFromSupplier = (supplierId, page, onSuccess, onErrors) =>
+export const findItemsFromSupplier = ({supplierId, page}, onSuccess, onErrors) =>
     appFetch(`/items/suppliers/${supplierId}/findItemsFromSupplier?page=${page}`,
         config('GET'), onSuccess, onErrors);
 

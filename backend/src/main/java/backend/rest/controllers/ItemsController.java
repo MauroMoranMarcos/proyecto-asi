@@ -162,7 +162,7 @@ public class ItemsController {
     public BlockDto<ItemDto> findItemsFromSupplier(@PathVariable Long id, @RequestParam(defaultValue = "0") int page)
             throws InstanceNotFoundException {
 
-        Block<Item> itemBlock = itemsService.findItemsFromSupplier(id, page, 5);
+        Block<Item> itemBlock = itemsService.findItemsFromSupplier(id, page, 6);
 
         return new BlockDto<>(toItemDtos(itemBlock.getItems()), itemBlock.getExistMoreItems());
 

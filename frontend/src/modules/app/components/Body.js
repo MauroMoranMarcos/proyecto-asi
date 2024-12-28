@@ -8,7 +8,7 @@ import {SignUp} from '../../staff';
 import {Login} from '../../staff';
 import {Logout} from '../../staff';
 import {CreateWarehouse} from "../../admin";
-import {CheckInventory, CreateItem, ItemDetails, SuppliersCatalog} from "../../items";
+import {CheckInventory, CreateItem, ItemDetails, ItemsFromSupplier, SuppliersCatalog} from "../../items";
 import Home from "./Home";
 
 const Body = () => {
@@ -32,6 +32,7 @@ const Body = () => {
                 {isLoggedIn && isWarehouseStaff && <Route path="/items/checkinventory" element={<CheckInventory/>}/>}
                 {isLoggedIn && isWarehouseStaff && <Route path="/items/checkinventory/:id" element={<ItemDetails/>}/>}
                 {isLoggedIn && <Route path="/items/supplierscatalog" element={<SuppliersCatalog/>}/>}
+                {isLoggedIn && <Route path="/items/supplierscatalog/:id/itemsfromsupplier" element={<ItemsFromSupplier/>}/>}
             </Routes>
         </div>
 

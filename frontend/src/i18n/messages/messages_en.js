@@ -90,5 +90,9 @@ export default {
 
     'project.items.SuppliersCatalog.title': 'Suppliers catalog',
     'project.items.SuppliersCatalog.createSupplier.title': 'Add new supplier',
+    'project.items.SuppliersCatalog.seeAllItemsFromSupplier': 'See all items',
+
+    'project.items.ItemsFromSupplier.noItems': 'This supplier has no items.',
+    'project.items.ItemsFromSupplier.title': 'Items from supplier',
 
 }

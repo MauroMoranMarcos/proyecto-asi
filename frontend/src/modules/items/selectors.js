@@ -17,3 +17,6 @@ export const getSupplier = state =>
 
 export const getSuppliers = state =>
     getModuleState(state).suppliers;
+
+export const getItemsFromSupplier = state =>
+    getModuleState(state).itemsFromSupplier;

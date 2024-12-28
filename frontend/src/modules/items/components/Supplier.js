@@ -6,17 +6,19 @@ import * as actions from '../actions';
 import * as selectors from '../selectors';
 
 import {
+    Box,
     Button,
     Card,
     CardActionArea,
     CardActions,
     CardContent,
     CardMedia,
-    Divider,
+    Divider, Link,
     Typography,
     useTheme
 } from "@mui/material";
 import Items from "./Items";
+import {FormattedMessage} from "react-intl";
 
 const Supplier = ({ supplier }) => {
 
@@ -28,15 +30,18 @@ const Supplier = ({ supplier }) => {
     useEffect(() => {
 
         if (supplier && supplier.id) {
-            dispatch(actions.findItemsFromSupplier(supplier.id, 0,
+            dispatch(actions.findItemsFromSupplier({supplierId: supplier.id, page: 0},
                 itemsFromSupplier => setItemsFromSupplier(itemsFromSupplier)));
         }
 
     }, [supplier, supplier.id]);
 
-    const handleSeeItemDetails = (itemId) => {
+    const handleSeeAllItemsFromSupplier = () => {
 
-        navigate(`/items/checkinventory/${itemId}`);
+        dispatch(actions.findItemsFromSupplier({supplierId: supplier.id, page: 0},
+            () => {
+                navigate(`/items/supplierscatalog/${supplier.id}/itemsfromsupplier`);
+            }));
 
     }
 
@@ -53,6 +58,19 @@ const Supplier = ({ supplier }) => {
                     </Typography>
                     <Divider sx={{ m: "auto" }}></Divider>
                     <Items items={itemsFromSupplier.items} fromSupplier={true} />
+                    {itemsFromSupplier.existMoreItems &&
+                        <Box>
+                            <Link
+                                component="button"
+                                variant="h3"
+                                onClick={() => {
+                                    handleSeeAllItemsFromSupplier();
+                                }}
+                            >
+                                <FormattedMessage id="project.items.SuppliersCatalog.seeAllItemsFromSupplier" />
+                            </Link>
+                        </Box>
+                    }
                 </CardContent>
             </CardActionArea>
         </Card>

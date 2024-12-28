@@ -199,16 +199,19 @@ export const findAllSuppliers = () => dispatch => {
 
 }
 
-const findItemsFromSupplierCompleted = () => ({
+const findItemsFromSupplierCompleted = (itemsFromSupplier) => ({
     type: actionTypes.FIND_ITEMS_FROM_SUPPLIER_COMPLETED,
+    itemsFromSupplier
 });
 
-export const findItemsFromSupplier = (supplierId, page, onSuccess, onErrors) => dispatch => {
+export const findItemsFromSupplier = (criteria, onSuccess, onErrors) => dispatch => {
 
-    backend.itemsService.findItemsFromSupplier(supplierId, page,
-        itemsFromSupplier => {
-            dispatch(findItemsFromSupplierCompleted());
-            onSuccess(itemsFromSupplier);
+    backend.itemsService.findItemsFromSupplier(criteria,
+        result => {
+            dispatch(findItemsFromSupplierCompleted({criteria, result}));
+            if (typeof onSuccess === 'function') {
+                onSuccess(result);
+            }
         }, onErrors);
 
 }
@@ -230,3 +233,7 @@ export const findSupplierById = (supplierId, onSuccess, onErrors) => dispatch =>
             dispatch(findSupplierByIdCompleted(supplier));
         },
         onErrors);
+
+export const clearSupplier = () => ({
+    type: actionTypes.CLEAR_SUPPLIER
+});

@@ -9,6 +9,7 @@ const initialState = {
     itemBoxes: null,
     supplier: null,
     suppliers: null,
+    itemsFromSupplier: null,
 };
 
 const items = (state = initialState.items, action) => {
@@ -89,6 +90,9 @@ const supplier = (state = initialState.supplier, action) => {
         case actionTypes.FIND_SUPPLIER_BY_ID_COMPLETED:
             return action.supplier;
 
+        case actionTypes.CLEAR_SUPPLIER:
+            return initialState.supplier;
+
         default:
             return state;
 
@@ -110,13 +114,31 @@ const suppliers = (state = initialState.suppliers, action) => {
 
 }
 
+const itemsFromSupplier = (state = initialState.itemsFromSupplier, action) => {
+
+    switch (action.type) {
+
+        case actionTypes.FIND_ITEMS_FROM_SUPPLIER_COMPLETED:
+            return action.itemsFromSupplier;
+
+        case actionTypes.CLEAR_FIND_ITEMS_FROM_SUPPLIER:
+            return initialState.itemsFromSupplier;
+
+        default:
+            return state;
+
+    }
+
+}
+
 const reducer = combineReducers({
     items,
     item,
     numItemBoxes,
     itemBoxes,
     supplier,
-    suppliers
+    suppliers,
+    itemsFromSupplier
 });
 
 export default reducer;
