@@ -399,4 +399,17 @@ public class ItemsServiceImpl implements ItemsService {
 
     }
 
+    @Override
+    public List<Item> findAllItems() {
+
+        Iterable<Item> iterable = itemDao.findAll();
+
+        List<Item> itemList = new ArrayList<>();
+        for (Item item : iterable) {
+            itemList.add(item);
+        }
+
+        return itemList;
+    }
+
 }

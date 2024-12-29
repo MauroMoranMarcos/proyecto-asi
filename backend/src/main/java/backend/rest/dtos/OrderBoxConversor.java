@@ -12,7 +12,7 @@ public class OrderBoxConversor {
 
     public final static OrderBoxDto toOrderBoxDto(OrderBox orderBox) {
         return new OrderBoxDto(orderBox.getId(), orderBox.getOrder().getId(), orderBox.getItem().getId(),
-                orderBox.getNumBoxes(), orderBox.getNumItemsInBox());
+                orderBox.getItem().getItemName(), orderBox.getNumBoxes(), orderBox.getNumItemsInBox());
     }
 
     public final static List<OrderBoxDto> toOrderBoxDtos(List<OrderBox> orderBoxes) {

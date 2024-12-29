@@ -33,6 +33,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers(HttpMethod.POST, "/staff/loginFromServiceToken").permitAll()
                 .antMatchers(HttpMethod.POST, "/admin/createWarehouse").permitAll()
                 .antMatchers(HttpMethod.GET, "/admin/findAllWarehouses").permitAll()
+                .antMatchers(HttpMethod.GET, "/items").permitAll()
                 .antMatchers(HttpMethod.POST, "/items/createItem").permitAll()
                 .antMatchers(HttpMethod.POST, "/items/checkInventory/*/addItemBoxToWarehouse").permitAll()
                 .antMatchers(HttpMethod.GET, "/items/checkInventory").permitAll()

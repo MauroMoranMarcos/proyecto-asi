@@ -5,15 +5,17 @@ public class OrderBoxDto {
     private Long id;
     private Long orderId;
     private Long itemId;
+    private String itemName;
     private int numBoxes;
     private int numItemsInBox;
 
     public OrderBoxDto() {}
 
-    public OrderBoxDto(Long id, Long orderId, Long itemId, int numBoxes, int numItemsInBox) {
+    public OrderBoxDto(Long id, Long orderId, Long itemId, String itemName, int numBoxes, int numItemsInBox) {
         this.id = id;
         this.orderId = orderId;
         this.itemId = itemId;
+        this.itemName = itemName;
         this.numBoxes = numBoxes;
         this.numItemsInBox = numItemsInBox;
     }
@@ -40,6 +42,14 @@ public class OrderBoxDto {
 
     public void setItemId(Long itemId) {
         this.itemId = itemId;
+    }
+
+    public String getItemName() {
+        return itemName;
+    }
+
+    public void setItemName(String itemName) {
+        this.itemName = itemName;
     }
 
     public int getNumBoxes() {

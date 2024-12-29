@@ -51,4 +51,6 @@ public interface ItemsService {
 
     Supplier findSupplierById(Long supplierId) throws InstanceNotFoundException;
 
+    List<Item> findAllItems();
+
 }

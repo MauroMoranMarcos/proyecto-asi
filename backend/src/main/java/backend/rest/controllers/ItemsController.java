@@ -175,4 +175,11 @@ public class ItemsController {
 
     }
 
+    @GetMapping("")
+    public List<ItemDto> findAllItems() {
+
+        return toItemDtos(itemsService.findAllItems());
+
+    }
+
 }
