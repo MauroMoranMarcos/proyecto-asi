@@ -101,6 +101,19 @@ public class OrderServiceImpl implements OrderService{
     }
 
     @Override
+    public List<OrderBox> findOrderBoxesById(Long userId, Long orderId) throws InstanceNotFoundException, PermissionException {
+
+        Optional<Order> orderOpt = orderDao.findById(orderId);
+
+        if (!orderOpt.isPresent()) {
+            throw new InstanceNotFoundException("project.entities.order", orderId);
+        }
+
+        return orderOpt.get().getBoxes();
+
+    }
+
+    @Override
     public List<OrderBox> updateNumberOfBoxesInOrder(Long userId, Long orderId, Long orderBoxId, int newNumberOfBoxes) throws PermissionException, InstanceNotFoundException {
 
         User user = permissionChecker.checkUser(userId);

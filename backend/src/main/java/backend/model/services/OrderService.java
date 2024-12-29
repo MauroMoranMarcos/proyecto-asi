@@ -19,6 +19,8 @@ public interface OrderService {
 
     Order findOrderById(Long userId, Long orderId) throws InstanceNotFoundException, PermissionException;
 
+    List<OrderBox> findOrderBoxesById(Long userId, Long orderId) throws InstanceNotFoundException, PermissionException;
+
     List<OrderBox> updateNumberOfBoxesInOrder(Long userId, Long orderId, Long orderBoxId, int newNumberOfBoxes)
             throws PermissionException, InstanceNotFoundException;
 

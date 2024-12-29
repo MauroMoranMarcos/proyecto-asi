@@ -2,6 +2,7 @@ package backend.rest.controllers;
 
 import backend.model.entities.Item;
 import backend.model.entities.Order;
+import backend.model.entities.OrderBox;
 import backend.model.exceptions.InstanceNotFoundException;
 import backend.model.exceptions.PermissionException;
 import backend.model.services.Block;
@@ -65,7 +66,15 @@ public class OrderController {
 
     }
 
-    @PutMapping("/{orderId}/box/{boxId}/updateNumBoxes")
+    @GetMapping("/{id}/boxes")
+    public List<OrderBoxDto> findOrderBoxesById(@RequestAttribute Long userId, @PathVariable Long id)
+            throws PermissionException, InstanceNotFoundException {
+
+        return toOrderBoxDtos(orderService.findOrderBoxesById(userId, id));
+
+    }
+
+    @PutMapping("/{orderId}/boxes/{boxId}/updateNumBoxes")
     public List<OrderBoxDto> updateNumBoxesInOrder(@RequestAttribute Long userId, @PathVariable Long orderId,
                                              @PathVariable Long boxId, @RequestParam int newNumberOfBoxes)
             throws PermissionException, InstanceNotFoundException {
@@ -74,7 +83,7 @@ public class OrderController {
 
     }
 
-    @PostMapping("/{orderId}/box/{boxId}/delete")
+    @PostMapping("/{orderId}/boxes/{boxId}/delete")
     public List<OrderBoxDto> deleteBoxInOrder(@RequestAttribute Long userId, @PathVariable Long orderId, @PathVariable Long boxId)
             throws PermissionException, InstanceNotFoundException {
 

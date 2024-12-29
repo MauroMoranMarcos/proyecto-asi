@@ -1,9 +1,7 @@
 package backend.model.entities;
 
 import javax.persistence.*;
-import java.util.Date;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.*;
 
 @Entity
 @Table(name = "`Order`")
@@ -12,7 +10,7 @@ public class Order {
     private Long id;
     private Date orderDate;
     private Short state;
-    private Set<OrderBox> boxes = new HashSet<>();
+    private List<OrderBox> boxes = new ArrayList<>();
 
     public Order() {}
 
@@ -20,7 +18,7 @@ public class Order {
         this.state = state;
     }
 
-    public Order(Long id, Date orderDate, Short state, Set<OrderBox> boxes) {
+    public Order(Long id, Date orderDate, Short state, List<OrderBox> boxes) {
         this.id = id;
         this.orderDate = orderDate;
         this.state = state;
@@ -54,11 +52,11 @@ public class Order {
     }
 
     @OneToMany(mappedBy = "order")
-    public Set<OrderBox> getBoxes() {
+    public List<OrderBox> getBoxes() {
         return boxes;
     }
 
-    public void setBoxes(Set<OrderBox> boxes) {
+    public void setBoxes(List<OrderBox> boxes) {
         this.boxes = boxes;
     }
 }
