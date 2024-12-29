@@ -15,6 +15,7 @@ import WidgetsIcon from "@mui/icons-material/Widgets";
 import WarehouseIcon from "@mui/icons-material/Warehouse";
 import InventoryIcon from '@mui/icons-material/Inventory';
 import PrecisionManufacturingIcon from '@mui/icons-material/PrecisionManufacturing';
+import ListAltIcon from '@mui/icons-material/ListAlt';
 
 const Home = () => {
 
@@ -47,6 +48,12 @@ const Home = () => {
         event.preventDefault();
 
         navigate('/items/supplierscatalog');
+    }
+
+    const handleCreateOrder = event => {
+        event.preventDefault();
+
+        navigate('/');
     }
 
     if (!allWarehouses) {
@@ -196,6 +203,42 @@ const Home = () => {
                                             </Typography>
                                         </Button>
                                     </CardActions>
+                                </Card>
+                            </Box>
+                        }
+                    </Box>
+                    <Box
+                        sx={{
+                            display: "flex",
+                            alignItems: "center",
+                            justifyContent: "center",
+                            mt: 1,
+                            ml: 2,
+                            mr: 2,
+                            mb: 1,
+                        }}>
+                        {isLoggedIn &&
+                            <Box sx={{ minWidth: '99%' }}>
+                                <Card variant="outlined" sx={{ border: `1px solid ${theme.palette.secondary.main}` }}>
+                                    <CardContent>
+                                        <Typography variant="h3" sx={{ mt: 0.5, mb: 0.5, fontWeight: 'bold' }}>
+                                            <FormattedMessage id="project.app.Home.Orders" />
+                                        </Typography>
+                                    </CardContent>
+                                    {isLoggedIn && isWarehouseStaff &&
+                                    <CardActions>
+                                        <Button
+                                            variant="contained"
+                                            onClick={e => handleCreateOrder(e)}
+                                            color="secondary"
+                                            startIcon={<ListAltIcon />}
+                                            style={{ textAlign: 'left', justifyContent: 'flex-start' }}>
+                                            <Typography textAlign="center">
+                                                <FormattedMessage id="project.global.buttons.CreateOrder"></FormattedMessage>
+                                            </Typography>
+                                        </Button>
+                                    </CardActions>
+                                    }
                                 </Card>
                             </Box>
                         }

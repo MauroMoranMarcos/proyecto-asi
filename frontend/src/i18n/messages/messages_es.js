@@ -24,6 +24,7 @@ export default {
     'project.global.buttons.Save': 'Guardar',
     'project.global.buttons.SuppliersCatalog': 'Consultar catálogo de proveedores',
     'project.global.buttons.CreateSupplier': 'Añadir proveedor',
+    'project.global.buttons.CreateOrder': 'Crear pedido',
 
     'project.global.validator.required': 'Campo requerido',
     'project.global.validator.incorrectEmail': 'Formato de email incorrecto',
@@ -51,6 +52,7 @@ export default {
     'project.app.Home.WarehouseAdministration': 'Administración de almacenes',
     'project.app.Home.ActiveWarehouses': 'Almacenes activos:',
     'project.app.Home.Suppliers': 'Proveedores',
+    'project.app.Home.Orders': 'Orders',
 
     'project.staff.SignUp.title': 'Crear cuenta',
     'project.staff.Login.title': 'Iniciar sesión',

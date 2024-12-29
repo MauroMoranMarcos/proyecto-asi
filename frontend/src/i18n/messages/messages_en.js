@@ -24,6 +24,7 @@ export default {
     'project.global.buttons.Save': 'Save',
     'project.global.buttons.SuppliersCatalog': 'Check suppliers catalog',
     'project.global.buttons.CreateSupplier': 'Add supplier',
+    'project.global.buttons.CreateOrder': 'Create order',
 
     'project.global.validator.required': 'Required field',
     'project.global.validator.incorrectEmail': 'Incorrect mail format',
@@ -51,6 +52,7 @@ export default {
     'project.app.Home.WarehouseAdministration': 'Warehouse administration',
     'project.app.Home.ActiveWarehouses': 'Active warehouses:',
     'project.app.Home.Suppliers': 'Suppliers',
+    'project.app.Home.Orders': 'Orders',
 
     'project.staff.SignUp.title': 'Sign Up',
     'project.staff.Login.title': 'Login',
