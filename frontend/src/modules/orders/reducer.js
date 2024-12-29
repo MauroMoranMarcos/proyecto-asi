@@ -11,6 +11,12 @@ const order = (state = initialState.order, action) => {
 
     switch (action.type) {
 
+        case actionTypes.FIND_ORDER_BY_ID_COMPLETED:
+            return action.order;
+
+        case actionTypes.CLEAR_ORDER:
+            return initialState.order;
+
         default:
             return state;
 
@@ -21,6 +27,12 @@ const order = (state = initialState.order, action) => {
 const orderDrafts = (state = initialState.orderDrafts, action) => {
 
     switch (action.type) {
+
+        case actionTypes.FIND_ORDER_DRAFTS_COMPLETED:
+            return action.orderDrafts;
+
+        case actionTypes.CLEAR_ORDER_DRAFTS:
+            return initialState.orderDrafts;
 
         default:
             return state;
