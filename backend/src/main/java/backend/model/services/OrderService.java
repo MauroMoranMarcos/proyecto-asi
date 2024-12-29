@@ -19,10 +19,11 @@ public interface OrderService {
 
     Order findOrderById(Long userId, Long orderId) throws InstanceNotFoundException, PermissionException;
 
-    void updateNumberOfBoxesInOrder(Long userId, Long orderId, Long orderBoxId, int newNumberOfBoxes)
+    OrderBox updateNumberOfBoxesInOrder(Long userId, Long orderId, Long orderBoxId, int newNumberOfBoxes)
             throws PermissionException, InstanceNotFoundException;
 
-    void removeBoxFromOrder(Long userId, Long orderId, Long orderBoxId) throws InstanceNotFoundException, PermissionException;
+    void removeBoxFromOrder(Long userId, Long orderId, Long orderBoxId)
+            throws PermissionException, InstanceNotFoundException;
 
     void deleteOrderById(Long userId, Long orderId) throws PermissionException, InstanceNotFoundException;
 

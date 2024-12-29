@@ -23,6 +23,9 @@ public class OrderServiceImpl implements OrderService{
     @Autowired
     private OrderBoxDao orderBoxDao;
 
+    @Autowired
+    private ItemDao itemDao;
+
     @Override
     public Order createOrder(Long userId) throws PermissionException, InstanceNotFoundException {
 
@@ -40,7 +43,28 @@ public class OrderServiceImpl implements OrderService{
 
     @Override
     public OrderBox addBoxToOrder(Long userId, Long orderId, Long itemId, int numBoxes, int numItemsInBox) throws PermissionException, InstanceNotFoundException {
-        return null;
+
+        User user = permissionChecker.checkUser(userId);
+
+        if (!user.getRole().equals(User.RoleType.WAREHOUSE_STAFF)) {
+            throw new PermissionException();
+        }
+
+        Optional<Order> orderOpt = orderDao.findById(orderId);
+
+        if (!orderOpt.isPresent()) {
+            throw new InstanceNotFoundException("project.entities.order", orderId);
+        }
+
+        Optional<Item> itemOpt = itemDao.findById(itemId);
+
+        if (!itemOpt.isPresent()) {
+            throw new InstanceNotFoundException("project.entities.item", itemId);
+        }
+
+        OrderBox orderBox = new OrderBox(orderOpt.get(), itemOpt.get(), numBoxes, numItemsInBox);
+
+        return orderBoxDao.save(orderBox);
     }
 
     @Override
@@ -54,7 +78,7 @@ public class OrderServiceImpl implements OrderService{
     }
 
     @Override
-    public void updateNumberOfBoxesInOrder(Long userId, Long orderId, Long orderBoxId, int newNumberOfBoxes) throws PermissionException, InstanceNotFoundException {
+    public OrderBox updateNumberOfBoxesInOrder(Long userId, Long orderId, Long orderBoxId, int newNumberOfBoxes) throws PermissionException, InstanceNotFoundException {
 
         User user = permissionChecker.checkUser(userId);
 
@@ -74,15 +98,11 @@ public class OrderServiceImpl implements OrderService{
             throw new InstanceNotFoundException("project.entities.orderBox", orderBoxId);
         }
 
-        Order order = orderOpt.get();
         OrderBox orderBox = orderBoxOpt.get();
 
-        if (!order.equals(orderBox.getOrder())) {
-            throw new PermissionException();
-        }
+        orderBox.setNumBoxes(newNumberOfBoxes);
 
-        orderBox.setNumBoxes((long) newNumberOfBoxes);
-
+        return orderBox;
     }
 
     @Override
@@ -106,15 +126,7 @@ public class OrderServiceImpl implements OrderService{
             throw new InstanceNotFoundException("project.entities.orderBox", orderBoxId);
         }
 
-        Order order = orderOpt.get();
-        OrderBox orderBox = orderBoxOpt.get();
-
-        if (!order.equals(orderBox.getOrder())) {
-            throw new PermissionException();
-        }
-
-        orderBoxDao.delete(orderBox);
-
+        orderBoxDao.delete(orderBoxOpt.get());
     }
 
     @Override
