@@ -25,6 +25,7 @@ export default {
     'project.global.buttons.SuppliersCatalog': 'Check suppliers catalog',
     'project.global.buttons.CreateSupplier': 'Add supplier',
     'project.global.buttons.CreateOrder': 'Create order',
+    'project.global.buttons.SeeOrderDrafts': 'See order drafts',
 
     'project.global.validator.required': 'Required field',
     'project.global.validator.incorrectEmail': 'Incorrect mail format',
@@ -96,6 +97,7 @@ export default {
     'project.items.SuppliersCatalog.title': 'Suppliers catalog',
     'project.items.SuppliersCatalog.createSupplier.title': 'Add new supplier',
     'project.items.SuppliersCatalog.seeAllItemsFromSupplier': 'See all items',
+    'project.items.SuppliersCatalog.noSuppliers': 'No suppliers created yet.',
 
     'project.items.ItemsFromSupplier.noItems': 'This supplier has no items.',
     'project.items.ItemsFromSupplier.title': 'Items from supplier',
@@ -104,5 +106,11 @@ export default {
     'project.orders.OrderDetails.noBoxes': 'No boxes',
     'project.orders.OrderDetails.button.addBox': 'Add box',
     'project.orders.OrderDetails.addBox.title': 'Add box',
+
+    'project.orders.OrderDrafts.title': 'Order drafts',
+    'project.orders.OrderDrafts.noOrderDrafts': 'There is no order drafts at this moment.',
+    'project.orders.OrderDrafts.orderDraftWithId': 'Order with id: ',
+    'project.orders.OrderDrafts.orderState': 'Order state: ',
+    'project.orders.OrderDrafts.thisOrderIsADraft': 'Draft',
 
 }
