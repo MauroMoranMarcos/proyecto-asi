@@ -1,7 +1,7 @@
 import { Box } from "@mui/material";
 import OrderBox from "./Box";
 
-const Boxes = ({ boxes }) => {
+const Boxes = ({ boxes, orderId }) => {
     return (
         <Box
             sx={{
@@ -28,7 +28,7 @@ const Boxes = ({ boxes }) => {
                         marginBottom: 1,
                     }}
                 >
-                    <OrderBox box={box} />
+                    <OrderBox box={box} orderId={orderId} />
                 </Box>
             ))}
         </Box>

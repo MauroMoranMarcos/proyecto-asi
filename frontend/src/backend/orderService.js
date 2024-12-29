@@ -21,7 +21,7 @@ export const findBoxesInOrder = (orderId, onSuccess, onErrors) =>
         config(`GET`), onSuccess, onErrors);
 
 export const updateNumBoxesInOrder = (orderId, boxId, newNumberOfBoxes, onSuccess, onErrors) =>
-    appFetch(`/orders/${orderId}/boxes/${boxId}?newNumberOfBoxes=${newNumberOfBoxes}`,
+    appFetch(`/orders/${orderId}/boxes/${boxId}/updateNumBoxes?newNumberOfBoxes=${newNumberOfBoxes}`,
         config(`PUT`), onSuccess, onErrors);
 
 export const deleteBoxInOrder = (orderId, boxId, onSuccess, onErrors) =>

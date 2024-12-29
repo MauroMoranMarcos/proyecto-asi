@@ -26,6 +26,7 @@ export default {
     'project.global.buttons.CreateSupplier': 'Add supplier',
     'project.global.buttons.CreateOrder': 'Create order',
     'project.global.buttons.SeeOrderDrafts': 'See order drafts',
+    'project.global.buttons.Update': 'Update',
 
     'project.global.validator.required': 'Required field',
     'project.global.validator.incorrectEmail': 'Incorrect mail format',
@@ -106,6 +107,7 @@ export default {
     'project.orders.OrderDetails.noBoxes': 'No boxes',
     'project.orders.OrderDetails.button.addBox': 'Add box',
     'project.orders.OrderDetails.addBox.title': 'Add box',
+    'project.orders.OrderDetails.UpdateNumBoxes.title': 'Update number of boxes of ',
 
     'project.orders.OrderDrafts.title': 'Order drafts',
     'project.orders.OrderDrafts.noOrderDrafts': 'There is no order drafts at this moment.',

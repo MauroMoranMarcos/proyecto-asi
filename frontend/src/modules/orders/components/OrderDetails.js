@@ -27,6 +27,7 @@ import * as itemsActions from "../../items/actions";
 import {BackButton, Errors} from "../../common";
 import {useParams} from "react-router-dom";
 import Boxes from "./Boxes";
+import DeleteIcon from "@mui/icons-material/Delete";
 
 const StyledBox = styled(Box)(({theme}) => ({
     border: `1px solid ${theme.palette.primary.main}`,
@@ -221,7 +222,7 @@ const OrderDetails = () => {
                                 mr: 1,
                                 mb: 1,
                             }}>
-                            <Boxes boxes={orderBoxes}/>
+                            <Boxes boxes={orderBoxes} orderId={orderId}/>
                         </Box>
                     }
                     <Dialog

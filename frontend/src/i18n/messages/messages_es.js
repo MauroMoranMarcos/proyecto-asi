@@ -26,6 +26,7 @@ export default {
     'project.global.buttons.CreateSupplier': 'Añadir proveedor',
     'project.global.buttons.CreateOrder': 'Crear pedido',
     'project.global.buttons.SeeOrderDrafts': 'Ver borradores de pedidos',
+    'project.global.buttons.Update': 'Actualizar',
 
     'project.global.validator.required': 'Campo requerido',
     'project.global.validator.incorrectEmail': 'Formato de email incorrecto',
@@ -106,6 +107,7 @@ export default {
     'project.orders.OrderDetails.noBoxes': 'No hay cajas',
     'project.orders.OrderDetails.addBox': 'Añadir caja',
     'project.orders.OrderDetails.addBox.title': 'Añadir caja',
+    'project.orders.OrderDetails.UpdateNumBoxes.title': 'Actualizar el número de cajas de ',
 
     'project.orders.OrderDrafts.title': 'Borradores de pedidos',
     'project.orders.OrderDrafts.noOrderDrafts': 'En este momento no hay borradores de pedidos.',
