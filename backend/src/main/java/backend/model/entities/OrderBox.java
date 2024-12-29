@@ -8,12 +8,12 @@ public class OrderBox {
     private Long id;
     private Order order;
     private Item item;
-    private Long numBoxes;
-    private Long numItemsInBox;
+    private int numBoxes;
+    private int numItemsInBox;
 
     public OrderBox() {}
 
-    public OrderBox(Order order, Item item, Long numBoxes, Long numItemsInBox) {
+    public OrderBox(Order order, Item item, int numBoxes, int numItemsInBox) {
         this.order = order;
         this.item = item;
         this.numBoxes = numBoxes;
@@ -50,19 +50,19 @@ public class OrderBox {
         this.item = item;
     }
 
-    public Long getNumBoxes() {
+    public int getNumBoxes() {
         return numBoxes;
     }
 
-    public void setNumBoxes(Long numBoxes) {
+    public void setNumBoxes(int numBoxes) {
         this.numBoxes = numBoxes;
     }
 
-    public Long getNumItemsInBox() {
+    public int getNumItemsInBox() {
         return numItemsInBox;
     }
 
-    public void setNumItemsInBox(Long numItemsInBox) {
+    public void setNumItemsInBox(int numItemsInBox) {
         this.numItemsInBox = numItemsInBox;
     }
 }
