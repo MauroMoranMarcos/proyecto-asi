@@ -16,6 +16,7 @@ import WarehouseIcon from "@mui/icons-material/Warehouse";
 import InventoryIcon from '@mui/icons-material/Inventory';
 import PrecisionManufacturingIcon from '@mui/icons-material/PrecisionManufacturing';
 import ListAltIcon from '@mui/icons-material/ListAlt';
+import DrawIcon from '@mui/icons-material/Draw';
 
 const Home = () => {
 
@@ -54,6 +55,12 @@ const Home = () => {
         event.preventDefault();
 
         navigate('/');
+    }
+
+    const handleSeeOrderDrafts = event => {
+        event.preventDefault();
+
+        navigate('/orders/orderdrafts');
     }
 
     if (!allWarehouses) {
@@ -225,20 +232,32 @@ const Home = () => {
                                             <FormattedMessage id="project.app.Home.Orders" />
                                         </Typography>
                                     </CardContent>
-                                    {isLoggedIn && isWarehouseStaff &&
                                     <CardActions>
-                                        <Button
-                                            variant="contained"
-                                            onClick={e => handleCreateOrder(e)}
-                                            color="secondary"
-                                            startIcon={<ListAltIcon />}
-                                            style={{ textAlign: 'left', justifyContent: 'flex-start' }}>
-                                            <Typography textAlign="center">
-                                                <FormattedMessage id="project.global.buttons.CreateOrder"></FormattedMessage>
-                                            </Typography>
-                                        </Button>
+                                        {isLoggedIn && isWarehouseStaff &&
+                                            <Button
+                                                variant="contained"
+                                                onClick={e => handleCreateOrder(e)}
+                                                color="secondary"
+                                                startIcon={<ListAltIcon />}
+                                                style={{ textAlign: 'left', justifyContent: 'flex-start' }}>
+                                                <Typography textAlign="center">
+                                                    <FormattedMessage id="project.global.buttons.CreateOrder"></FormattedMessage>
+                                                </Typography>
+                                            </Button>
+                                        }
+                                        {isLoggedIn && isWarehouseStaff &&
+                                            <Button
+                                                variant="contained"
+                                                onClick={e => handleSeeOrderDrafts(e)}
+                                                color="secondary"
+                                                startIcon={<DrawIcon />}
+                                                style={{ textAlign: 'left', justifyContent: 'flex-start' }}>
+                                                <Typography textAlign="center">
+                                                    <FormattedMessage id="project.global.buttons.SeeOrderDrafts"></FormattedMessage>
+                                                </Typography>
+                                            </Button>
+                                        }
                                     </CardActions>
-                                    }
                                 </Card>
                             </Box>
                         }

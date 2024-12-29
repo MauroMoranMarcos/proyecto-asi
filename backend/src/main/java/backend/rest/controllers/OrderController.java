@@ -51,7 +51,7 @@ public class OrderController {
     public BlockDto<OrderDto> findOrderDrafts(@RequestAttribute Long userId, @RequestParam(defaultValue = "0") int page)
             throws PermissionException, InstanceNotFoundException {
 
-        Block<Order> orderBlock = orderService.findOrderDrafts(userId, page, 10);
+        Block<Order> orderBlock = orderService.findOrderDrafts(userId, page, 12);
 
         return new BlockDto<>(toOrderDtos(orderBlock.getItems()), orderBlock.getExistMoreItems());
 
