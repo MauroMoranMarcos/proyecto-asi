@@ -5,6 +5,7 @@ import * as actionTypes from './actionTypes';
 const initialState = {
     order: null,
     orderDrafts: null,
+    orderBoxes: null,
 };
 
 const order = (state = initialState.order, action) => {
@@ -16,6 +17,9 @@ const order = (state = initialState.order, action) => {
 
         case actionTypes.CLEAR_ORDER:
             return initialState.order;
+
+        case actionTypes.CREATE_ORDER_COMPLETED:
+            return action.order;
 
         default:
             return state;
@@ -41,9 +45,30 @@ const orderDrafts = (state = initialState.orderDrafts, action) => {
 
 }
 
+const orderBoxes = (state = initialState.orderBoxes, action) => {
+
+    switch (action.type) {
+
+        case actionTypes.ADD_BOX_TO_ORDER_COMPLETED:
+            return action.orderBoxes;
+
+        case actionTypes.UPDATE_NUMBER_OF_BOXES_IN_ORDER_COMPLETED:
+            return action.orderBoxes;
+
+        case actionTypes.DELETE_BOX_FROM_ORDER_COMPLETED:
+            return action.orderBoxes;
+
+        default:
+            return state;
+
+    }
+
+}
+
 const reducer = combineReducers({
     order,
-    orderDrafts
+    orderDrafts,
+    orderBoxes
 });
 
 export default reducer;

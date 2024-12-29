@@ -12,17 +12,17 @@ public interface OrderService {
 
     Order createOrder(Long userId) throws PermissionException, InstanceNotFoundException;
 
-    OrderBox addBoxToOrder(Long userId, Long orderId, Long itemId, int numBoxes, int numItemsInBox)
+    List<OrderBox> addBoxToOrder(Long userId, Long orderId, Long itemId, int numBoxes, int numItemsInBox)
             throws PermissionException, InstanceNotFoundException;
 
     Block<Order> findOrderDrafts(Long userId, int page, int size) throws PermissionException, InstanceNotFoundException;
 
     Order findOrderById(Long userId, Long orderId) throws InstanceNotFoundException, PermissionException;
 
-    OrderBox updateNumberOfBoxesInOrder(Long userId, Long orderId, Long orderBoxId, int newNumberOfBoxes)
+    List<OrderBox> updateNumberOfBoxesInOrder(Long userId, Long orderId, Long orderBoxId, int newNumberOfBoxes)
             throws PermissionException, InstanceNotFoundException;
 
-    void removeBoxFromOrder(Long userId, Long orderId, Long orderBoxId)
+    List<OrderBox> removeBoxFromOrder(Long userId, Long orderId, Long orderBoxId)
             throws PermissionException, InstanceNotFoundException;
 
     void deleteOrderById(Long userId, Long orderId) throws PermissionException, InstanceNotFoundException;

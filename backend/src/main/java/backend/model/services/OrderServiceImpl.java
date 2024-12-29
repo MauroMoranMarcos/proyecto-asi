@@ -43,7 +43,7 @@ public class OrderServiceImpl implements OrderService{
     }
 
     @Override
-    public OrderBox addBoxToOrder(Long userId, Long orderId, Long itemId, int numBoxes, int numItemsInBox) throws PermissionException, InstanceNotFoundException {
+    public List<OrderBox> addBoxToOrder(Long userId, Long orderId, Long itemId, int numBoxes, int numItemsInBox) throws PermissionException, InstanceNotFoundException {
 
         User user = permissionChecker.checkUser(userId);
 
@@ -65,7 +65,9 @@ public class OrderServiceImpl implements OrderService{
 
         OrderBox orderBox = new OrderBox(orderOpt.get(), itemOpt.get(), numBoxes, numItemsInBox);
 
-        return orderBoxDao.save(orderBox);
+        orderBoxDao.save(orderBox);
+
+        return orderBoxDao.findAllByOrder(orderOpt.get());
     }
 
     @Override
@@ -95,11 +97,11 @@ public class OrderServiceImpl implements OrderService{
         }
 
         return orderOpt.get();
-        
+
     }
 
     @Override
-    public OrderBox updateNumberOfBoxesInOrder(Long userId, Long orderId, Long orderBoxId, int newNumberOfBoxes) throws PermissionException, InstanceNotFoundException {
+    public List<OrderBox> updateNumberOfBoxesInOrder(Long userId, Long orderId, Long orderBoxId, int newNumberOfBoxes) throws PermissionException, InstanceNotFoundException {
 
         User user = permissionChecker.checkUser(userId);
 
@@ -123,11 +125,13 @@ public class OrderServiceImpl implements OrderService{
 
         orderBox.setNumBoxes(newNumberOfBoxes);
 
-        return orderBox;
+        orderBoxDao.save(orderBox);
+
+        return orderBoxDao.findAllByOrder(orderOpt.get());
     }
 
     @Override
-    public void removeBoxFromOrder(Long userId, Long orderId, Long orderBoxId) throws InstanceNotFoundException, PermissionException {
+    public List<OrderBox> removeBoxFromOrder(Long userId, Long orderId, Long orderBoxId) throws InstanceNotFoundException, PermissionException {
 
         User user = permissionChecker.checkUser(userId);
 
@@ -148,6 +152,8 @@ public class OrderServiceImpl implements OrderService{
         }
 
         orderBoxDao.delete(orderBoxOpt.get());
+
+        return orderBoxDao.findAllByOrder(orderOpt.get());
     }
 
     @Override

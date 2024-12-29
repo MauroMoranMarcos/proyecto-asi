@@ -13,9 +13,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.io.IOException;
+import java.util.List;
 
 import static backend.rest.dtos.ItemConversor.toItemDtos;
 import static backend.rest.dtos.OrderBoxConversor.toOrderBoxDto;
+import static backend.rest.dtos.OrderBoxConversor.toOrderBoxDtos;
 import static backend.rest.dtos.OrderConversor.toOrderDto;
 import static backend.rest.dtos.OrderConversor.toOrderDtos;
 
@@ -36,12 +38,12 @@ public class OrderController {
     }
 
     @PostMapping("/{orderId}/addBox")
-    public OrderBoxDto addBoxToOrder(@RequestAttribute Long userId, @PathVariable Long orderId,
-                                     @RequestParam Long itemId, @RequestParam int numBoxes,
-                                     @RequestParam int numItemsInBox)
+    public List<OrderBoxDto> addBoxToOrder(@RequestAttribute Long userId, @PathVariable Long orderId,
+                                           @RequestParam Long itemId, @RequestParam int numBoxes,
+                                           @RequestParam int numItemsInBox)
             throws PermissionException, InstanceNotFoundException {
 
-        return toOrderBoxDto(orderService.addBoxToOrder(userId, orderId, itemId, numBoxes, numItemsInBox));
+        return toOrderBoxDtos(orderService.addBoxToOrder(userId, orderId, itemId, numBoxes, numItemsInBox));
 
     }
 
@@ -64,19 +66,19 @@ public class OrderController {
     }
 
     @PutMapping("/{orderId}/box/{boxId}/updateNumBoxes")
-    public OrderBoxDto updateNumBoxesInOrder(@RequestAttribute Long userId, @PathVariable Long orderId,
+    public List<OrderBoxDto> updateNumBoxesInOrder(@RequestAttribute Long userId, @PathVariable Long orderId,
                                              @PathVariable Long boxId, @RequestParam int newNumberOfBoxes)
             throws PermissionException, InstanceNotFoundException {
 
-        return toOrderBoxDto(orderService.updateNumberOfBoxesInOrder(userId, orderId, boxId, newNumberOfBoxes));
+        return toOrderBoxDtos(orderService.updateNumberOfBoxesInOrder(userId, orderId, boxId, newNumberOfBoxes));
 
     }
 
     @PostMapping("/{orderId}/box/{boxId}/delete")
-    public void deleteBoxInOrder(@RequestAttribute Long userId, @PathVariable Long orderId, @PathVariable Long boxId)
+    public List<OrderBoxDto> deleteBoxInOrder(@RequestAttribute Long userId, @PathVariable Long orderId, @PathVariable Long boxId)
             throws PermissionException, InstanceNotFoundException {
 
-        orderService.removeBoxFromOrder(userId, orderId, boxId);
+        return toOrderBoxDtos(orderService.removeBoxFromOrder(userId, orderId, boxId));
 
     }
 }
