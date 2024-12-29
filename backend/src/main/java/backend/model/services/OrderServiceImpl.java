@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @Transactional
@@ -18,6 +19,9 @@ public class OrderServiceImpl implements OrderService{
 
     @Autowired
     private OrderDao orderDao;
+
+    @Autowired
+    private OrderBoxDao orderBoxDao;
 
     @Override
     public Order createOrder(Long userId) throws PermissionException, InstanceNotFoundException {
@@ -40,12 +44,76 @@ public class OrderServiceImpl implements OrderService{
     }
 
     @Override
+    public Block<Order> findOrderDrafts(Long userId, int page, int size) throws PermissionException {
+        return null;
+    }
+
+    @Override
+    public Order findOrderById(Long userId, Long orderId) throws InstanceNotFoundException, PermissionException {
+        return null;
+    }
+
+    @Override
     public void updateNumberOfBoxesInOrder(Long userId, Long orderId, Long orderBoxId, int newNumberOfBoxes) throws PermissionException, InstanceNotFoundException {
+
+        User user = permissionChecker.checkUser(userId);
+
+        if (!user.getRole().equals(User.RoleType.WAREHOUSE_STAFF)) {
+            throw new PermissionException();
+        }
+
+        Optional<Order> orderOpt = orderDao.findById(orderId);
+
+        if (!orderOpt.isPresent()) {
+            throw new InstanceNotFoundException("project.entities.order", orderId);
+        }
+
+        Optional<OrderBox> orderBoxOpt = orderBoxDao.findById(orderBoxId);
+
+        if (!orderBoxOpt.isPresent()) {
+            throw new InstanceNotFoundException("project.entities.orderBox", orderBoxId);
+        }
+
+        Order order = orderOpt.get();
+        OrderBox orderBox = orderBoxOpt.get();
+
+        if (!order.equals(orderBox.getOrder())) {
+            throw new PermissionException();
+        }
+
+        orderBox.setNumBoxes((long) newNumberOfBoxes);
 
     }
 
     @Override
-    public void removeBoxFromOrder(Long userId, Long orderId, Long orderBoxId) {
+    public void removeBoxFromOrder(Long userId, Long orderId, Long orderBoxId) throws InstanceNotFoundException, PermissionException {
+
+        User user = permissionChecker.checkUser(userId);
+
+        if (!user.getRole().equals(User.RoleType.WAREHOUSE_STAFF)) {
+            throw new PermissionException();
+        }
+
+        Optional<Order> orderOpt = orderDao.findById(orderId);
+
+        if (!orderOpt.isPresent()) {
+            throw new InstanceNotFoundException("project.entities.order", orderId);
+        }
+
+        Optional<OrderBox> orderBoxOpt = orderBoxDao.findById(orderBoxId);
+
+        if (!orderBoxOpt.isPresent()) {
+            throw new InstanceNotFoundException("project.entities.orderBox", orderBoxId);
+        }
+
+        Order order = orderOpt.get();
+        OrderBox orderBox = orderBoxOpt.get();
+
+        if (!order.equals(orderBox.getOrder())) {
+            throw new PermissionException();
+        }
+
+        orderBoxDao.delete(orderBox);
 
     }
 

@@ -15,10 +15,14 @@ public interface OrderService {
     OrderBox addBoxToOrder(Long userId, Long orderId, Long itemId, int numBoxes, int numItemsInBox)
             throws PermissionException, InstanceNotFoundException;
 
+    Block<Order> findOrderDrafts(Long userId, int page, int size) throws PermissionException;
+
+    Order findOrderById(Long userId, Long orderId) throws InstanceNotFoundException, PermissionException;
+
     void updateNumberOfBoxesInOrder(Long userId, Long orderId, Long orderBoxId, int newNumberOfBoxes)
             throws PermissionException, InstanceNotFoundException;
 
-    void removeBoxFromOrder(Long userId, Long orderId, Long orderBoxId);
+    void removeBoxFromOrder(Long userId, Long orderId, Long orderBoxId) throws InstanceNotFoundException, PermissionException;
 
     void deleteOrderById(Long userId, Long orderId) throws PermissionException, InstanceNotFoundException;
 
