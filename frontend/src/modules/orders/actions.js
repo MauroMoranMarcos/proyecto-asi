@@ -40,15 +40,29 @@ export const previousFindOrderDraftsResultPage = (criteria) =>
 export const nextFindOrderDraftsResultPage = (criteria) =>
     findOrderDrafts({...criteria, page: criteria.page + 1});
 
-const createOrderCompleted = () => ({
+const createOrderCompleted = order => ({
     type: actionTypes.CREATE_ORDER_COMPLETED,
+    order
 });
 
-export const createItem = (formData, onSuccess, onErrors) => dispatch =>
+export const createOrder = (onSuccess, onErrors) => dispatch =>
     backend.orderService.createOrder(
         order => {
-            dispatch(createOrderCompleted());
+            dispatch(createOrderCompleted(order));
             onSuccess(order);
+        },
+        onErrors);
+
+const findBoxesInOrderCompleted = orderBoxes => ({
+    type: actionTypes.FIND_BOXES_FROM_ORDER_COMPLETED,
+    orderBoxes
+});
+
+export const findBoxesInOrder = (orderId, onSuccess, onErrors) => dispatch =>
+    backend.orderService.findBoxesInOrder(orderId,
+        orderBoxes => {
+            dispatch(findBoxesInOrderCompleted(orderBoxes));
+            onSuccess();
         },
         onErrors);
 

@@ -46,6 +46,9 @@ export default {
     'project.global.fields.imgFile': 'Select image',
     'project.global.fields.searchBar': 'Search by name or code',
     'project.global.fields.supplierName': 'Supplier name',
+    'project.global.fields.item': 'Item',
+    'project.global.fields.numBoxes': 'Number of boxes',
+    'project.global.fields.numItemsInBox': 'Number of items per box',
 
     'project.app.Home.title': 'Home',
     'project.app.Home.InventoryAdministration': 'Inventory administration',
@@ -96,5 +99,10 @@ export default {
 
     'project.items.ItemsFromSupplier.noItems': 'This supplier has no items.',
     'project.items.ItemsFromSupplier.title': 'Items from supplier',
+
+    'project.orders.OrderDetails.title': 'Order details',
+    'project.orders.OrderDetails.noBoxes': 'No boxes',
+    'project.orders.OrderDetails.button.addBox': 'Add box',
+    'project.orders.OrderDetails.addBox.title': 'Add box',
 
 }

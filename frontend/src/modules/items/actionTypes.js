@@ -21,3 +21,4 @@ export const FIND_ITEMS_FROM_SUPPLIER_COMPLETED = "project/items/findItemsFromSu
 export const CLEAR_FIND_ITEMS_FROM_SUPPLIER = "project/items/clearFindItemsFromSupplier";
 export const FIND_SUPPLIER_BY_ID_COMPLETED = "project/items/findSupplierByIdCompleted";
 export const CLEAR_SUPPLIER = "project/items/clearSupplier";
+export const FIND_ALL_ITEMS_COMPLETED = "project/items/findAllItemsCompleted";

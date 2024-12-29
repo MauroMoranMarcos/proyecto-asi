@@ -237,3 +237,16 @@ export const findSupplierById = (supplierId, onSuccess, onErrors) => dispatch =>
 export const clearSupplier = () => ({
     type: actionTypes.CLEAR_SUPPLIER
 });
+
+const findAllItemsCompleted = (items) => ({
+    type: actionTypes.FIND_ALL_ITEMS_COMPLETED,
+    items
+});
+
+export const findAllItems = (onSuccess, onErrors) => dispatch =>
+    backend.itemsService.findAllItems(
+        items => {
+            dispatch(findAllItemsCompleted(items));
+            onSuccess();
+        },
+        onErrors);

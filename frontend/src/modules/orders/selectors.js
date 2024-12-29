@@ -5,3 +5,6 @@ export const getOrder = state =>
 
 export const getOrderDrafts = state =>
     getModuleState(state).orderDrafts;
+
+export const getOrderBoxes = state =>
+    getModuleState(state).orderBoxes;

@@ -1,5 +1,5 @@
 import {useNavigate} from "react-router-dom";
-import {useSelector} from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
 import {FormattedMessage} from "react-intl";
 
 import staff from '../../staff';
@@ -16,14 +16,18 @@ import WarehouseIcon from "@mui/icons-material/Warehouse";
 import InventoryIcon from '@mui/icons-material/Inventory';
 import PrecisionManufacturingIcon from '@mui/icons-material/PrecisionManufacturing';
 import ListAltIcon from '@mui/icons-material/ListAlt';
+import * as orderActions from "../../orders/actions";
+import {useState} from "react";
 
 const Home = () => {
 
+    const dispatch = useDispatch();
     const navigate = useNavigate();
     const isLoggedIn = useSelector(staff.selectors.isLoggedIn);
     const isAdmin = useSelector(staff.selectors.isAdmin);
     const isWarehouseStaff = useSelector(staff.selectors.isWarehouseStaff);
     const allWarehouses = useSelector(admin.selectors.getAllWarehouses);
+    const [backendErrors, setBackendErrors] = useState(null);
     const theme = useTheme();
 
     const handleCreateWarehouse = event => {
@@ -53,7 +57,11 @@ const Home = () => {
     const handleCreateOrder = event => {
         event.preventDefault();
 
-        navigate('/');
+        dispatch(orderActions.createOrder(
+            order => {
+                navigate(`/orders/${order.id}`);
+            }, errors => setBackendErrors(errors)));
+
     }
 
     if (!allWarehouses) {

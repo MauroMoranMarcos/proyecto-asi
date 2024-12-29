@@ -46,6 +46,9 @@ export default {
     'project.global.fields.imgFile': 'Seleccionar imagen',
     'project.global.fields.searchBar': 'Buscar por nombre o código',
     'project.global.fields.supplierName': 'Nombre del proveedor',
+    'project.global.fields.item': 'Pieza',
+    'project.global.fields.numBoxes': 'Número de cajas',
+    'project.global.fields.numItemsInBox': 'Número de piezas por caja',
 
     'project.app.Home.title': 'Inicio',
     'project.app.Home.InventoryAdministration': 'Administración de inventario',
@@ -96,5 +99,10 @@ export default {
 
     'project.items.ItemsFromSupplier.noItems': 'Este proveedor no tiene piezas.',
     'project.items.ItemsFromSupplier.title': 'Piezas del proveedor',
+
+    'project.orders.OrderDetails.title': 'Detalles de pedido',
+    'project.orders.OrderDetails.noBoxes': 'No hay cajas',
+    'project.orders.OrderDetails.addBox': 'Añadir caja',
+    'project.orders.OrderDetails.addBox.title': 'Añadir caja',
 
 }

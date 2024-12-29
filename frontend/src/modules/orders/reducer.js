@@ -52,6 +52,9 @@ const orderBoxes = (state = initialState.orderBoxes, action) => {
         case actionTypes.ADD_BOX_TO_ORDER_COMPLETED:
             return action.orderBoxes;
 
+        case actionTypes.FIND_BOXES_FROM_ORDER_COMPLETED:
+            return action.orderBoxes;
+
         case actionTypes.UPDATE_NUMBER_OF_BOXES_IN_ORDER_COMPLETED:
             return action.orderBoxes;
 

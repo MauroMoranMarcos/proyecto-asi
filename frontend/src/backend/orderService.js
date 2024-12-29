@@ -16,10 +16,14 @@ export const addBoxToOrder = (orderId, itemId, numBoxes, numItemsInBox, onSucces
     appFetch(`/orders/${orderId}/addBox?itemId=${itemId}&numBoxes=${numBoxes}&numItemsInBox=${numItemsInBox}`,
         config(`POST`), onSuccess, onErrors);
 
+export const findBoxesInOrder = (orderId, onSuccess, onErrors) =>
+    appFetch(`/orders/${orderId}/boxes`,
+        config(`GET`), onSuccess, onErrors);
+
 export const updateNumBoxesInOrder = (orderId, boxId, newNumberOfBoxes, onSuccess, onErrors) =>
-    appFetch(`/orders/${orderId}/box/${boxId}?newNumberOfBoxes=${newNumberOfBoxes}`,
+    appFetch(`/orders/${orderId}/boxes/${boxId}?newNumberOfBoxes=${newNumberOfBoxes}`,
         config(`PUT`), onSuccess, onErrors);
 
 export const deleteBoxInOrder = (orderId, boxId, onSuccess, onErrors) =>
-    appFetch(`/orders/${orderId}/box/${boxId}/delete`,
+    appFetch(`/orders/${orderId}/boxes/${boxId}/delete`,
         config(`POST`), onSuccess, onErrors);
