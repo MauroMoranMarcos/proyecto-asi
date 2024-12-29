@@ -4,6 +4,7 @@ import backend.model.entities.*;
 import backend.model.exceptions.InstanceNotFoundException;
 import backend.model.exceptions.PermissionException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Slice;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -68,13 +69,33 @@ public class OrderServiceImpl implements OrderService{
     }
 
     @Override
-    public Block<Order> findOrderDrafts(Long userId, int page, int size) throws PermissionException {
-        return null;
+    public Block<Order> findOrderDrafts(Long userId, int page, int size) throws PermissionException, InstanceNotFoundException {
+
+        User user = permissionChecker.checkUser(userId);
+
+        if (!user.getRole().equals(User.RoleType.WAREHOUSE_STAFF)) {
+            throw new PermissionException();
+        }
+
+        Slice<Order> slice = orderDao.findOrderDrafts(page, size);
+
+        return new Block<>(slice.getContent(), slice.hasNext());
+
     }
 
     @Override
     public Order findOrderById(Long userId, Long orderId) throws InstanceNotFoundException, PermissionException {
-        return null;
+
+        User user = permissionChecker.checkUser(userId);
+
+        Optional<Order> orderOpt = orderDao.findById(orderId);
+
+        if (!orderOpt.isPresent()) {
+            throw new InstanceNotFoundException("project.entities.order", orderId);
+        }
+
+        return orderOpt.get();
+        
     }
 
     @Override

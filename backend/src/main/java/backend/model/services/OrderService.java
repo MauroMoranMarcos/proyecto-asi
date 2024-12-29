@@ -15,7 +15,7 @@ public interface OrderService {
     OrderBox addBoxToOrder(Long userId, Long orderId, Long itemId, int numBoxes, int numItemsInBox)
             throws PermissionException, InstanceNotFoundException;
 
-    Block<Order> findOrderDrafts(Long userId, int page, int size) throws PermissionException;
+    Block<Order> findOrderDrafts(Long userId, int page, int size) throws PermissionException, InstanceNotFoundException;
 
     Order findOrderById(Long userId, Long orderId) throws InstanceNotFoundException, PermissionException;
 
