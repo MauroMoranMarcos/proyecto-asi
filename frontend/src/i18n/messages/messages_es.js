@@ -24,7 +24,7 @@ export default {
     'project.global.buttons.Save': 'Guardar',
     'project.global.buttons.SuppliersCatalog': 'Consultar catálogo de proveedores',
     'project.global.buttons.CreateSupplier': 'Añadir proveedor',
-    'project.global.buttons.CreateOrder': 'Crear pedido',
+    'project.global.buttons.CreateOrder': 'Crear borrador de pedido',
     'project.global.buttons.SeeOrderDrafts': 'Ver borradores de pedidos',
     'project.global.buttons.Update': 'Actualizar',
 
@@ -105,7 +105,7 @@ export default {
 
     'project.orders.OrderDetails.title': 'Detalles de pedido',
     'project.orders.OrderDetails.noBoxes': 'No hay cajas',
-    'project.orders.OrderDetails.addBox': 'Añadir caja',
+    'project.orders.OrderDetails.button.addBox': 'Añadir caja al borrador',
     'project.orders.OrderDetails.addBox.title': 'Añadir caja',
     'project.orders.OrderDetails.UpdateNumBoxes.title': 'Actualizar el número de cajas de ',
 

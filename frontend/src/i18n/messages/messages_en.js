@@ -24,7 +24,7 @@ export default {
     'project.global.buttons.Save': 'Save',
     'project.global.buttons.SuppliersCatalog': 'Check suppliers catalog',
     'project.global.buttons.CreateSupplier': 'Add supplier',
-    'project.global.buttons.CreateOrder': 'Create order',
+    'project.global.buttons.CreateOrder': 'Create order draft',
     'project.global.buttons.SeeOrderDrafts': 'See order drafts',
     'project.global.buttons.Update': 'Update',
 
@@ -105,7 +105,7 @@ export default {
 
     'project.orders.OrderDetails.title': 'Order details',
     'project.orders.OrderDetails.noBoxes': 'No boxes',
-    'project.orders.OrderDetails.button.addBox': 'Add box',
+    'project.orders.OrderDetails.button.addBox': 'Add box to draft',
     'project.orders.OrderDetails.addBox.title': 'Add box',
     'project.orders.OrderDetails.UpdateNumBoxes.title': 'Update number of boxes of ',
 
