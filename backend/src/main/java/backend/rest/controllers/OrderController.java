@@ -106,4 +106,14 @@ public class OrderController {
         return toOrderDto(orderService.sendOrderToAdmins(userId, orderId));
 
     }
+
+    @GetMapping("/findOrdersSentToAdmins")
+    public BlockDto<OrderDto> findOrdersSentToAdmins(@RequestAttribute Long userId, @RequestParam(defaultValue = "0") int page)
+            throws PermissionException, InstanceNotFoundException {
+
+        Block<Order> orderBlock = orderService.findOrdersSentToAdmins(userId, page, 12);
+
+        return new BlockDto<>(toOrderDtos(orderBlock.getItems()), orderBlock.getExistMoreItems());
+
+    }
 }

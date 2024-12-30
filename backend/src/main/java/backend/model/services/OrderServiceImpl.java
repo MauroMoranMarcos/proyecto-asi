@@ -214,6 +214,22 @@ public class OrderServiceImpl implements OrderService{
     }
 
     @Override
+    public Block<Order> findOrdersSentToAdmins(Long userId, int page, int size)
+            throws PermissionException, InstanceNotFoundException {
+
+        User user = permissionChecker.checkUser(userId);
+
+        if (!user.getRole().equals(User.RoleType.ADMIN_STAFF)) {
+            throw new PermissionException();
+        }
+
+        Slice<Order> slice = orderDao.findOrdersSentToAdmins(page, size);
+
+        return new Block<>(slice.getContent(), slice.hasNext());
+
+    }
+
+    @Override
     public void setOrderDone(Long userId, Long orderId) throws PermissionException, InstanceNotFoundException {
 
     }
