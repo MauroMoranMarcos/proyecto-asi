@@ -149,7 +149,7 @@ const OrderDrafts = () => {
                                                         <FormattedMessage id="project.orders.OrderDrafts.thisOrderIsADraft" />
                                                     }
                                                     {orderDraft.state === 1 &&
-                                                        <FormattedMessage id="project.orders.OrderDrafts.thisOrderIsPending" />
+                                                        <FormattedMessage id="project.orders.OrderDrafts.thisOrderIsSentToAdmin" />
                                                     }
                                                 </Typography>
                                             </CardContent>

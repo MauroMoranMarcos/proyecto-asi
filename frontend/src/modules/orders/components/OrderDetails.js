@@ -237,7 +237,7 @@ const OrderDetails = () => {
                                 <FormattedMessage id="project.orders.OrderDetails.draftState"></FormattedMessage>
                             }
                             {order.state === 1 &&
-                                <FormattedMessage id="project.orders.OrderDetails.pendingState"></FormattedMessage>
+                                <FormattedMessage id="project.orders.OrderDetails.sentToAdmin"></FormattedMessage>
                             }
                         </Typography>
                     </Box>

@@ -111,7 +111,7 @@ export default {
     'project.orders.OrderDetails.title': 'Detalles de pedido con id: ',
     'project.orders.OrderDetails.orderState': 'Estado del pedido: ',
     'project.orders.OrderDetails.draftState': 'Borrador',
-    'project.orders.OrderDetails.pendingState': 'Pendiente',
+    'project.orders.OrderDetails.sentToAdmin': 'Enviado a administración',
     'project.orders.OrderDetails.noBoxes': 'No hay cajas',
     'project.orders.OrderDetails.button.addBox': 'Añadir caja al borrador',
     'project.orders.OrderDetails.addBox.title': 'Añadir caja',
@@ -123,7 +123,7 @@ export default {
     'project.orders.OrderDrafts.orderDraftWithId': 'Pedido con id: ',
     'project.orders.OrderDrafts.orderState': 'Estado del pedido: ',
     'project.orders.OrderDrafts.thisOrderIsADraft': 'Borrador',
-    'project.orders.OrderDrafts.thisOrderIsPending': 'Pendiente',
+    'project.orders.OrderDrafts.thisOrderIsSentToAdmin': 'Enviado a administración',
 
     'project.orders.Box.numberOfBoxes': 'Número de cajas: ',
     'project.orders.Box.numberOfItemsPerBox': 'Número de piezas por caja: ',
