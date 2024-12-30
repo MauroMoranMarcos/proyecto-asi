@@ -17,13 +17,15 @@ import {
 import DeleteIcon from "@mui/icons-material/Delete";
 import EditIcon from "@mui/icons-material/Edit";
 import * as actions from "../actions";
-import { useDispatch } from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
 import React, { useState } from "react";
 import { FormattedMessage, useIntl } from "react-intl";
+import * as selectors from "../selectors";
 
 const Box = ({ box, orderId }) => {
 
     const dispatch = useDispatch();
+    const order = useSelector(selectors.getOrder);
     const theme = useTheme();
     const intl = useIntl();
 
@@ -64,26 +66,28 @@ const Box = ({ box, orderId }) => {
                         {box && box.numItemsInBox}
                     </Typography>
                 </CardContent>
-                <CardActions>
-                    <IconButton
-                        aria-label="update"
-                        color=""
-                        variant="contained"
-                        onClick={handleOpenEditDialog}
-                        sx={{ mt: 1, mb: 1.5, ml: "auto" }}
-                    >
-                        <EditIcon />
-                    </IconButton>
-                    <IconButton
-                        aria-label="remove"
-                        color=""
-                        variant="contained"
-                        onClick={handleDeleteBox}
-                        sx={{ mt: 1, mb: 1.5, ml: "auto" }}
-                    >
-                        <DeleteIcon />
-                    </IconButton>
-                </CardActions>
+                {order.state === 0 &&
+                    <CardActions>
+                        <IconButton
+                            aria-label="update"
+                            color=""
+                            variant="contained"
+                            onClick={handleOpenEditDialog}
+                            sx={{ mt: 1, mb: 1.5, ml: "auto" }}
+                        >
+                            <EditIcon />
+                        </IconButton>
+                        <IconButton
+                            aria-label="remove"
+                            color=""
+                            variant="contained"
+                            onClick={handleDeleteBox}
+                            sx={{ mt: 1, mb: 1.5, ml: "auto" }}
+                        >
+                            <DeleteIcon />
+                        </IconButton>
+                    </CardActions>
+                }
             </Card>
             <Dialog
                 fullScreen={fullScreen}
