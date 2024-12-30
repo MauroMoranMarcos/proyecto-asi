@@ -9,3 +9,5 @@ export const UPDATE_NUMBER_OF_BOXES_IN_ORDER_COMPLETED = "project/orders/updateN
 export const DELETE_BOX_FROM_ORDER_COMPLETED = "project/orders/deleteBoxFromOrderCompleted";
 export const DELETE_ORDER_BY_ID_COMPLETED = "project/orders/deleteOrderByIdCompleted";
 export const SEND_ORDER_TO_ADMINS_COMPLETED = "project/orders/sendOrderToAdminsCompleted";
+export const FIND_ORDERS_SENT_TO_ADMINS = "project/orders/findOrdersSentToAdmins";
+export const CLEAR_ORDERS_SENT_TO_ADMINS = "project/orders/clearOrdersSentToAdmins";

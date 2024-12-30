@@ -12,6 +12,7 @@ import {CheckInventory, CreateItem, ItemDetails, ItemsFromSupplier, SuppliersCat
 import Home from "./Home";
 import {OrderDetails} from "../../orders";
 import {OrderDrafts} from "../../orders";
+import OrdersSentToAdmins from "../../orders/components/OrdersSentToAdmins";
 
 const Body = () => {
 
@@ -36,7 +37,8 @@ const Body = () => {
                 {isLoggedIn && <Route path="/items/supplierscatalog" element={<SuppliersCatalog/>}/>}
                 {isLoggedIn && <Route path="/items/supplierscatalog/:id/itemsfromsupplier" element={<ItemsFromSupplier/>}/>}
                 {isLoggedIn && <Route path="/orders/findorders" element={<OrderDrafts/>}/>}
-                {isLoggedIn && isWarehouseStaff && <Route path="/orders/:id" element={<OrderDetails/>}/>}
+                {isLoggedIn && <Route path="/orders/:id" element={<OrderDetails/>}/>}
+                {isLoggedIn && isAdmin && <Route path="/orders/findorderssenttoadmins" element={<OrdersSentToAdmins/>}/>}
             </Routes>
         </div>
 

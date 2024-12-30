@@ -17,27 +17,27 @@ import {BackButton, Errors} from "../../common";
 import WestIcon from "@mui/icons-material/West";
 import EastIcon from "@mui/icons-material/East";
 
-const OrderDrafts = () => {
+const OrdersSentToAdmins = () => {
 
     const dispatch = useDispatch();
     const navigate = useNavigate();
-    const orderDrafts = useSelector(selectors.getOrders);
+    const ordersSentToAdmins = useSelector(selectors.getOrders);
     const [backendErrors, setBackendErrors] = useState(null);
     const theme = useTheme();
 
     useEffect(() => {
 
-        dispatch(actions.findOrderDrafts({page: 0}));
+        dispatch(actions.findOrdersSentToAdmins({page: 0}));
 
     }, []);
 
-    const handleSeeOrderInDetails = (orderDraftId) => {
+    const handleSeeOrderInDetails = (orderSentToAdminId) => {
 
-        navigate(`/orders/${orderDraftId}`);
+        navigate(`/orders/${orderSentToAdminId}`);
 
     }
 
-    if (!orderDrafts) {
+    if (!ordersSentToAdmins) {
         return null;
     }
 
@@ -77,7 +77,7 @@ const OrderDrafts = () => {
                         }}>
                         <BackButton />
                         <Typography variant="h2" sx={{ mt: 0.5, mb: 0.5, fontWeight: 'bold' }}>
-                            <FormattedMessage id="project.orders.OrderDrafts.title"></FormattedMessage>
+                            <FormattedMessage id="project.orders.OrdersSentToAdmins.title"></FormattedMessage>
                         </Typography>
                     </Box>
                     <Box
@@ -86,7 +86,7 @@ const OrderDrafts = () => {
                             mr: 1,
                         }}>
                     </Box>
-                    {orderDrafts.result.items.length === 0 ?
+                    {ordersSentToAdmins.result.items.length === 0 ?
                         <Box
                             sx={{
                                 display: "flex",
@@ -113,7 +113,7 @@ const OrderDrafts = () => {
                                         mt: 1
                                     }}
                                     variant="outlined" severity="warning">
-                                    <FormattedMessage id="project.orders.OrderDrafts.noOrderDrafts" />
+                                    <FormattedMessage id="project.orders.OrdersSentToAdmins.noOrdersSentToAdmins" />
                                 </Alert>
                             </Box>
                         </Box>
@@ -135,20 +135,20 @@ const OrderDrafts = () => {
                                 mt: 1,
                                 mb: 1,
                             }}>
-                                {orderDrafts.result.items.map(orderDraft => (
+                                {ordersSentToAdmins.result.items.map(orderSentToAdmin => (
                                     <Card sx={{ maxWidth: 340, minWidth: 200, m: "auto", border: `1px solid ${theme.palette.secondary.main}` }}>
-                                        <CardActionArea onClick={() => handleSeeOrderInDetails(orderDraft.id)}>
+                                        <CardActionArea onClick={() => handleSeeOrderInDetails(orderSentToAdmin.id)}>
                                             <CardContent>
                                                 <Typography gutterBottom variant="h2" component="div">
                                                     <FormattedMessage id="project.orders.OrderDrafts.orderDraftWithId" />
-                                                    {orderDraft.id}
+                                                    {orderSentToAdmin.id}
                                                 </Typography>
                                                 <Typography gutterBottom variant="h3" sx={{ color: 'text.secondary' }}>
                                                     <FormattedMessage id="project.orders.OrderDrafts.orderState" />
-                                                    {orderDraft.state === 0 &&
+                                                    {orderSentToAdmin.state === 0 &&
                                                         <FormattedMessage id="project.orders.OrderDrafts.thisOrderIsADraft" />
                                                     }
-                                                    {orderDraft.state === 1 &&
+                                                    {orderSentToAdmin.state === 1 &&
                                                         <FormattedMessage id="project.orders.OrderDrafts.thisOrderIsSentToAdmin" />
                                                     }
                                                 </Typography>
@@ -157,7 +157,7 @@ const OrderDrafts = () => {
                                     </Card>
                                 ))}
                             </Box>
-                            {(orderDrafts.result.existMoreItems || orderDrafts.criteria.page > 0) &&
+                            {(ordersSentToAdmins.result.existMoreItems || ordersSentToAdmins.criteria.page > 0) &&
                                 <Box
                                     sx={{
                                         display: "flex",
@@ -168,13 +168,13 @@ const OrderDrafts = () => {
                                     }}>
                                     <ButtonGroup color="primary" size="small" variant="contained" aria-label="Basic button group">
                                         <Button
-                                            disabled={orderDrafts.criteria.page < 1}
-                                            onClick={() => dispatch(actions.previousFindOrderDraftsResultPage(orderDrafts.criteria))}>
+                                            disabled={ordersSentToAdmins.criteria.page < 1}
+                                            onClick={() => dispatch(actions.previousFindOrdersSentToAdminsResultPage(ordersSentToAdmins.criteria))}>
                                             <WestIcon />
                                         </Button>
                                         <Button
-                                            disabled={!orderDrafts.result.existMoreItems}
-                                            onClick={() => dispatch(actions.nextFindOrderDraftsResultPage(orderDrafts.criteria))}>
+                                            disabled={!ordersSentToAdmins.result.existMoreItems}
+                                            onClick={() => dispatch(actions.nextFindOrdersSentToAdminsResultPage(ordersSentToAdmins.criteria))}>
                                             <EastIcon />
                                         </Button>
                                     </ButtonGroup>
@@ -190,4 +190,4 @@ const OrderDrafts = () => {
 
 }
 
-export default OrderDrafts;
+export default OrdersSentToAdmins;

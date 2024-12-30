@@ -29,6 +29,7 @@ export default {
     'project.global.buttons.Update': 'Actualizar',
     'project.global.buttons.CheckSupplierCatalog': 'Consultar catálogo',
     'project.global.buttons.SendOrderDraft': 'Enviar borrador de pedido',
+    'project.global.buttons.SeeOrdersSentToAdmins': 'Ver borradores',
 
     'project.global.validator.required': 'Campo requerido',
     'project.global.validator.incorrectEmail': 'Formato de email incorrecto',
@@ -134,5 +135,7 @@ export default {
 
     'project.orders.Box.numberOfBoxes': 'Número de cajas: ',
     'project.orders.Box.numberOfItemsPerBox': 'Número de piezas por caja: ',
+
+    'project.orders.OrdersSentToAdmins.title': 'Borradores de pedidos enviados a administración',
 
 }
