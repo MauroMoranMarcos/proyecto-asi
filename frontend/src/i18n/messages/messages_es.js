@@ -123,6 +123,7 @@ export default {
     'project.orders.OrderDetails.button.DeleteOrder': 'Eliminar borrador de pedido',
     'project.orders.OrderDetails.sendOrderDraft.title': 'Enviar pedido a los administradores',
     'project.orders.OrderDetails.sendOrderDraft.text': 'Está enviando este pedido a los administradores para que lo lleven a cabo, con lo que no lo podrá modificar más. ¿Está seguro?',
+    'project.orders.OrderDetails.selectItem.title': 'Seleccione una pieza para el pedido',
 
     'project.orders.OrderDrafts.title': 'Borradores de pedidos',
     'project.orders.OrderDrafts.noOrderDrafts': 'En este momento no hay borradores de pedidos.',

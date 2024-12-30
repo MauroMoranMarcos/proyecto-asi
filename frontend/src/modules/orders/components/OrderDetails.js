@@ -589,43 +589,6 @@ const OrderDetails = () => {
                                     justifyContent: "center",
                                     m: 1
                                 }}>
-                                <FormControl fullWidth error={requiredAlertMessages.supplier}>
-                                    <InputLabel id="demo-simple-select-helper-label">
-                                        <FormattedMessage id="project.global.fields.item" />
-                                    </InputLabel>
-                                    <Select
-                                        value={itemId || ''} // Cambia a itemId como valor del Select
-                                        label={<FormattedMessage id="project.global.fields.item" />}
-                                        onChange={(e) => {
-                                            const selectedItemId = e.target.value; // Obtiene el id seleccionado
-                                            const selectedItem = items.find(item => item.id === selectedItemId); // Encuentra el ítem por id
-                                            setItemId(selectedItemId); // Establece el id del ítem
-                                            setItemName(selectedItem ? selectedItem.itemName : ''); // Establece el nombre del ítem correspondiente
-                                        }}
-                                        disabled={true}
-                                    >
-                                        {items && items.map(item =>
-                                            <MenuItem key={item.id} value={item.id}>
-                                                <Typography>
-                                                    {item.itemName}
-                                                </Typography>
-                                            </MenuItem>
-                                        )}
-                                    </Select>
-                                    <FormHelperText color="alertRed">
-                                        {requiredAlertMessages.item &&
-                                            <FormattedMessage id="project.global.validator.required" />}
-                                    </FormHelperText>
-                                </FormControl>
-                            </Box>
-                            <Box
-                                sx={{
-                                    position: "relative",
-                                    display: "flex",
-                                    alignItems: "center",
-                                    justifyContent: "center",
-                                    m: 1
-                                }}>
                                 <TextField
                                     value={numBoxes}
                                     onChange={(e) => setNumBoxes(e.target.value)}

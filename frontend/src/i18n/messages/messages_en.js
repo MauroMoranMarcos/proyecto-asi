@@ -123,6 +123,7 @@ export default {
     'project.orders.OrderDetails.button.DeleteOrder': 'Delete order',
     'project.orders.OrderDetails.sendOrderDraft.title': 'Send order draft to admins',
     'project.orders.OrderDetails.sendOrderDraft.text': 'You are sending this order to administrators to handle it. After this, you can`t modify this order. Are you sure?',
+    'project.orders.OrderDetails.selectItem.title': 'Select an item for the order',
 
     'project.orders.OrderDrafts.title': 'Order drafts',
     'project.orders.OrderDrafts.noOrderDrafts': 'There is no order drafts at this moment.',
