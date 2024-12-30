@@ -191,7 +191,25 @@ public class OrderServiceImpl implements OrderService{
     }
 
     @Override
-    public void sendOrderToAdmins(Long userId, Long orderId) throws PermissionException, InstanceNotFoundException {
+    public Order sendOrderToAdmins(Long userId, Long orderId) throws PermissionException, InstanceNotFoundException {
+
+        User user = permissionChecker.checkUser(userId);
+
+        if (!user.getRole().equals(User.RoleType.WAREHOUSE_STAFF)) {
+            throw new PermissionException();
+        }
+
+        Optional<Order> orderOpt = orderDao.findById(orderId);
+
+        if (!orderOpt.isPresent()) {
+            throw new InstanceNotFoundException("project.entities.order", orderId);
+        }
+
+        Order order = orderOpt.get();
+
+        order.setState((short) 1);
+
+        return order;
 
     }
 
