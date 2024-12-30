@@ -24,9 +24,10 @@ export default {
     'project.global.buttons.Save': 'Save',
     'project.global.buttons.SuppliersCatalog': 'Check suppliers catalog',
     'project.global.buttons.CreateSupplier': 'Add supplier',
-    'project.global.buttons.CreateOrder': 'Create order',
-    'project.global.buttons.SeeOrderDrafts': 'See order drafts',
+    'project.global.buttons.CreateOrder': 'Create order draft',
+    'project.global.buttons.SeeOrderDrafts': 'See orders',
     'project.global.buttons.Update': 'Update',
+    'project.global.buttons.CheckSupplierCatalog': 'Check catalog',
 
     'project.global.validator.required': 'Required field',
     'project.global.validator.incorrectEmail': 'Incorrect mail format',
@@ -51,6 +52,10 @@ export default {
     'project.global.fields.item': 'Item',
     'project.global.fields.numBoxes': 'Number of boxes',
     'project.global.fields.numItemsInBox': 'Number of items per box',
+
+    'project.global.exceptions.NetworkError': 'Something went wrong, try again later.',
+
+    'project.common.ErrorDialog.title': 'Error',
 
     'project.app.Home.title': 'Home',
     'project.app.Home.InventoryAdministration': 'Inventory administration',
@@ -103,16 +108,24 @@ export default {
     'project.items.ItemsFromSupplier.noItems': 'This supplier has no items.',
     'project.items.ItemsFromSupplier.title': 'Items from supplier',
 
-    'project.orders.OrderDetails.title': 'Order details',
+    'project.orders.OrderDetails.title': 'Order details with id: ',
+    'project.orders.OrderDetails.orderState': 'Order state: ',
+    'project.orders.OrderDetails.draftState': 'Draft',
+    'project.orders.OrderDetails.sentToAdmin': 'Sent to admin',
     'project.orders.OrderDetails.noBoxes': 'No boxes',
-    'project.orders.OrderDetails.button.addBox': 'Add box',
+    'project.orders.OrderDetails.button.addBox': 'Add box to draft',
     'project.orders.OrderDetails.addBox.title': 'Add box',
     'project.orders.OrderDetails.UpdateNumBoxes.title': 'Update number of boxes of ',
+    'project.orders.OrderDetails.selectSupplier.title': 'Select a supplier to see its catalog',
 
     'project.orders.OrderDrafts.title': 'Order drafts',
     'project.orders.OrderDrafts.noOrderDrafts': 'There is no order drafts at this moment.',
     'project.orders.OrderDrafts.orderDraftWithId': 'Order with id: ',
     'project.orders.OrderDrafts.orderState': 'Order state: ',
     'project.orders.OrderDrafts.thisOrderIsADraft': 'Draft',
+    'project.orders.OrderDrafts.thisOrderIsSentToAdmin': 'Sent to admin',
+
+    'project.orders.Box.numberOfBoxes': 'Number of boxes: ',
+    'project.orders.Box.numberOfItemsPerBox': 'Number of items per box: ',
 
 }

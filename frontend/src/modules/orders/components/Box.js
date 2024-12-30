@@ -56,10 +56,12 @@ const Box = ({ box, orderId }) => {
                         {box && box.itemName}
                     </Typography>
                     <Typography gutterBottom variant="h3" sx={{ color: 'text.secondary' }}>
-                        Number of boxes: {box && box.numBoxes}
+                        <FormattedMessage id="project.orders.Box.numberOfBoxes" />
+                        {box && box.numBoxes}
                     </Typography>
                     <Typography gutterBottom variant="h3" sx={{ color: 'text.secondary' }}>
-                        Number of items per box: {box && box.numItemsInBox}
+                        <FormattedMessage id="project.orders.Box.numberOfItemsPerBox" />
+                        {box && box.numItemsInBox}
                     </Typography>
                 </CardContent>
                 <CardActions>

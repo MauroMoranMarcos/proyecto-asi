@@ -199,6 +199,10 @@ export const findAllSuppliers = () => dispatch => {
 
 }
 
+export const clearFindItemsFromSupplier = () => ({
+    type: actionTypes.CLEAR_FIND_ITEMS_FROM_SUPPLIER
+});
+
 const findItemsFromSupplierCompleted = (itemsFromSupplier) => ({
     type: actionTypes.FIND_ITEMS_FROM_SUPPLIER_COMPLETED,
     itemsFromSupplier

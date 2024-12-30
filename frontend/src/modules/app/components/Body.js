@@ -35,7 +35,7 @@ const Body = () => {
                 {isLoggedIn && isWarehouseStaff && <Route path="/items/checkinventory/:id" element={<ItemDetails/>}/>}
                 {isLoggedIn && <Route path="/items/supplierscatalog" element={<SuppliersCatalog/>}/>}
                 {isLoggedIn && <Route path="/items/supplierscatalog/:id/itemsfromsupplier" element={<ItemsFromSupplier/>}/>}
-                {isLoggedIn && isWarehouseStaff && <Route path="/orders/orderdrafts" element={<OrderDrafts/>}/>}
+                {isLoggedIn && <Route path="/orders/findorders" element={<OrderDrafts/>}/>}
                 {isLoggedIn && isWarehouseStaff && <Route path="/orders/:id" element={<OrderDetails/>}/>}
             </Routes>
         </div>

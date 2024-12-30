@@ -5,7 +5,7 @@ export const findOrderDrafts = ({page}, onSuccess, onErrors) =>
         config('GET'), onSuccess, onErrors);
 
 export const findOrderById = (orderId, onSuccess, onErrors) =>
-    appFetch(` /orders/${orderId}`,
+    appFetch(`/orders/${orderId}`,
         config('GET'), onSuccess, onErrors);
 
 export const createOrder = (onSuccess, onErrors) =>

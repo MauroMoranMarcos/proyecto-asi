@@ -68,7 +68,7 @@ const Home = () => {
     const handleSeeOrderDrafts = event => {
         event.preventDefault();
 
-        navigate('/orders/orderdrafts');
+        navigate('/orders/findorders');
     }
 
     if (!allWarehouses) {

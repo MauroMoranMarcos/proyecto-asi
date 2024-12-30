@@ -24,9 +24,10 @@ export default {
     'project.global.buttons.Save': 'Guardar',
     'project.global.buttons.SuppliersCatalog': 'Consultar catálogo de proveedores',
     'project.global.buttons.CreateSupplier': 'Añadir proveedor',
-    'project.global.buttons.CreateOrder': 'Crear pedido',
-    'project.global.buttons.SeeOrderDrafts': 'Ver borradores de pedidos',
+    'project.global.buttons.CreateOrder': 'Crear borrador de pedido',
+    'project.global.buttons.SeeOrderDrafts': 'Ver pedidos',
     'project.global.buttons.Update': 'Actualizar',
+    'project.global.buttons.CheckSupplierCatalog': 'Consultar catálogo',
 
     'project.global.validator.required': 'Campo requerido',
     'project.global.validator.incorrectEmail': 'Formato de email incorrecto',
@@ -51,6 +52,10 @@ export default {
     'project.global.fields.item': 'Pieza',
     'project.global.fields.numBoxes': 'Número de cajas',
     'project.global.fields.numItemsInBox': 'Número de piezas por caja',
+
+    'project.global.exceptions.NetworkError': 'Algo ha ido mal, vuelve a intentarlo más tarde.',
+
+    'project.common.ErrorDialog.title': 'Error',
 
     'project.app.Home.title': 'Inicio',
     'project.app.Home.InventoryAdministration': 'Administración de inventario',
@@ -103,16 +108,24 @@ export default {
     'project.items.ItemsFromSupplier.noItems': 'Este proveedor no tiene piezas.',
     'project.items.ItemsFromSupplier.title': 'Piezas del proveedor',
 
-    'project.orders.OrderDetails.title': 'Detalles de pedido',
+    'project.orders.OrderDetails.title': 'Detalles de pedido con id: ',
+    'project.orders.OrderDetails.orderState': 'Estado del pedido: ',
+    'project.orders.OrderDetails.draftState': 'Borrador',
+    'project.orders.OrderDetails.sentToAdmin': 'Enviado a administración',
     'project.orders.OrderDetails.noBoxes': 'No hay cajas',
-    'project.orders.OrderDetails.addBox': 'Añadir caja',
+    'project.orders.OrderDetails.button.addBox': 'Añadir caja al borrador',
     'project.orders.OrderDetails.addBox.title': 'Añadir caja',
     'project.orders.OrderDetails.UpdateNumBoxes.title': 'Actualizar el número de cajas de ',
+    'project.orders.OrderDetails.selectSupplier.title': 'Seleccione un proveedor para ver su catálogo',
 
     'project.orders.OrderDrafts.title': 'Borradores de pedidos',
     'project.orders.OrderDrafts.noOrderDrafts': 'En este momento no hay borradores de pedidos.',
     'project.orders.OrderDrafts.orderDraftWithId': 'Pedido con id: ',
     'project.orders.OrderDrafts.orderState': 'Estado del pedido: ',
     'project.orders.OrderDrafts.thisOrderIsADraft': 'Borrador',
+    'project.orders.OrderDrafts.thisOrderIsSentToAdmin': 'Enviado a administración',
+
+    'project.orders.Box.numberOfBoxes': 'Número de cajas: ',
+    'project.orders.Box.numberOfItemsPerBox': 'Número de piezas por caja: ',
 
 }
