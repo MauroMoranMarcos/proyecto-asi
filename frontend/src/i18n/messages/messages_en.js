@@ -25,7 +25,7 @@ export default {
     'project.global.buttons.SuppliersCatalog': 'Check suppliers catalog',
     'project.global.buttons.CreateSupplier': 'Add supplier',
     'project.global.buttons.CreateOrder': 'Create order draft',
-    'project.global.buttons.SeeOrderDrafts': 'See order drafts',
+    'project.global.buttons.SeeOrderDrafts': 'See orders',
     'project.global.buttons.Update': 'Update',
     'project.global.buttons.CheckSupplierCatalog': 'Check catalog',
 

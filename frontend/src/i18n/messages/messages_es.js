@@ -25,7 +25,7 @@ export default {
     'project.global.buttons.SuppliersCatalog': 'Consultar catálogo de proveedores',
     'project.global.buttons.CreateSupplier': 'Añadir proveedor',
     'project.global.buttons.CreateOrder': 'Crear borrador de pedido',
-    'project.global.buttons.SeeOrderDrafts': 'Ver borradores de pedidos',
+    'project.global.buttons.SeeOrderDrafts': 'Ver pedidos',
     'project.global.buttons.Update': 'Actualizar',
     'project.global.buttons.CheckSupplierCatalog': 'Consultar catálogo',
 
