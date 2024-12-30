@@ -15,7 +15,16 @@ import {
     FormControl,
     InputLabel,
     Select,
-    MenuItem, FormHelperText, IconButton, DialogActions, Dialog, useMediaQuery,
+    MenuItem,
+    FormHelperText,
+    IconButton,
+    DialogActions,
+    Dialog,
+    useMediaQuery,
+    Card,
+    CardActionArea,
+    CardMedia,
+    CardContent, CardActions,
 } from "@mui/material";
 import { styled } from "@mui/material/styles";
 import {useDispatch, useSelector} from "react-redux";
@@ -25,9 +34,13 @@ import {FormattedMessage, useIntl} from "react-intl";
 import * as actions from "../actions";
 import * as itemsActions from "../../items/actions";
 import {BackButton, Errors} from "../../common";
-import {useParams} from "react-router-dom";
+import {useNavigate, useParams} from "react-router-dom";
 import Boxes from "./Boxes";
 import DeleteIcon from "@mui/icons-material/Delete";
+import Items from "../../items/components/Items";
+import WestIcon from "@mui/icons-material/West";
+import EastIcon from "@mui/icons-material/East";
+import Item from "../../items/components/Item";
 
 const StyledBox = styled(Box)(({theme}) => ({
     border: `1px solid ${theme.palette.primary.main}`,
@@ -41,11 +54,18 @@ const StyledBox = styled(Box)(({theme}) => ({
 
 const OrderDetails = () => {
 
-
+    const navigate = useNavigate();
     const dispatch = useDispatch();
     const orderBoxes = useSelector(selectors.getOrderBoxes);
     const items = useSelector(itemsSelectors.getItems);
+    const suppliers = useSelector(itemsSelectors.getSuppliers);
+    const supplier = useSelector(itemsSelectors.getSupplier);
+    const itemsFromSupplier = useSelector(itemsSelectors.getItemsFromSupplier);
+    const [supplierSelectedId, setSupplierSelectedId] = useState(null);
     const [openAddBoxDialog, setOpenAddBoxDialog] = useState(false);
+    const [openSelectSupplierDialog, setOpenSelectSupplierDialog] = useState(false);
+    const [openSelectItemDialog, setOpenSelectItemDialog] = useState(false);
+    const [selectingItem, setSelectingItem] = useState(false);
     const [backendErrors, setBackendErrors] = useState(null);
     const [isFormValid, setIsFormValid] = useState(false);
     const theme = useTheme();
@@ -78,6 +98,12 @@ const OrderDetails = () => {
 
     }, []);
 
+    useEffect(() => {
+
+        dispatch(itemsActions.findAllSuppliers());
+
+    }, []);
+
     const handleAddBox = (event) => {
 
         const newRequiredAlerts = {
@@ -98,11 +124,20 @@ const OrderDetails = () => {
                 numItemsInBox,
                 () => {
                     handleCloseAddBoxDialog();
+                    resetFormFields();
                 },
                 errors => setBackendErrors(errors)));
 
         }
     };
+
+    const resetFormFields = () => {
+
+        setItemId(null);
+        setNumBoxes(null);
+        setNumItemsInBox(null);
+
+    }
 
     const handleOpenAddBoxDialog = () => {
         setOpenAddBoxDialog(true);
@@ -112,7 +147,53 @@ const OrderDetails = () => {
         setOpenAddBoxDialog(false);
     };
 
-    if (!orderBoxes) {
+    const handleOpenSelectSupplierDialog = () => {
+        setOpenSelectSupplierDialog(true);
+    };
+
+    const handleCloseSelectSupplierDialog = () => {
+        setOpenSelectSupplierDialog(false);
+        setSupplierSelectedId(null);
+    };
+
+    const handleSelectSupplier = () => {
+
+        setSelectingItem(true);
+        dispatch(itemsActions.findSupplierById(supplierSelectedId));
+        dispatch(itemsActions.findItemsFromSupplier({supplierId: supplierSelectedId, page: 0},
+            () => {
+                handleOpenSelectItemDialog();
+            }));
+
+    }
+
+    const handleOpenSelectItemDialog = () => {
+
+        setOpenSelectItemDialog(true);
+
+    }
+
+    const handleCloseSelectItemDialog = () => {
+
+        setOpenSelectItemDialog(false);
+        dispatch(itemsActions.clearSupplier());
+        dispatch(itemsActions.clearFindItemsFromSupplier());
+        setSelectingItem(false);
+
+    }
+
+    const handleSelectItem = (itemId) => {
+
+        setItemId(itemId);
+        handleCloseSelectItemDialog();
+        handleCloseSelectSupplierDialog();
+        handleOpenAddBoxDialog();
+        setSelectingItem(false);
+
+    }
+
+
+    if (!orderBoxes || !suppliers || (selectingItem && (!itemsFromSupplier || !supplier))) {
         return null;
     }
 
@@ -170,7 +251,7 @@ const OrderDetails = () => {
                             <Button
                                 variant="contained"
                                 color="primary"
-                                onClick={handleOpenAddBoxDialog}
+                                onClick={handleOpenSelectSupplierDialog}
                             >
                                 <FormattedMessage id="project.orders.OrderDetails.button.addBox" />
                             </Button>
@@ -227,6 +308,206 @@ const OrderDetails = () => {
                     }
                     <Dialog
                         fullScreen={fullScreen}
+                        open={openSelectSupplierDialog}
+                        onClose={handleCloseSelectSupplierDialog}
+                        aria-labelledby="responsive-dialog-title"
+                    >
+                        <DialogTitle id="responsive-dialog-title">
+                            <Typography variant="h2" sx={{ fontWeight: 'bold' }}>
+                                {<FormattedMessage id="project.orders.OrderDetails.selectSupplier.title" />}
+                            </Typography>
+                        </DialogTitle>
+                        <DialogContent>
+                            <Box
+                                sx={{
+                                    position: "relative",
+                                    display: "flex",
+                                    alignItems: "center",
+                                    justifyContent: "center",
+                                    m: 1
+                                }}>
+                                <FormControl fullWidth error={requiredAlertMessages.supplier}>
+                                    <InputLabel id="demo-simple-select-helper-label">
+                                        <FormattedMessage id="project.global.fields.supplier" />
+                                    </InputLabel>
+                                    <Select
+                                        value={supplierSelectedId || ''}
+                                        label={<FormattedMessage id="project.global.fields.supplier" />}
+                                        onChange={(e) => {
+                                            setSupplierSelectedId(e.target.value);
+                                        }}
+                                    >
+                                        {suppliers && suppliers.map(supplier =>
+                                            <MenuItem key={supplier.id} value={supplier.id}>
+                                                <Typography>
+                                                    {supplier.name}
+                                                </Typography>
+                                            </MenuItem>
+                                        )}
+                                    </Select>
+                                    <FormHelperText color="alertRed">
+                                        {requiredAlertMessages.item &&
+                                            <FormattedMessage id="project.global.validator.required" />}
+                                    </FormHelperText>
+                                </FormControl>
+                            </Box>
+                        </DialogContent>
+                        <DialogActions>
+                            <Button
+                                variant="contained"
+                                disabled={!supplierSelectedId}
+                                onClick={(e) => handleSelectSupplier(e)}
+                                sx={{mt: 1, mb: 1}}>
+                                <Typography>
+                                    <FormattedMessage id="project.global.buttons.CheckSupplierCatalog"></FormattedMessage>
+                                </Typography>
+                            </Button>
+                            <Button
+                                variant="contained"
+                                color="alertRed"
+                                onClick={handleCloseSelectSupplierDialog}
+                                sx={{mt: 1, mb: 1}}>
+                                <Typography>
+                                    <FormattedMessage id="project.global.buttons.Cancel"></FormattedMessage>
+                                </Typography>
+                            </Button>
+                        </DialogActions>
+                    </Dialog>
+                    <Dialog
+                        fullScreen={true}
+                        open={openSelectItemDialog}
+                        onClose={handleCloseSelectItemDialog}
+                        aria-labelledby="responsive-dialog-title"
+                    >
+                        <DialogTitle id="responsive-dialog-title">
+                            <Typography variant="h2" sx={{ fontWeight: 'bold' }}>
+                                {<FormattedMessage id="project.orders.OrderDetails.selectItem.title" />}
+                            </Typography>
+                        </DialogTitle>
+                        <DialogContent>
+                            <Box
+                                sx={{
+                                    position: "relative",
+                                    display: "flex",
+                                    alignItems: "center",
+                                    justifyContent: "center",
+                                    m: 1
+                                }}>
+                                {(itemsFromSupplier && itemsFromSupplier.result.items.length === 0) ?
+                                    <Box
+                                        sx={{
+                                            display: "flex",
+                                            flexDirection: { xs: "column", md: "column" },
+                                            justifyContent: "center",
+                                            gap: 4,
+                                        }}>
+                                        <Box
+                                            sx={{
+                                                display: "flex",
+                                                alignItems: "center",
+                                                justifyContent: "center",
+                                                mt: 1,
+                                                mb: 1,
+                                            }}>
+                                            <Alert
+                                                sx={{
+                                                    display: 'flex',
+                                                    alignItems: 'center',
+                                                    justifyContent: 'start',
+                                                    ml: 1,
+                                                    mr: 1,
+                                                    mb: 1,
+                                                    mt: 1
+                                                }}
+                                                variant="outlined" severity="warning">
+                                                <FormattedMessage id="project.items.ItemsFromSupplier.noItems" />
+                                            </Alert>
+                                        </Box>
+                                    </Box>
+                                    :
+                                    <Box
+                                        sx={{
+                                            width: '100%',
+                                            maxWidth: '97%',
+                                            ml: 1,
+                                            mr: 1,
+                                            mb: 1,
+                                        }}>
+                                        <Box sx={{
+                                            display: "grid",
+                                            gridTemplateColumns: "repeat(auto-fit, minmax(340px, 1fr))",
+                                            gap: 2,
+                                            justifyContent: "center",
+                                            alignItems: "start",
+                                            mt: 1,
+                                            mb: 1,
+                                        }}>
+                                            {itemsFromSupplier && itemsFromSupplier.result.items.map(item => (
+                                                <Card sx={{ maxWidth: 340, m: "auto", border: `1px solid ${theme.palette.primary.main}` }}>
+                                                    <CardActionArea onClick={() => handleSelectItem(item.id)}>
+                                                        <CardMedia
+                                                            component="img"
+                                                            height="200"
+                                                            src={`data:image/jpeg;base64,${item.imgFile}`}
+                                                            alt="item image">
+                                                        </CardMedia>
+                                                        <CardContent>
+                                                            <Typography gutterBottom variant="h2" component="div">
+                                                                {item.itemName}
+                                                            </Typography>
+                                                            <Typography gutterBottom variant="h3" sx={{ color: 'text.secondary' }}>
+                                                                {item.referenceCode}
+                                                            </Typography>
+                                                        </CardContent>
+                                                    </CardActionArea>
+                                                    <CardActions>
+                                                        <Button size="small" color="primary">
+                                                        </Button>
+                                                    </CardActions>
+                                                </Card>
+                                            ))}
+                                        </Box>
+                                        {itemsFromSupplier && (itemsFromSupplier.result.existMoreItems || itemsFromSupplier.criteria.page > 0) &&
+                                            <Box
+                                                sx={{
+                                                    display: "flex",
+                                                    alignItems: "center",
+                                                    justifyContent: "center",
+                                                    mt: 1,
+                                                    mb: 1,
+                                                }}>
+                                                <ButtonGroup color="primary" size="small" variant="contained" aria-label="Basic button group">
+                                                    <Button
+                                                        disabled={itemsFromSupplier.criteria.page < 1}
+                                                        onClick={() => dispatch(itemsActions.previousFindItemsFromSupplierResultPage(itemsFromSupplier.criteria))}>
+                                                        <WestIcon />
+                                                    </Button>
+                                                    <Button
+                                                        disabled={!itemsFromSupplier.result.existMoreItems}
+                                                        onClick={() => dispatch(itemsActions.nextFindItemsFromSupplierResultPage(itemsFromSupplier.criteria))}>
+                                                        <EastIcon />
+                                                    </Button>
+                                                </ButtonGroup>
+                                            </Box>
+                                        }
+                                    </Box>
+                                }
+                            </Box>
+                        </DialogContent>
+                        <DialogActions>
+                            <Button
+                                variant="contained"
+                                color="alertRed"
+                                onClick={handleCloseSelectItemDialog}
+                                sx={{mt: 1, mb: 1}}>
+                                <Typography>
+                                    <FormattedMessage id="project.global.buttons.Cancel"></FormattedMessage>
+                                </Typography>
+                            </Button>
+                        </DialogActions>
+                    </Dialog>
+                    <Dialog
+                        fullScreen={fullScreen}
                         open={openAddBoxDialog}
                         onClose={handleCloseAddBoxDialog}
                         aria-labelledby="responsive-dialog-title"
@@ -258,6 +539,7 @@ const OrderDetails = () => {
                                             setItemId(selectedItemId); // Establece el id del ítem
                                             setItemName(selectedItem ? selectedItem.itemName : ''); // Establece el nombre del ítem correspondiente
                                         }}
+                                        disabled={true}
                                     >
                                         {items && items.map(item =>
                                             <MenuItem key={item.id} value={item.id}>
