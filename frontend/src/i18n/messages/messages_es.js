@@ -53,6 +53,10 @@ export default {
     'project.global.fields.numBoxes': 'Número de cajas',
     'project.global.fields.numItemsInBox': 'Número de piezas por caja',
 
+    'project.global.exceptions.NetworkError': 'Algo ha ido mal, vuelve a intentarlo más tarde.',
+
+    'project.common.ErrorDialog.title': 'Error',
+
     'project.app.Home.title': 'Inicio',
     'project.app.Home.InventoryAdministration': 'Administración de inventario',
     'project.app.Home.WarehouseAdministration': 'Administración de almacenes',

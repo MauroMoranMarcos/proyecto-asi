@@ -30,7 +30,7 @@ const ErrorDialog = ({error, onClose}) => {
             </DialogContent>
             <DialogActions>
                 <Button onClick={onClose} variant="contained" color="primary">
-                    <FormattedMessage id="project.global.buttons.close" />
+                    <FormattedMessage id="project.global.buttons.Close" />
                 </Button>
             </DialogActions>
         </Dialog>

@@ -53,6 +53,10 @@ export default {
     'project.global.fields.numBoxes': 'Number of boxes',
     'project.global.fields.numItemsInBox': 'Number of items per box',
 
+    'project.global.exceptions.NetworkError': 'Something went wrong, try again later.',
+
+    'project.common.ErrorDialog.title': 'Error',
+
     'project.app.Home.title': 'Home',
     'project.app.Home.InventoryAdministration': 'Inventory administration',
     'project.app.Home.WarehouseAdministration': 'Warehouse administration',
