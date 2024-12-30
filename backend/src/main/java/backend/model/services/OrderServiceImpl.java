@@ -170,7 +170,23 @@ public class OrderServiceImpl implements OrderService{
     }
 
     @Override
-    public void deleteOrderById(Long userId, Long orderId) throws PermissionException, InstanceNotFoundException {
+    public Boolean deleteOrderById(Long userId, Long orderId) throws PermissionException, InstanceNotFoundException {
+
+        User user = permissionChecker.checkUser(userId);
+
+        if (!user.getRole().equals(User.RoleType.WAREHOUSE_STAFF)) {
+            throw new PermissionException();
+        }
+
+        Optional<Order> orderOpt = orderDao.findById(orderId);
+
+        if (!orderOpt.isPresent()) {
+            throw new InstanceNotFoundException("project.entities.order", orderId);
+        }
+
+        orderDao.delete(orderOpt.get());
+
+        return orderDao.existsById(orderId);
 
     }
 
