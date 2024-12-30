@@ -7,3 +7,4 @@ export const FIND_BOXES_FROM_ORDER_COMPLETED = "project/orders/findBoxesFromOrde
 export const ADD_BOX_TO_ORDER_COMPLETED = "project/orders/addBoxToOrderCompleted";
 export const UPDATE_NUMBER_OF_BOXES_IN_ORDER_COMPLETED = "project/orders/updateNumberOfBoxesInOrderCompleted";
 export const DELETE_BOX_FROM_ORDER_COMPLETED = "project/orders/deleteBoxFromOrderCompleted";
+export const DELETE_ORDER_BY_ID_COMPLETED = "project/orders/deleteOrderByIdCompleted";

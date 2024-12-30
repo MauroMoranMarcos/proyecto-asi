@@ -117,6 +117,9 @@ export default {
     'project.orders.OrderDetails.addBox.title': 'Add box',
     'project.orders.OrderDetails.UpdateNumBoxes.title': 'Update number of boxes of ',
     'project.orders.OrderDetails.selectSupplier.title': 'Select a supplier to see its catalog',
+    'project.orders.OrderDetails.deleteOrder.title': 'Deleting order draft',
+    'project.orders.OrderDetails.deleteOrder.text': 'Are you sure you want to delete this order draft with all its boxes?',
+    'project.orders.OrderDetails.button.DeleteOrder': 'Delete order',
 
     'project.orders.OrderDrafts.title': 'Order drafts',
     'project.orders.OrderDrafts.noOrderDrafts': 'There is no order drafts at this moment.',
