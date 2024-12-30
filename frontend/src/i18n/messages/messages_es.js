@@ -123,6 +123,7 @@ export default {
     'project.orders.OrderDrafts.orderDraftWithId': 'Pedido con id: ',
     'project.orders.OrderDrafts.orderState': 'Estado del pedido: ',
     'project.orders.OrderDrafts.thisOrderIsADraft': 'Borrador',
+    'project.orders.OrderDrafts.thisOrderIsPending': 'Pendiente',
 
     'project.orders.Box.numberOfBoxes': 'Número de cajas: ',
     'project.orders.Box.numberOfItemsPerBox': 'Número de piezas por caja: ',

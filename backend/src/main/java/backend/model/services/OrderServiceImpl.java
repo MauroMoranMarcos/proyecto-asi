@@ -79,7 +79,7 @@ public class OrderServiceImpl implements OrderService{
             throw new PermissionException();
         }
 
-        Slice<Order> slice = orderDao.findOrderDrafts(page, size);
+        Slice<Order> slice = orderDao.findOrderDraftsAndPending(page, size);
 
         return new Block<>(slice.getContent(), slice.hasNext());
 

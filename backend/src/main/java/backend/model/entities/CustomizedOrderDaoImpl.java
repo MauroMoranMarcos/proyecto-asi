@@ -17,9 +17,9 @@ public class CustomizedOrderDaoImpl implements CustomizedOrderDao {
     private EntityManager entityManager;
 
     @Override
-    public Slice<Order> findOrderDrafts(int page, int size) {
+    public Slice<Order> findOrderDraftsAndPending(int page, int size) {
 
-        String queryString = "SELECT o FROM Order o WHERE o.state = 0";
+        String queryString = "SELECT o FROM Order o WHERE o.state = 0 OR o.state = 1";
 
         Query query = entityManager.createQuery(queryString).setFirstResult(page * size).setMaxResults(size + 1);
 

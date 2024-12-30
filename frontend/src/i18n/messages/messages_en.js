@@ -123,6 +123,7 @@ export default {
     'project.orders.OrderDrafts.orderDraftWithId': 'Order with id: ',
     'project.orders.OrderDrafts.orderState': 'Order state: ',
     'project.orders.OrderDrafts.thisOrderIsADraft': 'Draft',
+    'project.orders.OrderDrafts.thisOrderIsPending': 'Pending',
 
     'project.orders.Box.numberOfBoxes': 'Number of boxes: ',
     'project.orders.Box.numberOfItemsPerBox': 'Number of items per box: ',

@@ -145,7 +145,12 @@ const OrderDrafts = () => {
                                                 </Typography>
                                                 <Typography gutterBottom variant="h3" sx={{ color: 'text.secondary' }}>
                                                     <FormattedMessage id="project.orders.OrderDrafts.orderState" />
-                                                    <FormattedMessage id="project.orders.OrderDrafts.thisOrderIsADraft" />
+                                                    {orderDraft.state === 0 &&
+                                                        <FormattedMessage id="project.orders.OrderDrafts.thisOrderIsADraft" />
+                                                    }
+                                                    {orderDraft.state === 1 &&
+                                                        <FormattedMessage id="project.orders.OrderDrafts.thisOrderIsPending" />
+                                                    }
                                                 </Typography>
                                             </CardContent>
                                         </CardActionArea>
