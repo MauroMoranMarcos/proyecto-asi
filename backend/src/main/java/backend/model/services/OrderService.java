@@ -27,7 +27,7 @@ public interface OrderService {
     List<OrderBox> removeBoxFromOrder(Long userId, Long orderId, Long orderBoxId)
             throws PermissionException, InstanceNotFoundException;
 
-    void deleteOrderById(Long userId, Long orderId) throws PermissionException, InstanceNotFoundException;
+    Boolean deleteOrderById(Long userId, Long orderId) throws PermissionException, InstanceNotFoundException;
 
     void sendOrderToAdmins(Long userId, Long orderId) throws PermissionException, InstanceNotFoundException;
 

@@ -104,5 +104,5 @@ CREATE TABLE OrderBox (
     CONSTRAINT OrderBoxItemIdFK FOREIGN KEY (itemId)
         REFERENCES Item(id),
     CONSTRAINT OrderBoxOrderIdFK FOREIGN KEY (orderId)
-        REFERENCES `Order`(id)
+        REFERENCES `Order`(id) ON DELETE CASCADE
 )

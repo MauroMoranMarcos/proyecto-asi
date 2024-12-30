@@ -90,4 +90,12 @@ public class OrderController {
         return toOrderBoxDtos(orderService.removeBoxFromOrder(userId, orderId, boxId));
 
     }
+
+    @PostMapping("/{orderId}/deleteOrder")
+    public Boolean deleteOrderById(@RequestAttribute Long userId, @PathVariable Long orderId)
+            throws PermissionException, InstanceNotFoundException {
+
+        return orderService.deleteOrderById(userId, orderId);
+
+    }
 }

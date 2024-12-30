@@ -27,3 +27,7 @@ export const updateNumBoxesInOrder = (orderId, boxId, newNumberOfBoxes, onSucces
 export const deleteBoxInOrder = (orderId, boxId, onSuccess, onErrors) =>
     appFetch(`/orders/${orderId}/boxes/${boxId}/delete`,
         config(`POST`), onSuccess, onErrors);
+
+export const deleteOrderById = (orderId, onSuccess, onErrors) =>
+    appFetch(`/orders/${orderId}/deleteOrder`,
+        config('POST'), onSuccess, onErrors);

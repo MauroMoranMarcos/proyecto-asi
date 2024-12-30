@@ -54,6 +54,7 @@ const StyledBox = styled(Box)(({theme}) => ({
 
 const OrderDetails = () => {
 
+    const navigate = useNavigate();
     const dispatch = useDispatch();
     const order = useSelector(selectors.getOrder);
     const orderBoxes = useSelector(selectors.getOrderBoxes);
@@ -65,6 +66,7 @@ const OrderDetails = () => {
     const [openAddBoxDialog, setOpenAddBoxDialog] = useState(false);
     const [openSelectSupplierDialog, setOpenSelectSupplierDialog] = useState(false);
     const [openSelectItemDialog, setOpenSelectItemDialog] = useState(false);
+    const [openDeleteOrderDialog, setOpenDeleteOrderDialog] = useState(false);
     const [selectingItem, setSelectingItem] = useState(false);
     const [backendErrors, setBackendErrors] = useState(null);
     const [isFormValid, setIsFormValid] = useState(false);
@@ -187,6 +189,27 @@ const OrderDetails = () => {
 
     }
 
+    const handleDeleteOrder = () => {
+
+        dispatch(actions.deleteOrderById(order.id,
+            () => {
+                navigate("/orders/findorders");
+            }));
+
+    }
+
+    const handleOpenDeleteOrderDialog = () => {
+
+        setOpenDeleteOrderDialog(true);
+
+    }
+
+    const handleCloseDeleteOrderDialog = () => {
+
+        setOpenDeleteOrderDialog(false);
+
+    }
+
 
     if (!order || !orderBoxes || !suppliers || (selectingItem && (!itemsFromSupplier || !supplier))) {
         return null;
@@ -261,6 +284,15 @@ const OrderDetails = () => {
                                     onClick={handleOpenSelectSupplierDialog}
                                 >
                                     <FormattedMessage id="project.orders.OrderDetails.button.addBox" />
+                                </Button>
+                            }
+                            {order.state === 0 &&
+                                <Button
+                                    variant="contained"
+                                    color="alertRed"
+                                    onClick={handleOpenDeleteOrderDialog}
+                                >
+                                    <FormattedMessage id="project.orders.OrderDetails.button.DeleteOrder" />
                                 </Button>
                             }
                         </Box>
@@ -623,6 +655,42 @@ const OrderDetails = () => {
                                 variant="contained"
                                 color="alertRed"
                                 onClick={handleCloseAddBoxDialog}
+                                sx={{mt: 1, mb: 1}}>
+                                <Typography>
+                                    <FormattedMessage id="project.global.buttons.Cancel"></FormattedMessage>
+                                </Typography>
+                            </Button>
+                        </DialogActions>
+                    </Dialog>
+                    <Dialog
+                        fullScreen={fullScreen}
+                        open={openDeleteOrderDialog}
+                        onClose={handleCloseDeleteOrderDialog}
+                        aria-labelledby="responsive-dialog-title"
+                    >
+                        <DialogTitle id="responsive-dialog-title">
+                            <Typography variant="h2" sx={{ fontWeight: 'bold' }}>
+                                {<FormattedMessage id="project.orders.OrderDetails.deleteOrder.title" />}
+                            </Typography>
+                        </DialogTitle>
+                        <DialogContent>
+                            <Typography>
+                                {<FormattedMessage id="project.orders.OrderDetails.deleteOrder.text" />}
+                            </Typography>
+                        </DialogContent>
+                        <DialogActions>
+                            <Button
+                                variant="contained"
+                                onClick={(e) => handleDeleteOrder(e)}
+                                sx={{mt: 1, mb: 1}}>
+                                <Typography>
+                                    <FormattedMessage id="project.global.buttons.Confirm"></FormattedMessage>
+                                </Typography>
+                            </Button>
+                            <Button
+                                variant="contained"
+                                color="alertRed"
+                                onClick={handleCloseDeleteOrderDialog}
                                 sx={{mt: 1, mb: 1}}>
                                 <Typography>
                                     <FormattedMessage id="project.global.buttons.Cancel"></FormattedMessage>

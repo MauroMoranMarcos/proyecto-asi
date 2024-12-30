@@ -117,6 +117,9 @@ export default {
     'project.orders.OrderDetails.addBox.title': 'Añadir caja',
     'project.orders.OrderDetails.UpdateNumBoxes.title': 'Actualizar el número de cajas de ',
     'project.orders.OrderDetails.selectSupplier.title': 'Seleccione un proveedor para ver su catálogo',
+    'project.orders.OrderDetails.deleteOrder.title': 'Eliminar borrador de pedido',
+    'project.orders.OrderDetails.deleteOrder.text': '¿Está seguro de que quiere eliminar este borrador de pedido con todas sus cajas?',
+    'project.orders.OrderDetails.button.DeleteOrder': 'Eliminar borrador de pedido',
 
     'project.orders.OrderDrafts.title': 'Borradores de pedidos',
     'project.orders.OrderDrafts.noOrderDrafts': 'En este momento no hay borradores de pedidos.',

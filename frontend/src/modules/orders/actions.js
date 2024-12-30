@@ -104,3 +104,15 @@ export const deleteBoxInOrder = (orderId, boxId, onSuccess, onErrors) => dispatc
             onSuccess();
         },
         onErrors);
+
+const deleteOrderByIdCompleted = () => ({
+    type: actionTypes.DELETE_ORDER_BY_ID_COMPLETED
+});
+
+export const deleteOrderById = (orderId, onSuccess, onErrors) => dispatch =>
+    backend.orderService.deleteOrderById(orderId,
+        () => {
+            dispatch(deleteOrderByIdCompleted());
+            onSuccess();
+        },
+        onErrors);
