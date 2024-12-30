@@ -28,6 +28,7 @@ export default {
     'project.global.buttons.SeeOrderDrafts': 'See orders',
     'project.global.buttons.Update': 'Update',
     'project.global.buttons.CheckSupplierCatalog': 'Check catalog',
+    'project.global.buttons.SendOrderDraft': 'Send order draft',
 
     'project.global.validator.required': 'Required field',
     'project.global.validator.incorrectEmail': 'Incorrect mail format',
@@ -120,6 +121,9 @@ export default {
     'project.orders.OrderDetails.deleteOrder.title': 'Deleting order draft',
     'project.orders.OrderDetails.deleteOrder.text': 'Are you sure you want to delete this order draft with all its boxes?',
     'project.orders.OrderDetails.button.DeleteOrder': 'Delete order',
+    'project.orders.OrderDetails.sendOrderDraft.title': 'Send order draft to admins',
+    'project.orders.OrderDetails.sendOrderDraft.text': 'You are sending this order to administrators to handle it. After this, you can`t modify this order. Are you sure?',
+    'project.orders.OrderDetails.selectItem.title': 'Select an item for the order',
 
     'project.orders.OrderDrafts.title': 'Order drafts',
     'project.orders.OrderDrafts.noOrderDrafts': 'There is no order drafts at this moment.',

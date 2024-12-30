@@ -67,6 +67,7 @@ const OrderDetails = () => {
     const [openSelectSupplierDialog, setOpenSelectSupplierDialog] = useState(false);
     const [openSelectItemDialog, setOpenSelectItemDialog] = useState(false);
     const [openDeleteOrderDialog, setOpenDeleteOrderDialog] = useState(false);
+    const [openSendOrderDraftDialog, setOpenSendOrderDraftDialog] = useState(false);
     const [selectingItem, setSelectingItem] = useState(false);
     const [backendErrors, setBackendErrors] = useState(null);
     const [isFormValid, setIsFormValid] = useState(false);
@@ -207,6 +208,28 @@ const OrderDetails = () => {
     const handleCloseDeleteOrderDialog = () => {
 
         setOpenDeleteOrderDialog(false);
+
+    }
+
+    const handleSendOrderDraft = () => {
+
+        dispatch(actions.sendOrderToAdmins(orderId,
+            () => {
+                handleCloseSendOrderDraftDialog();
+                dispatch(actions.findOrderById(orderId));
+            }));
+
+    }
+
+    const handleOpenSendOrderDraftDialog = () => {
+
+        setOpenSendOrderDraftDialog(true);
+
+    }
+
+    const handleCloseSendOrderDraftDialog = () => {
+
+        setOpenSendOrderDraftDialog(false);
 
     }
 
@@ -566,43 +589,6 @@ const OrderDetails = () => {
                                     justifyContent: "center",
                                     m: 1
                                 }}>
-                                <FormControl fullWidth error={requiredAlertMessages.supplier}>
-                                    <InputLabel id="demo-simple-select-helper-label">
-                                        <FormattedMessage id="project.global.fields.item" />
-                                    </InputLabel>
-                                    <Select
-                                        value={itemId || ''} // Cambia a itemId como valor del Select
-                                        label={<FormattedMessage id="project.global.fields.item" />}
-                                        onChange={(e) => {
-                                            const selectedItemId = e.target.value; // Obtiene el id seleccionado
-                                            const selectedItem = items.find(item => item.id === selectedItemId); // Encuentra el ítem por id
-                                            setItemId(selectedItemId); // Establece el id del ítem
-                                            setItemName(selectedItem ? selectedItem.itemName : ''); // Establece el nombre del ítem correspondiente
-                                        }}
-                                        disabled={true}
-                                    >
-                                        {items && items.map(item =>
-                                            <MenuItem key={item.id} value={item.id}>
-                                                <Typography>
-                                                    {item.itemName}
-                                                </Typography>
-                                            </MenuItem>
-                                        )}
-                                    </Select>
-                                    <FormHelperText color="alertRed">
-                                        {requiredAlertMessages.item &&
-                                            <FormattedMessage id="project.global.validator.required" />}
-                                    </FormHelperText>
-                                </FormControl>
-                            </Box>
-                            <Box
-                                sx={{
-                                    position: "relative",
-                                    display: "flex",
-                                    alignItems: "center",
-                                    justifyContent: "center",
-                                    m: 1
-                                }}>
                                 <TextField
                                     value={numBoxes}
                                     onChange={(e) => setNumBoxes(e.target.value)}
@@ -691,6 +677,64 @@ const OrderDetails = () => {
                                 variant="contained"
                                 color="alertRed"
                                 onClick={handleCloseDeleteOrderDialog}
+                                sx={{mt: 1, mb: 1}}>
+                                <Typography>
+                                    <FormattedMessage id="project.global.buttons.Cancel"></FormattedMessage>
+                                </Typography>
+                            </Button>
+                        </DialogActions>
+                    </Dialog>
+                    {order.state === 0 &&
+                        <Box
+                            sx={{
+                                display: "flex",
+                                alignItems: "center",
+                                justifyContent: "center",
+                                mt: "auto",
+                                ml: 2,
+                                mr: 2,
+                                mb: 1,
+                            }}>
+                            <Button
+                                disabled={orderBoxes.length === 0}
+                                onClick={handleOpenSendOrderDraftDialog}
+                                variant="contained"
+                                sx={{ mb: 1 }}>
+                                <Typography>
+                                    <FormattedMessage id="project.global.buttons.SendOrderDraft"></FormattedMessage>
+                                </Typography>
+                            </Button>
+                        </Box>
+                    }
+                    <Dialog
+                        fullScreen={fullScreen}
+                        open={openSendOrderDraftDialog}
+                        onClose={handleCloseSendOrderDraftDialog}
+                        aria-labelledby="responsive-dialog-title"
+                    >
+                        <DialogTitle id="responsive-dialog-title">
+                            <Typography variant="h2" sx={{ fontWeight: 'bold' }}>
+                                {<FormattedMessage id="project.orders.OrderDetails.sendOrderDraft.title" />}
+                            </Typography>
+                        </DialogTitle>
+                        <DialogContent>
+                            <Typography>
+                                {<FormattedMessage id="project.orders.OrderDetails.sendOrderDraft.text" />}
+                            </Typography>
+                        </DialogContent>
+                        <DialogActions>
+                            <Button
+                                variant="contained"
+                                onClick={(e) => handleSendOrderDraft(e)}
+                                sx={{mt: 1, mb: 1}}>
+                                <Typography>
+                                    <FormattedMessage id="project.global.buttons.Confirm"></FormattedMessage>
+                                </Typography>
+                            </Button>
+                            <Button
+                                variant="contained"
+                                color="alertRed"
+                                onClick={handleCloseSendOrderDraftDialog}
                                 sx={{mt: 1, mb: 1}}>
                                 <Typography>
                                     <FormattedMessage id="project.global.buttons.Cancel"></FormattedMessage>

@@ -31,3 +31,7 @@ export const deleteBoxInOrder = (orderId, boxId, onSuccess, onErrors) =>
 export const deleteOrderById = (orderId, onSuccess, onErrors) =>
     appFetch(`/orders/${orderId}/deleteOrder`,
         config('POST'), onSuccess, onErrors);
+
+export const sendOrderToAdmins = (orderId, onSuccess, onErrors) =>
+    appFetch(`/orders/${orderId}/sendOrderToAdmins`,
+        config('PUT'), onSuccess, onErrors);

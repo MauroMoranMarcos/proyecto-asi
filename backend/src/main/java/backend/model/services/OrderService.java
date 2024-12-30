@@ -29,7 +29,7 @@ public interface OrderService {
 
     Boolean deleteOrderById(Long userId, Long orderId) throws PermissionException, InstanceNotFoundException;
 
-    void sendOrderToAdmins(Long userId, Long orderId) throws PermissionException, InstanceNotFoundException;
+    Order sendOrderToAdmins(Long userId, Long orderId) throws PermissionException, InstanceNotFoundException;
 
     void setOrderDone(Long userId, Long orderId) throws PermissionException, InstanceNotFoundException;
 

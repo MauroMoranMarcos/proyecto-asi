@@ -58,6 +58,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers(HttpMethod.GET, "/orders/*/boxes").permitAll()
                 .antMatchers(HttpMethod.GET, "/orders/findOrderDrafts").permitAll()
                 .antMatchers(HttpMethod.POST, "/orders/*/deleteOrder").permitAll()
+                .antMatchers(HttpMethod.PUT, "/orders/*/sendOrderToAdmins").permitAll()
                 .anyRequest().denyAll();
 
         //TODO: Add lines here for the rest of the HU

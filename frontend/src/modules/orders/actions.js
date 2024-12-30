@@ -116,3 +116,15 @@ export const deleteOrderById = (orderId, onSuccess, onErrors) => dispatch =>
             onSuccess();
         },
         onErrors);
+
+const sendOrderToAdminsCompleted = () => ({
+    type: actionTypes.SEND_ORDER_TO_ADMINS_COMPLETED
+});
+
+export const sendOrderToAdmins = (orderId, onSuccess, onErrors) => dispatch =>
+    backend.orderService.sendOrderToAdmins(orderId,
+        () => {
+            dispatch(sendOrderToAdminsCompleted());
+            onSuccess();
+        },
+        onErrors);

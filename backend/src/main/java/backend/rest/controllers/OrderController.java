@@ -98,4 +98,12 @@ public class OrderController {
         return orderService.deleteOrderById(userId, orderId);
 
     }
+
+    @PutMapping("/{orderId}/sendOrderToAdmins")
+    public OrderDto sendOrderToAdmins(@RequestAttribute Long userId, @PathVariable Long orderId)
+            throws PermissionException, InstanceNotFoundException {
+
+        return toOrderDto(orderService.sendOrderToAdmins(userId, orderId));
+
+    }
 }
