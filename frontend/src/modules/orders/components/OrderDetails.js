@@ -54,8 +54,8 @@ const StyledBox = styled(Box)(({theme}) => ({
 
 const OrderDetails = () => {
 
-    const navigate = useNavigate();
     const dispatch = useDispatch();
+    const order = useSelector(selectors.getOrder);
     const orderBoxes = useSelector(selectors.getOrderBoxes);
     const items = useSelector(itemsSelectors.getItems);
     const suppliers = useSelector(itemsSelectors.getSuppliers);
@@ -89,12 +89,7 @@ const OrderDetails = () => {
     useEffect(() => {
 
         dispatch(actions.findBoxesInOrder(orderId, () => {}, errors => setBackendErrors(errors)));
-
-    }, []);
-
-    useEffect(() => {
-
-        dispatch(itemsActions.findAllItems(() => {}, errors => setBackendErrors(errors)));
+        dispatch(actions.findOrderById(orderId));
 
     }, []);
 
@@ -193,7 +188,7 @@ const OrderDetails = () => {
     }
 
 
-    if (!orderBoxes || !suppliers || (selectingItem && (!itemsFromSupplier || !supplier))) {
+    if (!order || !orderBoxes || !suppliers || (selectingItem && (!itemsFromSupplier || !supplier))) {
         return null;
     }
 
@@ -234,6 +229,16 @@ const OrderDetails = () => {
                         <BackButton />
                         <Typography variant="h2" sx={{ mt: 0.5, mb: 0.5, fontWeight: 'bold' }}>
                             <FormattedMessage id="project.orders.OrderDetails.title"></FormattedMessage>
+                            {order.id + '. '}
+                        </Typography>
+                        <Typography variant="h2" sx={{ mt: 0.5, mb: 0.5, ml: 0.5, color: 'text.secondary' }}>
+                            <FormattedMessage id="project.orders.OrderDetails.orderState"></FormattedMessage>
+                            {order.state === 0 &&
+                                <FormattedMessage id="project.orders.OrderDetails.draftState"></FormattedMessage>
+                            }
+                            {order.state === 1 &&
+                                <FormattedMessage id="project.orders.OrderDetails.pendingState"></FormattedMessage>
+                            }
                         </Typography>
                     </Box>
                     <Box
@@ -246,15 +251,18 @@ const OrderDetails = () => {
                                 display: "flex",
                                 justifyContent: "flex-end",
                                 mb: 2,
+                                gap: 1
                             }}
                         >
-                            <Button
-                                variant="contained"
-                                color="primary"
-                                onClick={handleOpenSelectSupplierDialog}
-                            >
-                                <FormattedMessage id="project.orders.OrderDetails.button.addBox" />
-                            </Button>
+                            {order.state === 0 &&
+                                <Button
+                                    variant="contained"
+                                    color="primary"
+                                    onClick={handleOpenSelectSupplierDialog}
+                                >
+                                    <FormattedMessage id="project.orders.OrderDetails.button.addBox" />
+                                </Button>
+                            }
                         </Box>
                     </Box>
                     <Box

@@ -108,7 +108,10 @@ export default {
     'project.items.ItemsFromSupplier.noItems': 'This supplier has no items.',
     'project.items.ItemsFromSupplier.title': 'Items from supplier',
 
-    'project.orders.OrderDetails.title': 'Order details',
+    'project.orders.OrderDetails.title': 'Order details with id: ',
+    'project.orders.OrderDetails.orderState': 'Order state: ',
+    'project.orders.OrderDetails.draftState': 'Draft',
+    'project.orders.OrderDetails.pendingState': 'Pending',
     'project.orders.OrderDetails.noBoxes': 'No boxes',
     'project.orders.OrderDetails.button.addBox': 'Add box to draft',
     'project.orders.OrderDetails.addBox.title': 'Add box',

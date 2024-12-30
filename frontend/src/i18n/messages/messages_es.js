@@ -108,7 +108,10 @@ export default {
     'project.items.ItemsFromSupplier.noItems': 'Este proveedor no tiene piezas.',
     'project.items.ItemsFromSupplier.title': 'Piezas del proveedor',
 
-    'project.orders.OrderDetails.title': 'Detalles de pedido',
+    'project.orders.OrderDetails.title': 'Detalles de pedido con id: ',
+    'project.orders.OrderDetails.orderState': 'Estado del pedido: ',
+    'project.orders.OrderDetails.draftState': 'Borrador',
+    'project.orders.OrderDetails.pendingState': 'Pendiente',
     'project.orders.OrderDetails.noBoxes': 'No hay cajas',
     'project.orders.OrderDetails.button.addBox': 'Añadir caja al borrador',
     'project.orders.OrderDetails.addBox.title': 'Añadir caja',
