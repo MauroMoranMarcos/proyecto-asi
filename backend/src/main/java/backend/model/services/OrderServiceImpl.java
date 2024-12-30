@@ -8,6 +8,8 @@ import org.springframework.data.domain.Slice;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.sql.Date;
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 
@@ -230,12 +232,40 @@ public class OrderServiceImpl implements OrderService{
     }
 
     @Override
-    public void setOrderDone(Long userId, Long orderId) throws PermissionException, InstanceNotFoundException {
+    public Order setOrderDone(Long userId, Long orderId) throws PermissionException, InstanceNotFoundException {
+
+        User user = permissionChecker.checkUser(userId);
+
+        if (!user.getRole().equals(User.RoleType.ADMIN_STAFF)) {
+            throw new PermissionException();
+        }
+
+        Optional<Order> orderOpt = orderDao.findById(orderId);
+
+        if (!orderOpt.isPresent()) {
+            throw new InstanceNotFoundException("project.entities.order", orderId);
+        }
+
+        Order order = orderOpt.get();
+
+        order.setState((short) 2);
+        order.setOrderDate(Date.valueOf(LocalDate.now()));
+
+        return order;
 
     }
 
     @Override
-    public List<Order> findOrderHistory(Long userid) {
-        return null;
+    public Block<Order> findOrderHistory(Long userId, int page, int size) throws InstanceNotFoundException, PermissionException {
+
+        User user = permissionChecker.checkUser(userId);
+
+        if (!user.getRole().equals(User.RoleType.ADMIN_STAFF)) {
+            throw new PermissionException();
+        }
+
+        Slice<Order> slice = orderDao.findDoneOrders(page, size);
+
+        return new Block<>(slice.getContent(), slice.hasNext());
     }
 }
