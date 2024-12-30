@@ -4,7 +4,7 @@ import * as actionTypes from './actionTypes';
 
 const initialState = {
     order: null,
-    orderDrafts: null,
+    orders: null,
     orderBoxes: null,
 };
 
@@ -28,7 +28,7 @@ const order = (state = initialState.order, action) => {
 
 }
 
-const orderDrafts = (state = initialState.orderDrafts, action) => {
+const orders = (state = initialState.orders, action) => {
 
     switch (action.type) {
 
@@ -36,7 +36,13 @@ const orderDrafts = (state = initialState.orderDrafts, action) => {
             return action.orderDrafts;
 
         case actionTypes.CLEAR_ORDER_DRAFTS:
-            return initialState.orderDrafts;
+            return initialState.orders;
+
+        case actionTypes.FIND_ORDERS_SENT_TO_ADMINS:
+            return action.ordersSentToAdmins;
+
+        case actionTypes.CLEAR_ORDERS_SENT_TO_ADMINS:
+            return initialState.orders;
 
         default:
             return state;
@@ -70,7 +76,7 @@ const orderBoxes = (state = initialState.orderBoxes, action) => {
 
 const reducer = combineReducers({
     order,
-    orderDrafts,
+    orders,
     orderBoxes
 });
 

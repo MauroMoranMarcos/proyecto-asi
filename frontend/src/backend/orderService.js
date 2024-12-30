@@ -35,3 +35,7 @@ export const deleteOrderById = (orderId, onSuccess, onErrors) =>
 export const sendOrderToAdmins = (orderId, onSuccess, onErrors) =>
     appFetch(`/orders/${orderId}/sendOrderToAdmins`,
         config('PUT'), onSuccess, onErrors);
+
+export const findOrdersSentToAdmins = ({page}, onSuccess, onErrors) =>
+    appFetch(`/orders/findOrdersSentToAdmins?page=${page}`,
+        config('GET'), onSuccess, onErrors);

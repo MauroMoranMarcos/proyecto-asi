@@ -16,6 +16,7 @@ import WarehouseIcon from "@mui/icons-material/Warehouse";
 import InventoryIcon from '@mui/icons-material/Inventory';
 import PrecisionManufacturingIcon from '@mui/icons-material/PrecisionManufacturing';
 import ListAltIcon from '@mui/icons-material/ListAlt';
+import LocalShippingIcon from '@mui/icons-material/LocalShipping';
 import * as orderActions from "../../orders/actions";
 import {useState} from "react";
 import DrawIcon from '@mui/icons-material/Draw';
@@ -69,6 +70,12 @@ const Home = () => {
         event.preventDefault();
 
         navigate('/orders/findorders');
+    }
+
+    const handleSeeOrdersSentToAdmins = event => {
+        event.preventDefault();
+
+        navigate('/orders/findorderssenttoadmins');
     }
 
     if (!allWarehouses) {
@@ -262,6 +269,18 @@ const Home = () => {
                                                 style={{ textAlign: 'left', justifyContent: 'flex-start' }}>
                                                 <Typography textAlign="center">
                                                     <FormattedMessage id="project.global.buttons.SeeOrderDrafts"></FormattedMessage>
+                                                </Typography>
+                                            </Button>
+                                        }
+                                        {isLoggedIn && isAdmin &&
+                                            <Button
+                                                variant="contained"
+                                                onClick={e => handleSeeOrdersSentToAdmins(e)}
+                                                color="secondary"
+                                                startIcon={<LocalShippingIcon />}
+                                                style={{ textAlign: 'left', justifyContent: 'flex-start' }}>
+                                                <Typography textAlign="center">
+                                                    <FormattedMessage id="project.global.buttons.SeeOrdersSentToAdmins"></FormattedMessage>
                                                 </Typography>
                                             </Button>
                                         }

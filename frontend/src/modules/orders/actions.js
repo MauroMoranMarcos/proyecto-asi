@@ -128,3 +128,26 @@ export const sendOrderToAdmins = (orderId, onSuccess, onErrors) => dispatch =>
             onSuccess();
         },
         onErrors);
+
+const findOrdersSentToAdminsCompleted = ordersSentToAdmins => ({
+    type: actionTypes.FIND_ORDERS_SENT_TO_ADMINS,
+    ordersSentToAdmins
+});
+
+const clearOrdersSentToAdmins = () => ({
+    type: actionTypes.CLEAR_ORDERS_SENT_TO_ADMINS
+});
+
+export const findOrdersSentToAdmins = (criteria) => dispatch => {
+
+    dispatch(clearOrdersSentToAdmins());
+    backend.orderService.findOrdersSentToAdmins(criteria,
+        result => dispatch(findOrdersSentToAdminsCompleted({criteria, result})));
+
+}
+
+export const previousFindOrdersSentToAdminsResultPage = (criteria) =>
+    findOrdersSentToAdmins({...criteria, page: criteria.page - 1});
+
+export const nextFindOrdersSentToAdminsResultPage = (criteria) =>
+    findOrdersSentToAdmins({...criteria, page: criteria.page + 1});

@@ -53,6 +53,7 @@ export default {
     'project.global.fields.item': 'Item',
     'project.global.fields.numBoxes': 'Number of boxes',
     'project.global.fields.numItemsInBox': 'Number of items per box',
+    'project.global.buttons.SeeOrdersSentToAdmins': 'See drafts',
 
     'project.global.exceptions.NetworkError': 'Something went wrong, try again later.',
 
@@ -134,5 +135,7 @@ export default {
 
     'project.orders.Box.numberOfBoxes': 'Number of boxes: ',
     'project.orders.Box.numberOfItemsPerBox': 'Number of items per box: ',
+
+    'project.orders.OrdersSentToAdmins.title': 'Order drafts sent to admins',
 
 }
