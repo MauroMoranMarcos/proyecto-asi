@@ -260,7 +260,7 @@ public class OrderServiceImpl implements OrderService{
 
         User user = permissionChecker.checkUser(userId);
 
-        if (!user.getRole().equals(User.RoleType.ADMIN_STAFF) || !user.getRole().equals(User.RoleType.WAREHOUSE_STAFF)) {
+        if (!user.getRole().equals(User.RoleType.ADMIN_STAFF) && !user.getRole().equals(User.RoleType.WAREHOUSE_STAFF)) {
             throw new PermissionException();
         }
 
