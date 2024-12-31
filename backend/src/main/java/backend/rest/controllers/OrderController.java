@@ -19,8 +19,7 @@ import java.util.List;
 import static backend.rest.dtos.ItemConversor.toItemDtos;
 import static backend.rest.dtos.OrderBoxConversor.toOrderBoxDto;
 import static backend.rest.dtos.OrderBoxConversor.toOrderBoxDtos;
-import static backend.rest.dtos.OrderConversor.toOrderDto;
-import static backend.rest.dtos.OrderConversor.toOrderDtos;
+import static backend.rest.dtos.OrderConversor.*;
 
 @RestController
 @CrossOrigin(origins = "http://localhost:3000")
@@ -114,6 +113,24 @@ public class OrderController {
         Block<Order> orderBlock = orderService.findOrdersSentToAdmins(userId, page, 12);
 
         return new BlockDto<>(toOrderDtos(orderBlock.getItems()), orderBlock.getExistMoreItems());
+
+    }
+
+    @PutMapping("/{orderId}/setOrderDone")
+    public OrderDto setOrderDone(@RequestAttribute Long userId, @PathVariable Long orderId)
+            throws PermissionException, InstanceNotFoundException {
+
+        return toOrderWithDateDto(orderService.setOrderDone(userId, orderId));
+
+    }
+
+    @GetMapping("/findOrderHistory")
+    public BlockDto<OrderDto> findOrderHistory(@RequestAttribute Long userId, @RequestParam(defaultValue = "0") int page)
+            throws PermissionException, InstanceNotFoundException {
+
+        Block<Order> orderBlock = orderService.findOrderHistory(userId, page, 12);
+
+        return new BlockDto<>(toOrderWithDateDtos(orderBlock.getItems()), orderBlock.getExistMoreItems());
 
     }
 }

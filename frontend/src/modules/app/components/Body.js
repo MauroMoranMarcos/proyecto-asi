@@ -10,7 +10,7 @@ import {Logout} from '../../staff';
 import {CreateWarehouse} from "../../admin";
 import {CheckInventory, CreateItem, ItemDetails, ItemsFromSupplier, SuppliersCatalog} from "../../items";
 import Home from "./Home";
-import {OrderDetails} from "../../orders";
+import {OrderDetails, OrderHistory} from "../../orders";
 import {OrderDrafts} from "../../orders";
 import OrdersSentToAdmins from "../../orders/components/OrdersSentToAdmins";
 
@@ -39,6 +39,7 @@ const Body = () => {
                 {isLoggedIn && <Route path="/orders/findorders" element={<OrderDrafts/>}/>}
                 {isLoggedIn && <Route path="/orders/:id" element={<OrderDetails/>}/>}
                 {isLoggedIn && isAdmin && <Route path="/orders/findorderssenttoadmins" element={<OrdersSentToAdmins/>}/>}
+                {isLoggedIn && <Route path="/orders/findorderhistory" element={<OrderHistory/>}/>}
             </Routes>
         </div>
 

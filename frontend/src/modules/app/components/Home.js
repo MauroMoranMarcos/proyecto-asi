@@ -17,6 +17,7 @@ import InventoryIcon from '@mui/icons-material/Inventory';
 import PrecisionManufacturingIcon from '@mui/icons-material/PrecisionManufacturing';
 import ListAltIcon from '@mui/icons-material/ListAlt';
 import LocalShippingIcon from '@mui/icons-material/LocalShipping';
+import HistoryIcon from '@mui/icons-material/History';
 import * as orderActions from "../../orders/actions";
 import {useState} from "react";
 import DrawIcon from '@mui/icons-material/Draw';
@@ -76,6 +77,12 @@ const Home = () => {
         event.preventDefault();
 
         navigate('/orders/findorderssenttoadmins');
+    }
+
+    const handleSeeOrderHistory = event => {
+        event.preventDefault();
+
+        navigate('/orders/findorderhistory');
     }
 
     if (!allWarehouses) {
@@ -281,6 +288,18 @@ const Home = () => {
                                                 style={{ textAlign: 'left', justifyContent: 'flex-start' }}>
                                                 <Typography textAlign="center">
                                                     <FormattedMessage id="project.global.buttons.SeeOrdersSentToAdmins"></FormattedMessage>
+                                                </Typography>
+                                            </Button>
+                                        }
+                                        {isLoggedIn &&
+                                            <Button
+                                                variant="contained"
+                                                onClick={e => handleSeeOrderHistory(e)}
+                                                color="secondary"
+                                                startIcon={<HistoryIcon />}
+                                                style={{ textAlign: 'left', justifyContent: 'flex-start' }}>
+                                                <Typography textAlign="center">
+                                                    <FormattedMessage id="project.global.buttons.SeeOrderHistory"></FormattedMessage>
                                                 </Typography>
                                             </Button>
                                         }

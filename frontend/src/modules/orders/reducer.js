@@ -44,6 +44,12 @@ const orders = (state = initialState.orders, action) => {
         case actionTypes.CLEAR_ORDERS_SENT_TO_ADMINS:
             return initialState.orders;
 
+        case actionTypes.FIND_ORDER_HISTORY_COMPLETED:
+            return action.orderHistory;
+
+        case actionTypes.CLEAR_ORDER_HISTORY:
+            return initialState.orders;
+
         default:
             return state;
 

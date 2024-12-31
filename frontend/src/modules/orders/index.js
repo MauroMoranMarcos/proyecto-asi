@@ -6,7 +6,7 @@ import * as selectors from './selectors';
 export {default as Box} from './components/Box';
 export {default as Boxes} from './components/Boxes';
 export {default as OrderDetails} from './components/OrderDetails';
-
 export {default as OrderDrafts} from './components/OrderDrafts';
+export {default as OrderHistory} from './components/OrderHistory';
 
 export default {actions, actionTypes, reducer, selectors};

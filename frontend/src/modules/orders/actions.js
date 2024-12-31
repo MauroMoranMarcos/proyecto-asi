@@ -151,3 +151,38 @@ export const previousFindOrdersSentToAdminsResultPage = (criteria) =>
 
 export const nextFindOrdersSentToAdminsResultPage = (criteria) =>
     findOrdersSentToAdmins({...criteria, page: criteria.page + 1});
+
+const setOrderDoneCompleted = () => ({
+    type: actionTypes.SET_ORDER_DONE_COMPLETED
+});
+
+export const setOrderDone = (orderId, onSuccess, onErrors) => dispatch =>
+    backend.orderService.setOrderDone(orderId,
+        () => {
+            dispatch(setOrderDoneCompleted());
+            onSuccess();
+        },
+        onErrors);
+
+const findOrderHistoryCompleted = orderHistory => ({
+    type: actionTypes.FIND_ORDER_HISTORY_COMPLETED,
+    orderHistory
+});
+
+const clearOrderHistory = () => ({
+    type: actionTypes.CLEAR_ORDER_HISTORY
+});
+
+export const findOrderHistory = (criteria) => dispatch => {
+
+    dispatch(clearOrderHistory());
+    backend.orderService.findOrderHistory(criteria,
+        result => dispatch(findOrderHistoryCompleted({criteria, result})));
+
+}
+
+export const previousFindOrderHistoryResultPage = (criteria) =>
+    findOrderHistory({...criteria, page: criteria.page - 1});
+
+export const nextFindOrderHistoryResultPage = (criteria) =>
+    findOrderHistory({...criteria, page: criteria.page + 1});

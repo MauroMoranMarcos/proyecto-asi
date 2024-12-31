@@ -11,3 +11,6 @@ export const DELETE_ORDER_BY_ID_COMPLETED = "project/orders/deleteOrderByIdCompl
 export const SEND_ORDER_TO_ADMINS_COMPLETED = "project/orders/sendOrderToAdminsCompleted";
 export const FIND_ORDERS_SENT_TO_ADMINS = "project/orders/findOrdersSentToAdmins";
 export const CLEAR_ORDERS_SENT_TO_ADMINS = "project/orders/clearOrdersSentToAdmins";
+export const SET_ORDER_DONE_COMPLETED = "project/orders/setOrderDoneCompleted";
+export const FIND_ORDER_HISTORY_COMPLETED = "project/orders/findOrderHistoryCompleted";
+export const CLEAR_ORDER_HISTORY = "project/orders/clearOrderHistory";
