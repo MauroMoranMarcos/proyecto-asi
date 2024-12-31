@@ -217,6 +217,7 @@ const OrderDetails = () => {
             () => {
                 handleCloseSendOrderDraftDialog();
                 dispatch(actions.findOrderById(orderId));
+                navigate('/');
             }));
 
     }
