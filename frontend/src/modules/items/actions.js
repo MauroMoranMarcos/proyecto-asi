@@ -57,7 +57,9 @@ export const findItemById = (itemId, onSuccess, onErrors) => dispatch => {
     backend.itemsService.findItemById(itemId,
         item => {
             dispatch(findItemByIdCompleted(item));
-            onSuccess(item);
+            if (typeof onSuccess === 'function') {
+                onSuccess(item);
+            }
         }, onErrors);
 }
 
@@ -236,7 +238,9 @@ export const findSupplierById = (supplierId, onSuccess, onErrors) => dispatch =>
     backend.itemsService.findSupplierById(supplierId,
         supplier => {
             dispatch(findSupplierByIdCompleted(supplier));
-            onSuccess(supplier);
+            if (typeof onSuccess === 'function') {
+                onSuccess(supplier);
+            }
         },
         onErrors);
 
