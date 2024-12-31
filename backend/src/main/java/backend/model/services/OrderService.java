@@ -37,4 +37,6 @@ public interface OrderService {
 
     List<Order> findOrderHistory(Long userid);
 
+    void updateWarehouseStock(Long userId, Long orderId, String warehouseName) throws InstanceNotFoundException, PermissionException;
+
 }
