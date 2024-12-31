@@ -14,3 +14,4 @@ export const CLEAR_ORDERS_SENT_TO_ADMINS = "project/orders/clearOrdersSentToAdmi
 export const SET_ORDER_DONE_COMPLETED = "project/orders/setOrderDoneCompleted";
 export const FIND_ORDER_HISTORY_COMPLETED = "project/orders/findOrderHistoryCompleted";
 export const CLEAR_ORDER_HISTORY = "project/orders/clearOrderHistory";
+export const UPDATE_WAREHOUSE_STOCK_COMPLETED = "project/orders/updateWarehouseStockCompleted";

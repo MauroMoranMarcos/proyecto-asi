@@ -18,14 +18,17 @@ import DeleteIcon from "@mui/icons-material/Delete";
 import EditIcon from "@mui/icons-material/Edit";
 import * as actions from "../actions";
 import {useDispatch, useSelector} from "react-redux";
-import React, { useState } from "react";
+import React, {useEffect, useState} from "react";
 import { FormattedMessage, useIntl } from "react-intl";
 import * as selectors from "../selectors";
+import items from "../../items";
 
 const Box = ({ box, orderId }) => {
 
     const dispatch = useDispatch();
     const order = useSelector(selectors.getOrder);
+    const [item, setItem] = useState(null);
+    const [supplier, setSupplier] = useState(null);
     const theme = useTheme();
     const intl = useIntl();
 
@@ -33,6 +36,17 @@ const Box = ({ box, orderId }) => {
 
     const [openEditBoxDialog, setOpenEditBoxDialog] = useState(false);
     const [numBoxes, setNumBoxes] = useState(box.numBoxes);
+
+    useEffect(() => {
+
+        dispatch(items.actions.findItemById(box.itemId,
+            item => {
+                setItem(item);
+                dispatch(items.actions.findSupplierById(item.supplierId,
+                    supplier => setSupplier(supplier)));
+            }));
+
+    }, []);
 
     const handleDeleteBox = () => {
         dispatch(actions.deleteBoxInOrder(orderId, box.id, () => {}, () => {}));
@@ -50,12 +64,26 @@ const Box = ({ box, orderId }) => {
         setOpenEditBoxDialog(false);
     };
 
+    if (!item || !supplier) {
+        return null;
+    }
+
     return (
         <>
             <Card sx={{ maxWidth: 340, m: "auto", border: `1px solid ${theme.palette.primary.main}` }}>
                 <CardContent>
                     <Typography gutterBottom variant="h2" component="div">
                         {box && box.itemName}
+                    </Typography>
+                    <Typography gutterBottom variant="h3" sx={{ color: 'text.secondary' }}>
+                        <FormattedMessage id="project.global.fields.referenceCode" />
+                        {': '}
+                        {item && item.referenceCode}
+                    </Typography>
+                    <Typography gutterBottom variant="h3" sx={{ color: 'text.secondary' }}>
+                        <FormattedMessage id="project.global.fields.supplier" />
+                        {': '}
+                        {supplier && supplier.name}
                     </Typography>
                     <Typography gutterBottom variant="h3" sx={{ color: 'text.secondary' }}>
                         <FormattedMessage id="project.orders.Box.numberOfBoxes" />

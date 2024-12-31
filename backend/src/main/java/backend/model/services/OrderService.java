@@ -37,4 +37,6 @@ public interface OrderService {
 
     Block<Order> findOrderHistory(Long userId, int page, int size) throws InstanceNotFoundException, PermissionException;
 
+    void updateWarehouseStock(Long userId, Long orderId, String warehouseName) throws InstanceNotFoundException, PermissionException;
+
 }

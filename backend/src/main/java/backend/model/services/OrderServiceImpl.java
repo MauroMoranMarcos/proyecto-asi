@@ -21,6 +21,9 @@ public class OrderServiceImpl implements OrderService{
     private PermissionChecker permissionChecker;
 
     @Autowired
+    private ItemsService itemsService;
+
+    @Autowired
     private OrderDao orderDao;
 
     @Autowired
@@ -28,6 +31,9 @@ public class OrderServiceImpl implements OrderService{
 
     @Autowired
     private ItemDao itemDao;
+
+    @Autowired
+    private WarehouseDao warehouseDao;
 
     @Override
     public Order createOrder(Long userId) throws PermissionException, InstanceNotFoundException {
@@ -267,5 +273,44 @@ public class OrderServiceImpl implements OrderService{
         Slice<Order> slice = orderDao.findDoneOrders(page, size);
 
         return new Block<>(slice.getContent(), slice.hasNext());
+    }
+
+    @Override
+    public void updateWarehouseStock(Long userId, Long orderId, String warehouseName)
+            throws InstanceNotFoundException, PermissionException {
+
+        User user = permissionChecker.checkUser(userId);
+
+        if (!user.getRole().equals(User.RoleType.WAREHOUSE_STAFF)) {
+            throw new PermissionException();
+        }
+
+        Optional<Order> orderOpt = orderDao.findById(orderId);
+
+        if (!orderOpt.isPresent()) {
+            throw new InstanceNotFoundException("project.entities.order", orderId);
+        }
+
+        Optional<Warehouse> warehouseOpt = warehouseDao.findByName(warehouseName);
+
+        if (!warehouseOpt.isPresent()) {
+            throw new InstanceNotFoundException("project.entities.warehouse", warehouseName);
+        }
+
+        Order order = orderOpt.get();
+        Warehouse warehouse = warehouseOpt.get();
+
+        List<OrderBox> orderBoxes = order.getBoxes();
+
+        for (OrderBox orderBox : orderBoxes) {
+            Item item = orderBox.getItem();
+
+            for (int i = 0; i < orderBox.getNumBoxes(); i++) {
+                itemsService.addItemBoxToWarehouse(userId, item.getId(), (long) orderBox.getNumItemsInBox(), warehouse.getName());
+            }
+        }
+
+        order.setState((short) 3);
+
     }
 }

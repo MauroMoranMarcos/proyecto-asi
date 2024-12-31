@@ -186,3 +186,14 @@ export const previousFindOrderHistoryResultPage = (criteria) =>
 
 export const nextFindOrderHistoryResultPage = (criteria) =>
     findOrderHistory({...criteria, page: criteria.page + 1});
+
+const updateWarehouseStockCompleted = () => ({
+    type: actionTypes.UPDATE_WAREHOUSE_STOCK_COMPLETED
+});
+
+export const updateWarehouseStock = (orderId, warehouseName, onSuccess, onErrors) => dispatch =>
+    backend.orderService.updateWarehouseStock(orderId, warehouseName,
+        () => {
+            dispatch(updateWarehouseStockCompleted());
+            onSuccess();
+        }, onErrors);

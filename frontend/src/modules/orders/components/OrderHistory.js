@@ -153,7 +153,13 @@ const OrderHistory = () => {
                                                     <FormattedMessage id="project.orders.OrderDrafts.orderDraftWithId" />
                                                     {order.id}
                                                 </Typography>
-                                                <Typography gutterBottom variant="h3" sx={{ color: 'text.secondary' }}>
+                                                <Typography
+                                                    gutterBottom
+                                                    variant="h3"
+                                                    sx={{
+                                                        color: order.state === 2 ? 'error.main' : 'text.secondary',
+                                                        fontWeight: order.state === 2 ? 'bold' : 'normal',
+                                                    }}>
                                                     <FormattedMessage id="project.orders.OrderDrafts.orderState" />
                                                     {order.state === 0 &&
                                                         <FormattedMessage id="project.orders.OrderDrafts.thisOrderIsADraft" />
@@ -163,6 +169,9 @@ const OrderHistory = () => {
                                                     }
                                                     {order.state === 2 &&
                                                         <FormattedMessage id="project.orders.OrderDrafts.thisOrderIsDone" />
+                                                    }
+                                                    {order.state === 3 &&
+                                                        <FormattedMessage id="project.orders.OrderDrafts.thisOrderIsStored" />
                                                     }
                                                 </Typography>
                                                 <Typography gutterBottom variant="h3" sx={{ color: 'text.secondary' }}>

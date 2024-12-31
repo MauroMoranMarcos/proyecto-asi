@@ -10,6 +10,7 @@ import backend.model.services.OrderService;
 import backend.rest.dtos.BlockDto;
 import backend.rest.dtos.OrderBoxDto;
 import backend.rest.dtos.OrderDto;
+import backend.rest.dtos.UpdateWarehouseStockParamsDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -131,6 +132,16 @@ public class OrderController {
         Block<Order> orderBlock = orderService.findOrderHistory(userId, page, 12);
 
         return new BlockDto<>(toOrderWithDateDtos(orderBlock.getItems()), orderBlock.getExistMoreItems());
+
+    }
+
+    @PostMapping("/{orderId}/updateWarehouseStock")
+    public void updateWarehouseStock(@RequestAttribute Long userId,
+                                     @PathVariable Long orderId,
+                                     @RequestBody UpdateWarehouseStockParamsDto params)
+            throws PermissionException, InstanceNotFoundException {
+
+        orderService.updateWarehouseStock(userId, orderId, params.getWarehouseName());
 
     }
 }

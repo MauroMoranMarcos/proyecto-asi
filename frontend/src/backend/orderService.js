@@ -47,3 +47,7 @@ export const setOrderDone = (orderId, onSuccess, onErrors) =>
 export const findOrderHistory = ({page}, onSuccess, onErrors) =>
     appFetch(`/orders/findOrderHistory?page=${page}`,
         config('GET'), onSuccess, onErrors);
+
+export const updateWarehouseStock = (orderId, warehouseName, onSuccess, onErrors) =>
+    appFetch(`/orders/${orderId}/updateWarehouseStock`,
+        config('POST', {warehouseName}), onSuccess, onErrors);

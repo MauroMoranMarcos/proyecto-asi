@@ -53,11 +53,12 @@ const findItemByIdCompleted = item => ({
     item
 });
 
-export const findItemById = (itemId) => dispatch => {
+export const findItemById = (itemId, onSuccess, onErrors) => dispatch => {
     backend.itemsService.findItemById(itemId,
         item => {
             dispatch(findItemByIdCompleted(item));
-        });
+            onSuccess(item);
+        }, onErrors);
 }
 
 export const clearItem = () => ({
@@ -235,6 +236,7 @@ export const findSupplierById = (supplierId, onSuccess, onErrors) => dispatch =>
     backend.itemsService.findSupplierById(supplierId,
         supplier => {
             dispatch(findSupplierByIdCompleted(supplier));
+            onSuccess(supplier);
         },
         onErrors);
 

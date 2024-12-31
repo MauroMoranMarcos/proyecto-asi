@@ -78,7 +78,7 @@ CREATE TABLE ItemBox (
 ) ENGINE = InnoDB;
 
 -- Creating table Order to store info about orders
--- State value is 0 when the order is a draft, 1 when the order is sent to admins, and 2 when the order is sent to the supplier
+-- State value is 0 when the order is a draft, 1 when the order is sent to admins, 2 when the order is sent to the supplier and 3 when the order is stored.
 -- (Falta en la especificación el caso de uso de marcar pedido como comprado, aunque la compra pone al final del documento
 -- que se hace a través de la web de los proveedores, en el sistema entiendo que hay que marcarlo de alguna manera, ya que
 -- además se indica que se muestre la fecha en la que se realizó el pedido)
