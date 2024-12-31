@@ -129,6 +129,8 @@ export default {
     'project.orders.OrderDetails.selectItem.title': 'Select an item for the order',
     'project.orders.OrderDetails.button.setOrderDone': 'Mark order as done',
     'project.orders.OrderDetails.updateWarehouseStock.title': 'Update warehouse stock',
+    'project.orders.OrderDetails.setOrderDone.title': 'Set order done',
+    'project.orders.OrderDetails.setOrderDone.text': 'If you set this order done, it means that the process of making the order to the suppliers have been made',
 
     'project.orders.OrderDrafts.title': 'Order drafts',
     'project.orders.OrderDrafts.noOrderDrafts': 'There is no order drafts at this moment.',

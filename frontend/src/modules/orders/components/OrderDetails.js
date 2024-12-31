@@ -72,6 +72,7 @@ const OrderDetails = () => {
     const [openSelectItemDialog, setOpenSelectItemDialog] = useState(false);
     const [openDeleteOrderDialog, setOpenDeleteOrderDialog] = useState(false);
     const [openSendOrderDraftDialog, setOpenSendOrderDraftDialog] = useState(false);
+    const [openSetOrderDoneDialog, setOpenOrderDoneDialog] = useState(false);
     const [openUpdateWarehouseStockDialog, setOpenUpdateWarehouseStockDialog] = useState(false);
     const [warehouseName, setWarehouseName] = useState('');
     const [selectingItem, setSelectingItem] = useState(false);
@@ -253,6 +254,18 @@ const OrderDetails = () => {
 
     }
 
+    const handleOpenSetOrderDoneDialog = () => {
+
+        setOpenOrderDoneDialog(true);
+
+    }
+
+    const handleCloseSetOrderDoneDialog = () => {
+
+        setOpenOrderDoneDialog(false);
+
+    }
+
     const handleOpenUpdateWarehouseStockDialog = () => {
 
         setOpenUpdateWarehouseStockDialog(true);
@@ -379,7 +392,7 @@ const OrderDetails = () => {
                                 <Button
                                     variant="contained"
                                     color="primary"
-                                    onClick={handleSetOrderDone}
+                                    onClick={handleOpenSetOrderDoneDialog}
                                 >
                                     <FormattedMessage id="project.orders.OrderDetails.button.setOrderDone" />
                                 </Button>
@@ -885,6 +898,105 @@ const OrderDetails = () => {
                                 variant="contained"
                                 color="alertRed"
                                 onClick={handleCloseSendOrderDraftDialog}
+                                sx={{mt: 1, mb: 1}}>
+                                <Typography>
+                                    <FormattedMessage id="project.global.buttons.Cancel"></FormattedMessage>
+                                </Typography>
+                            </Button>
+                        </DialogActions>
+                    </Dialog>
+                    <Dialog
+                        fullScreen={fullScreen}
+                        open={openUpdateWarehouseStockDialog}
+                        onClose={handleCloseUpdateWarehouseStockDialog}
+                        aria-labelledby="responsive-dialog-title"
+                    >
+                        <DialogTitle id="responsive-dialog-title">
+                            <Typography variant="h2" sx={{ fontWeight: 'bold' }}>
+                                {<FormattedMessage id="project.orders.OrderDetails.updateWarehouseStock.title" />}
+                            </Typography>
+                        </DialogTitle>
+                        <DialogContent>
+                            <Box
+                                sx={{
+                                    position: "relative",
+                                    display: "flex",
+                                    alignItems: "center",
+                                    justifyContent: "center",
+                                    m: 1
+                                }}>
+                                <FormControl fullWidth error={requiredAlertMessagesWarehouse.warehouseName}>
+                                    <InputLabel id="demo-simple-select-helper-label">
+                                        <FormattedMessage id="project.global.fields.warehouseName" />
+                                    </InputLabel>
+                                    <Select
+                                        value={warehouseName}
+                                        label={<FormattedMessage id="project.global.fields.warehouseName" />}
+                                        onChange={(e) => setWarehouseName(e.target.value)}>
+                                        {warehouses.map(warehouse =>
+                                            <MenuItem value={warehouse.name}>
+                                                <Typography>
+                                                    {warehouse.name}
+                                                </Typography>
+                                            </MenuItem>
+                                        )}
+                                    </Select>
+                                    <FormHelperText color="alertRed">
+                                        {requiredAlertMessagesWarehouse.warehouseName &&
+                                            <FormattedMessage id="project.global.validator.required" />}
+                                    </FormHelperText>
+                                </FormControl>
+                            </Box>
+                        </DialogContent>
+                        <DialogActions>
+                            <Button
+                                variant="contained"
+                                onClick={(e) => handleUpdateWarehouseStock(e)}
+                                sx={{mt: 1, mb: 1}}>
+                                <Typography>
+                                    <FormattedMessage id="project.global.buttons.Confirm"></FormattedMessage>
+                                </Typography>
+                            </Button>
+                            <Button
+                                variant="contained"
+                                color="alertRed"
+                                onClick={handleCloseUpdateWarehouseStockDialog}
+                                sx={{mt: 1, mb: 1}}>
+                                <Typography>
+                                    <FormattedMessage id="project.global.buttons.Cancel"></FormattedMessage>
+                                </Typography>
+                            </Button>
+                        </DialogActions>
+                    </Dialog>
+                    <Dialog
+                        fullScreen={fullScreen}
+                        open={openSetOrderDoneDialog}
+                        onClose={handleCloseSetOrderDoneDialog}
+                        aria-labelledby="responsive-dialog-title"
+                    >
+                        <DialogTitle id="responsive-dialog-title">
+                            <Typography variant="h2" sx={{ fontWeight: 'bold' }}>
+                                {<FormattedMessage id="project.orders.OrderDetails.setOrderDone.title" />}
+                            </Typography>
+                        </DialogTitle>
+                        <DialogContent>
+                            <Typography>
+                                {<FormattedMessage id="project.orders.OrderDetails.setOrderDone.text" />}
+                            </Typography>
+                        </DialogContent>
+                        <DialogActions>
+                            <Button
+                                variant="contained"
+                                onClick={(e) => handleSetOrderDone(e)}
+                                sx={{mt: 1, mb: 1}}>
+                                <Typography>
+                                    <FormattedMessage id="project.global.buttons.Confirm"></FormattedMessage>
+                                </Typography>
+                            </Button>
+                            <Button
+                                variant="contained"
+                                color="alertRed"
+                                onClick={handleCloseSetOrderDoneDialog}
                                 sx={{mt: 1, mb: 1}}>
                                 <Typography>
                                     <FormattedMessage id="project.global.buttons.Cancel"></FormattedMessage>

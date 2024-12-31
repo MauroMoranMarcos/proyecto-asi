@@ -129,6 +129,8 @@ export default {
     'project.orders.OrderDetails.selectItem.title': 'Seleccione una pieza para el pedido',
     'project.orders.OrderDetails.button.setOrderDone': 'Marcar pedido como realizado',
     'project.orders.OrderDetails.updateWarehouseStock.title': 'Actualizar stock del almacén',
+    'project.orders.OrderDetails.setOrderDone.title': 'Marcar pedido como realizado',
+    'project.orders.OrderDetails.setOrderDone.text': 'Si marca el pedido como realizado, significa que el pedido ha sido realizado correctamente a los proveedores correspondientes',
 
     'project.orders.OrderDrafts.title': 'Borradores de pedidos',
     'project.orders.OrderDrafts.noOrderDrafts': 'En este momento no hay borradores de pedidos.',
