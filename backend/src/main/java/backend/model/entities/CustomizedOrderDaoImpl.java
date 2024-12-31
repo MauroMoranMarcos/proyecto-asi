@@ -55,7 +55,7 @@ public class CustomizedOrderDaoImpl implements CustomizedOrderDao {
     @Override
     public Slice<Order> findDoneOrders(int page, int size) {
 
-        String queryString = "SELECT o FROM Order o WHERE o.state = 2";
+        String queryString = "SELECT o FROM Order o WHERE o.state = 2 OR o.state = 3";
 
         Query query = entityManager.createQuery(queryString).setFirstResult(page * size).setMaxResults(size + 1);
 

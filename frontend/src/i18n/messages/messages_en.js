@@ -137,6 +137,7 @@ export default {
     'project.orders.OrderDrafts.thisOrderIsADraft': 'Draft',
     'project.orders.OrderDrafts.thisOrderIsSentToAdmin': 'Sent to admin',
     'project.orders.OrderDrafts.thisOrderIsDone': 'Done',
+    'project.orders.OrderDrafts.thisOrderIsStored': 'Stored',
 
     'project.orders.Box.numberOfBoxes': 'Number of boxes: ',
     'project.orders.Box.numberOfItemsPerBox': 'Number of items per box: ',

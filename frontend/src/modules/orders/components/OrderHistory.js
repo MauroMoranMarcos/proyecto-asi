@@ -164,6 +164,9 @@ const OrderHistory = () => {
                                                     {order.state === 2 &&
                                                         <FormattedMessage id="project.orders.OrderDrafts.thisOrderIsDone" />
                                                     }
+                                                    {order.state === 3 &&
+                                                        <FormattedMessage id="project.orders.OrderDrafts.thisOrderIsStored" />
+                                                    }
                                                 </Typography>
                                                 <Typography gutterBottom variant="h3" sx={{ color: 'text.secondary' }}>
                                                     <FormattedMessage id="project.orders.OrderHistory.orderDate" />

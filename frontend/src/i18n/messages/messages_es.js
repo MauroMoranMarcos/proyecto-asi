@@ -137,6 +137,7 @@ export default {
     'project.orders.OrderDrafts.thisOrderIsADraft': 'Borrador',
     'project.orders.OrderDrafts.thisOrderIsSentToAdmin': 'Enviado a administración',
     'project.orders.OrderDrafts.thisOrderIsDone': 'Realizado',
+    'project.orders.OrderDrafts.thisOrderIsStored': 'Almacenado',
 
     'project.orders.Box.numberOfBoxes': 'Número de cajas: ',
     'project.orders.Box.numberOfItemsPerBox': 'Número de piezas por caja: ',

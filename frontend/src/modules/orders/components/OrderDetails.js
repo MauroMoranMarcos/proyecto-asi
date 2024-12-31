@@ -339,6 +339,9 @@ const OrderDetails = () => {
                             {order.state === 2 &&
                                 <FormattedMessage id="project.orders.OrderDrafts.thisOrderIsDone"></FormattedMessage>
                             }
+                            {order.state === 3 &&
+                                <FormattedMessage id="project.orders.OrderDrafts.thisOrderIsStored"></FormattedMessage>
+                            }
                         </Typography>
                     </Box>
                     <Box
