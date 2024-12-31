@@ -13,9 +13,19 @@ public class OrderConversor {
         return new OrderDto(order.getId(), order.getState());
     }
 
+    public final static OrderDto toOrderWithDateDto(Order order) {
+        return new OrderDto(order.getId(), order.getOrderDate(), order.getState());
+    }
+
     public final static List<OrderDto> toOrderDtos(List<Order> orders) {
 
         return orders.stream().map(u -> toOrderDto(u)).collect(Collectors.toList());
+
+    }
+
+    public final static List<OrderDto> toOrderWithDateDtos(List<Order> orders) {
+
+        return orders.stream().map(u -> toOrderWithDateDto(u)).collect(Collectors.toList());
 
     }
 }

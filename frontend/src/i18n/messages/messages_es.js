@@ -30,6 +30,7 @@ export default {
     'project.global.buttons.CheckSupplierCatalog': 'Consultar catálogo',
     'project.global.buttons.SendOrderDraft': 'Enviar borrador de pedido',
     'project.global.buttons.SeeOrdersSentToAdmins': 'Ver borradores',
+    'project.global.buttons.SeeOrderHistory': 'Ver historial de pedidos',
 
     'project.global.validator.required': 'Campo requerido',
     'project.global.validator.incorrectEmail': 'Formato de email incorrecto',
@@ -125,6 +126,7 @@ export default {
     'project.orders.OrderDetails.sendOrderDraft.title': 'Enviar pedido a los administradores',
     'project.orders.OrderDetails.sendOrderDraft.text': 'Está enviando este pedido a los administradores para que lo lleven a cabo, con lo que no lo podrá modificar más. ¿Está seguro?',
     'project.orders.OrderDetails.selectItem.title': 'Seleccione una pieza para el pedido',
+    'project.orders.OrderDetails.button.setOrderDone': 'Marcar pedido como realizado',
 
     'project.orders.OrderDrafts.title': 'Borradores de pedidos',
     'project.orders.OrderDrafts.noOrderDrafts': 'En este momento no hay borradores de pedidos.',
@@ -132,10 +134,15 @@ export default {
     'project.orders.OrderDrafts.orderState': 'Estado del pedido: ',
     'project.orders.OrderDrafts.thisOrderIsADraft': 'Borrador',
     'project.orders.OrderDrafts.thisOrderIsSentToAdmin': 'Enviado a administración',
+    'project.orders.OrderDrafts.thisOrderIsDone': 'Realizado',
 
     'project.orders.Box.numberOfBoxes': 'Número de cajas: ',
     'project.orders.Box.numberOfItemsPerBox': 'Número de piezas por caja: ',
 
     'project.orders.OrdersSentToAdmins.title': 'Borradores de pedidos enviados a administración',
+
+    'project.orders.OrderHistory.title': 'Historial de pedidos',
+    'project.orders.OrderHistory.noOrdersInHistory': 'No hay pedidos en el historial',
+    'project.orders.OrderHistory.orderDate': 'Fecha del pedido: ',
 
 }

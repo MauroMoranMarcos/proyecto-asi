@@ -33,9 +33,9 @@ public interface OrderService {
 
     Block<Order> findOrdersSentToAdmins(Long userId, int page, int size) throws PermissionException, InstanceNotFoundException;
 
-    void setOrderDone(Long userId, Long orderId) throws PermissionException, InstanceNotFoundException;
+    Order setOrderDone(Long userId, Long orderId) throws PermissionException, InstanceNotFoundException;
 
-    List<Order> findOrderHistory(Long userid);
+    Block<Order> findOrderHistory(Long userId, int page, int size) throws InstanceNotFoundException, PermissionException;
 
     void updateWarehouseStock(Long userId, Long orderId, String warehouseName) throws InstanceNotFoundException, PermissionException;
 

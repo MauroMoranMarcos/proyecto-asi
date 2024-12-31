@@ -51,4 +51,22 @@ public class CustomizedOrderDaoImpl implements CustomizedOrderDao {
         return new SliceImpl<>(orders, PageRequest.of(page, size), hasNext);
 
     }
+
+    @Override
+    public Slice<Order> findDoneOrders(int page, int size) {
+
+        String queryString = "SELECT o FROM Order o WHERE o.state = 2";
+
+        Query query = entityManager.createQuery(queryString).setFirstResult(page * size).setMaxResults(size + 1);
+
+        List<Order> orders = query.getResultList();
+        boolean hasNext = orders.size() == (size+1);
+
+        if (hasNext) {
+            orders.remove(orders.size()-1);
+        }
+
+        return new SliceImpl<>(orders, PageRequest.of(page, size), hasNext);
+
+    }
 }

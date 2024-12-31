@@ -8,4 +8,6 @@ public interface CustomizedOrderDao {
 
     Slice<Order> findOrdersSentToAdmins(int page, int size);
 
+    Slice<Order> findDoneOrders(int page, int size);
+
 }
