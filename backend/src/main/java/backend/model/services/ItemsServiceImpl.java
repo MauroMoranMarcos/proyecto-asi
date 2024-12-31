@@ -106,10 +106,6 @@ public class ItemsServiceImpl implements ItemsService {
 
         User user = permissionChecker.checkUser(userId);
 
-        if (!user.getRole().equals(User.RoleType.WAREHOUSE_STAFF)) {
-            throw new PermissionException();
-        }
-
         Optional<Item> itemOpt = itemDao.findById(itemId);
 
         if (!itemOpt.isPresent()) {

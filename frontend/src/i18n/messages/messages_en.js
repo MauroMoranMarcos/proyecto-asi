@@ -145,6 +145,7 @@ export default {
     'project.orders.Box.numberOfItemsPerBox': 'Number of items per box: ',
 
     'project.orders.OrdersSentToAdmins.title': 'Order drafts sent to admins',
+    'project.orders.OrdersSentToAdmins.noOrdersSentToAdmins': 'There is no order drafts sent to admins',
 
     'project.orders.OrderHistory.title': 'Order History',
     'project.orders.OrderHistory.noOrdersInHistory': 'There are no orders in history',

@@ -33,10 +33,6 @@ const Item = ({ item, fromSupplier }) => {
                     </Typography>
                 </CardContent>
             </CardActionArea>
-            <CardActions>
-                <Button size="small" color="primary">
-                </Button>
-            </CardActions>
         </Card>
     )
 

@@ -145,6 +145,7 @@ export default {
     'project.orders.Box.numberOfItemsPerBox': 'Número de piezas por caja: ',
 
     'project.orders.OrdersSentToAdmins.title': 'Borradores de pedidos enviados a administración',
+    'project.orders.OrdersSentToAdmins.noOrdersSentToAdmins': 'No hay borradores de pedidos enviados a administración',
 
     'project.orders.OrderHistory.title': 'Historial de pedidos',
     'project.orders.OrderHistory.noOrdersInHistory': 'No hay pedidos en el historial',
