@@ -305,7 +305,9 @@ public class OrderServiceImpl implements OrderService{
         for (OrderBox orderBox : orderBoxes) {
             Item item = orderBox.getItem();
 
-            itemsService.addItemBoxToWarehouse(userId, item.getId(), (long) orderBox.getNumItemsInBox(), warehouse.getName());
+            for (int i = 0; i < orderBox.getNumBoxes(); i++) {
+                itemsService.addItemBoxToWarehouse(userId, item.getId(), (long) orderBox.getNumItemsInBox(), warehouse.getName());
+            }
         }
 
         order.setState((short) 3);
