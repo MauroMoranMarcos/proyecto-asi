@@ -39,3 +39,7 @@ export const sendOrderToAdmins = (orderId, onSuccess, onErrors) =>
 export const findOrdersSentToAdmins = ({page}, onSuccess, onErrors) =>
     appFetch(`/orders/findOrdersSentToAdmins?page=${page}`,
         config('GET'), onSuccess, onErrors);
+
+export const updateWarehouseStock = (orderId, warehouseName, onSuccess, onErrors) =>
+    appFetch(`/orders/${orderId}/updateWarehouseStock`,
+        config('POST', {warehouseName}), onSuccess, onErrors);

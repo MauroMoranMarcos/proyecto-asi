@@ -151,3 +151,14 @@ export const previousFindOrdersSentToAdminsResultPage = (criteria) =>
 
 export const nextFindOrdersSentToAdminsResultPage = (criteria) =>
     findOrdersSentToAdmins({...criteria, page: criteria.page + 1});
+
+const updateWarehouseStockCompleted = () => ({
+    type: actionTypes.UPDATE_WAREHOUSE_STOCK_COMPLETED
+});
+
+export const updateWarehouseStock = (orderId, warehouseName, onSuccess, onErrors) => dispatch =>
+    backend.orderService.updateWarehouseStock(orderId, warehouseName,
+        () => {
+            dispatch(updateWarehouseStockCompleted());
+            onSuccess();
+        }, onErrors);
