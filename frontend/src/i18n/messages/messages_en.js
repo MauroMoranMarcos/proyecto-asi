@@ -55,6 +55,7 @@ export default {
     'project.global.fields.numItemsInBox': 'Number of items per box',
     'project.global.buttons.SeeOrdersSentToAdmins': 'See drafts',
     'project.global.buttons.SeeOrderHistory': 'See order history',
+    'project.global.buttons.UpdateWarehouseStock': 'Update stock',
 
     'project.global.exceptions.NetworkError': 'Something went wrong, try again later.',
 
@@ -127,6 +128,7 @@ export default {
     'project.orders.OrderDetails.sendOrderDraft.text': 'You are sending this order to administrators to handle it. After this, you can`t modify this order. Are you sure?',
     'project.orders.OrderDetails.selectItem.title': 'Select an item for the order',
     'project.orders.OrderDetails.button.setOrderDone': 'Mark order as done',
+    'project.orders.OrderDetails.updateWarehouseStock.title': 'Update warehouse stock',
 
     'project.orders.OrderDrafts.title': 'Order drafts',
     'project.orders.OrderDrafts.noOrderDrafts': 'There is no order drafts at this moment.',

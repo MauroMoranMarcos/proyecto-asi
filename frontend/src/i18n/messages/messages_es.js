@@ -31,6 +31,7 @@ export default {
     'project.global.buttons.SendOrderDraft': 'Enviar borrador de pedido',
     'project.global.buttons.SeeOrdersSentToAdmins': 'Ver borradores',
     'project.global.buttons.SeeOrderHistory': 'Ver historial de pedidos',
+    'project.global.buttons.UpdateWarehouseStock': 'Actualizar stock',
 
     'project.global.validator.required': 'Campo requerido',
     'project.global.validator.incorrectEmail': 'Formato de email incorrecto',
@@ -127,6 +128,7 @@ export default {
     'project.orders.OrderDetails.sendOrderDraft.text': 'Está enviando este pedido a los administradores para que lo lleven a cabo, con lo que no lo podrá modificar más. ¿Está seguro?',
     'project.orders.OrderDetails.selectItem.title': 'Seleccione una pieza para el pedido',
     'project.orders.OrderDetails.button.setOrderDone': 'Marcar pedido como realizado',
+    'project.orders.OrderDetails.updateWarehouseStock.title': 'Actualizar stock del almacén',
 
     'project.orders.OrderDrafts.title': 'Borradores de pedidos',
     'project.orders.OrderDrafts.noOrderDrafts': 'En este momento no hay borradores de pedidos.',
