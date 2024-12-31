@@ -26,12 +26,10 @@
 Start Mysql server if not running (e.g. mysqld).
 
 mysqladmin -u root create proyectoasi -p
-mysqladmin -u root create proyectoasitest -p
 
 mysql -u root -p
     CREATE USER 'proyectoasi'@'localhost' IDENTIFIED BY 'proyectoasi';
     GRANT ALL PRIVILEGES ON proyectoasi.* to 'proyectoasi'@'localhost' WITH GRANT OPTION;
-    GRANT ALL PRIVILEGES ON proyectoasitest.* to 'proyectoasi'@'localhost' WITH GRANT OPTION;
     exit
 ```
 
