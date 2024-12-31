@@ -39,3 +39,11 @@ export const sendOrderToAdmins = (orderId, onSuccess, onErrors) =>
 export const findOrdersSentToAdmins = ({page}, onSuccess, onErrors) =>
     appFetch(`/orders/findOrdersSentToAdmins?page=${page}`,
         config('GET'), onSuccess, onErrors);
+
+export const setOrderDone = (orderId, onSuccess, onErrors) =>
+    appFetch(`/orders/${orderId}/setOrderDone`,
+        config('PUT'), onSuccess, onErrors);
+
+export const findOrderHistory = ({page}, onSuccess, onErrors) =>
+    appFetch(`/orders/findOrderHistory?page=${page}`,
+        config('GET'), onSuccess, onErrors);

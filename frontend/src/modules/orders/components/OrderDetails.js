@@ -233,6 +233,15 @@ const OrderDetails = () => {
 
     }
 
+    const handleSetOrderDone = () => {
+
+        dispatch(actions.setOrderDone(order.id,
+            () => {
+                navigate("/");
+            }));
+
+    }
+
 
     if (!order || !orderBoxes || !suppliers || (selectingItem && (!itemsFromSupplier || !supplier))) {
         return null;
@@ -285,6 +294,9 @@ const OrderDetails = () => {
                             {order.state === 1 &&
                                 <FormattedMessage id="project.orders.OrderDetails.sentToAdmin"></FormattedMessage>
                             }
+                            {order.state === 2 &&
+                                <FormattedMessage id="project.orders.OrderDrafts.thisOrderIsDone"></FormattedMessage>
+                            }
                         </Typography>
                     </Box>
                     <Box
@@ -316,6 +328,15 @@ const OrderDetails = () => {
                                     onClick={handleOpenDeleteOrderDialog}
                                 >
                                     <FormattedMessage id="project.orders.OrderDetails.button.DeleteOrder" />
+                                </Button>
+                            }
+                            {order.state === 1 &&
+                                <Button
+                                    variant="contained"
+                                    color="primary"
+                                    onClick={handleSetOrderDone}
+                                >
+                                    <FormattedMessage id="project.orders.OrderDetails.button.setOrderDone" />
                                 </Button>
                             }
                         </Box>
